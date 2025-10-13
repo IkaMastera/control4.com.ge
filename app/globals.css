@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+    --color-bg: #0D1117;
+    --color-surface: #111827;
+    --color-ink: #F9FAFB;
+
+    --color-primary: #0056B8;
+    --color-accent: #00C2FF;
+    --color-muted: #6B7280;
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --shadow-card: 0 8px 32px rgba(0,0,0,.35)
+}
+
+html, body { height: 100% }
+body { background: var(--color-bg); color: var(--color-ink); }
