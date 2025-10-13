@@ -19,3 +19,7 @@
 
 html, body { height: 100% }
 body { background: var(--color-bg); color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important}
+}

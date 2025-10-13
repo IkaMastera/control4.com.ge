@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { inter, montserrat } from '../lib/fonts'
-import Header from '@/components/layout/header'
+import dynamic from 'next/dynamic'
+
+const Header = dynamic(() => import('@/components/layout/header'))
 
 export const metadata: Metadata = {
   title: 'Control4 Georgia',
