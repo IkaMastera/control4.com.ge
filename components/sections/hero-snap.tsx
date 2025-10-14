@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Container from "@/components/common/container";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 
 type Slide = {
     id: string;
@@ -205,14 +205,14 @@ export default function HeroSnap() {
           aria-label="Previous slide"
           className="pointer-events-auto grid place-items-center rounded-full bg-black/40 p-2 backdrop-blur transition hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
-          <ArrowLeft className="h-5 w-5 text-white" />
+          <ArrowUp className="h-5 w-5 text-white" />
         </button>
         <button
           onClick={next}
           aria-label="Next slide"
           className="pointer-events-auto grid place-items-center rounded-full bg-black/40 p-2 backdrop-blur transition hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
-          <ArrowRight className="h-5 w-5 text-white" />
+          <ArrowDown className="h-5 w-5 text-white" />
         </button>
       </div>
     </section>
