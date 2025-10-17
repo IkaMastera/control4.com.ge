@@ -96,21 +96,13 @@ export default function HeroSnap() {
     slides[idx]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest"});
   }, []);
 
-  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    const root = snapRef.current;
-    if(!root) return;
 
-    const atTop = root.scrollTop <= 0;
-    const atBottom = root.scrollTop + root.clientHeight >= root.scrollHeight - 1;
-
-    if (e.deltaY > 0 && atBottom) {
-      e.preventDefault();
-      scrollTo(0);
-    } else if (e.deltaY < 0 && atTop){
-      e.preventDefault();
-      scrollTo(slideCount - 1)
-    }
-  }
+  const handleWheelCapture = (e: React.WheelEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const delta = e.deltaY || e.deltaX || 0;
+    window.scrollBy({ top: delta, behavior: "smooth" });
+  };
 
   const next = () => scrollTo(index + 1);
   const prev = () => scrollTo(index - 1);
@@ -120,8 +112,8 @@ export default function HeroSnap() {
       {/* snap container */}
       <div
         ref={snapRef}
-        onWheel={handleWheel}
-        className="relative h-[calc(100svh-0px)] overflow-y-auto snap-y snap-mandatory scroll-smooth scrollbar-none"
+        onWheel={handleWheelCapture}
+        className="relative h-[calc(100svh-0px)] overflow-y-auto snap-y snap-mandatory scroll-smooth scrollbar-none [overscroll-behavior:contain]"
       >
         {SLIDES.map((s, i) => (
           <div

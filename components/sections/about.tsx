@@ -34,7 +34,7 @@ export default function AboutSection() {
         >
           <strong>Control4 Georgia</strong> operates under{' '}
           <strong>Technical Service Company</strong> an engineering firm led by
-          <strong> Mamuka</strong>, specializing in smart system integration, fire safety,
+          <strong> Mamuka and Tamta</strong>, specializing in smart system integration, fire safety,
           and advanced building automation across Georgia. Our mission is to bring
           <span className="text-[var(--color-accent)] font-medium">
             {' '}intelligent comfort, security, and control{' '}
