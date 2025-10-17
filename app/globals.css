@@ -17,6 +17,11 @@
     --shadow-card: 0 8px 32px rgba(0,0,0,.35)
 }
 
+:root { --header-h: 72px; }
+@media (max-width: 640px ) {
+    :root {--header-h: 64px; }
+}
+
 html, body { height: 100% }
 body { background: var(--color-bg); color: var(--color-ink); }
 

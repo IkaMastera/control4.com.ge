@@ -108,12 +108,12 @@ export default function HeroSnap() {
   const prev = () => scrollTo(index - 1);
 
   return (
-    <section aria-label="Control4 Hero" className="relative isolate">
+    <section aria-label="Control4 Hero" className="relative isolate overflow-hidden">
       {/* snap container */}
       <div
         ref={snapRef}
         onWheel={handleWheelCapture}
-        className="relative h-[calc(100svh-0px)] overflow-y-auto snap-y snap-mandatory scroll-smooth scrollbar-none [overscroll-behavior:contain]"
+        className="relative h-[calc(100svh-var(--header-h))] overflow-y-auto snap-y snap-mandatory scroll-smooth scrollbar-none [overscroll-behavior:contain]"
       >
         {SLIDES.map((s, i) => (
           <div
