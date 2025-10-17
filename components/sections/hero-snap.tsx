@@ -103,7 +103,7 @@ export default function HeroSnap() {
       {/* snap container */}
       <div
         ref={snapRef}
-        className="relative h-[calc(100svh-0px)] overflow-y-auto snap-y snap-mandatory scroll-smooth"
+        className="relative h-[calc(100svh-0px)] overflow-y-auto snap-y snap-mandatory scroll-smooth scrollbar-none"
       >
         {SLIDES.map((s, i) => (
           <div
