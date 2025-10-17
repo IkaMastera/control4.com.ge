@@ -63,6 +63,7 @@ export default function HeroSnap() {
   const snapRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const prefersReduced = useReducedMotion();
+  const slideCount = SLIDES.length
 
   // Observe which slide is centered to update bullets/controls
   useEffect(() => {
@@ -91,9 +92,25 @@ export default function HeroSnap() {
     const root = snapRef.current;
     if (!root) return;
     const slides = root.querySelectorAll<HTMLElement>("[data-snap='panel']");
-    const clamped = Math.max(0, Math.min(i, slides.length - 1));
-    slides[clamped]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    const idx = ((i % slides.length) + slides.length) % slides.length;
+    slides[idx]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest"});
   }, []);
+
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const root = snapRef.current;
+    if(!root) return;
+
+    const atTop = root.scrollTop <= 0;
+    const atBottom = root.scrollTop + root.clientHeight >= root.scrollHeight - 1;
+
+    if (e.deltaY > 0 && atBottom) {
+      e.preventDefault();
+      scrollTo(0);
+    } else if (e.deltaY < 0 && atTop){
+      e.preventDefault();
+      scrollTo(slideCount - 1)
+    }
+  }
 
   const next = () => scrollTo(index + 1);
   const prev = () => scrollTo(index - 1);
@@ -103,6 +120,7 @@ export default function HeroSnap() {
       {/* snap container */}
       <div
         ref={snapRef}
+        onWheel={handleWheel}
         className="relative h-[calc(100svh-0px)] overflow-y-auto snap-y snap-mandatory scroll-smooth scrollbar-none"
       >
         {SLIDES.map((s, i) => (
@@ -190,7 +208,7 @@ export default function HeroSnap() {
               key={i}
               aria-label={`Go to slide ${i + 1}`}
               onClick={() => scrollTo(i)}
-              className={`h-2 w-2 rounded-full transition ${
+              className={`h-2 w-2 rounded-full transition cursor-pointer ${
                 i === index ? "bg-white" : "bg-white/40 hover:bg-white/70"
               }`}
             />
@@ -203,14 +221,14 @@ export default function HeroSnap() {
         <button
           onClick={prev}
           aria-label="Previous slide"
-          className="pointer-events-auto grid place-items-center rounded-full bg-black/40 p-2 backdrop-blur transition hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          className="pointer-events-auto cursor-pointer grid place-items-center rounded-full bg-black/40 p-2 backdrop-blur transition hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
           <ArrowUp className="h-5 w-5 text-white" />
         </button>
         <button
           onClick={next}
           aria-label="Next slide"
-          className="pointer-events-auto grid place-items-center rounded-full bg-black/40 p-2 backdrop-blur transition hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          className="pointer-events-auto cursor-pointer grid place-items-center rounded-full bg-black/40 p-2 backdrop-blur transition hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
           <ArrowDown className="h-5 w-5 text-white" />
         </button>
