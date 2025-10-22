@@ -15,6 +15,7 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "lucide-react";
+import RotatingWords from "../ui/rotating-words";
 
 type Service = {
   id: string;
@@ -159,9 +160,14 @@ export default function ServicesSlider() {
         >
           <div>
             <div className="h-1 w-12 rounded-full bg-[var(--color-primary)] mb-4" />
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white">
-              Solutions & Functionalities
-            </h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white">
+                    Solutions &{" "}
+                    <RotatingWords
+                        words={["Functionalities", "Automation", "Comfort", "Security"]}
+                        interval={2200}
+                        className="text-[var(--color-primary)]"
+                    />
+                </h2>
             <p className="mt-2 text-white/70">
               Control4 systems tailored for Georgian homes and businesses.
             </p>
