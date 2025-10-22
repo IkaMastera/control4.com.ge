@@ -18,7 +18,7 @@ export default function Header() {
     const [lang, setLang] = useState<'KA' | 'EN' | 'RU'>('KA');
 
     return (
-        <header className='sticky top-0 z-50 border-b border-white/5 bg-[color:var(--color-bg)]/80 backdrop-blur'>
+        <header className='fixed w-full top-0 z-50 border-b border-white/5 bg-[color:var(--color-bg)]/80 backdrop-blur'>
             <Container>
                 <div className='flex h-16 items-center justify-between gap-3'>
                     {/* Logo */}

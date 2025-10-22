@@ -102,6 +102,7 @@ export default function ServicesSlider() {
   const prefersReduced = useReducedMotion();
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   // Observe current snap card for active indicator
   useEffect(() => {
@@ -122,6 +123,18 @@ export default function ServicesSlider() {
     cards.forEach((c) => io.observe(c));
     return () => io.disconnect();
   }, []);
+
+  useEffect(() => {
+  const el = trackRef.current;
+  if (!el) return;
+  const onScroll = () => {
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 0);
+  };
+    onScroll();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+   }, []);
 
   const scrollByCards = (dir: 1 | -1) => {
     const el = trackRef.current;
@@ -231,40 +244,76 @@ export default function ServicesSlider() {
         </div>
 
         {/* Dots + CTA */}
-        <div className="mt-10 flex items-center justify-between gap-6">
-          {/* dots */}
-          <div className="flex items-center gap-2 rounded-full bg-white/5 px-3 py-2">
+        {/* Progress (md+) + Dots (sm) + CTA */}
+        <div className="mt-10 flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-6">
+
+        {/* Mobile dots (one card per view) */}
+        <div className="flex items-center justify-center gap-2 rounded-full bg-white/5 px-3 py-2 md:hidden">
             {dots.map((_, i) => (
-              <button
+            <button
                 key={i}
                 aria-label={`Go to item ${i + 1}`}
                 onClick={() => {
-                  const el = trackRef.current;
-                  if (!el) return;
-                  const card = el.querySelectorAll<HTMLElement>("[data-card='service']")[i];
-                  card?.scrollIntoView({ behavior: "smooth", inline: "center" });
+                const el = trackRef.current;
+                if (!el) return;
+                const card = el.querySelectorAll<HTMLElement>("[data-card='service']")[i];
+                card?.scrollIntoView({ behavior: "smooth", inline: "center" });
                 }}
                 className={`h-2 w-2 rounded-full transition cursor-pointer ${
-                  i === active ? "bg-white scale-110" : "bg-white/40 hover:bg-white/70 hover:scale-110"
+                i === active ? "bg-white scale-110" : "bg-white/40 hover:bg-white/70 hover:scale-110"
                 }`}
                 style={{ transition: "all 0.2s ease" }}
-              />
+            />
             ))}
-          </div>
+        </div>
 
-          {/* CTA */}
-          <a
+        {/* Desktop progress rail */}
+        <div className="hidden md:flex items-center gap-3 min-w-[260px]">
+            <div
+            className="relative h-2 w-[260px] rounded-full bg-white/10 overflow-hidden cursor-pointer"
+            onClick={(e) => {
+                const el = trackRef.current;
+                if (!el) return;
+                const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+                const pct = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+                const max = el.scrollWidth - el.clientWidth;
+                el.scrollTo({ left: pct * max, behavior: "smooth" });
+            }}
+            aria-label="Scroll services"
+            role="slider"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progress * 100)}
+            >
+            {/* fill */}
+            <div
+                className="absolute inset-y-0 left-0 bg-[var(--color-primary)]/40"
+                style={{ width: `${progress * 100}%`, transition: "width 200ms ease" }}
+            />
+            {/* pill */}
+            <div
+                className="absolute top-1/2 -translate-y-1/2 size-3 rounded-full bg-white shadow-[0_0_0_3px_rgba(0,0,0,0.25)]"
+                style={{ left: `calc(${progress * 100}% - 6px)`, transition: "left 200ms ease" }}
+            />
+            </div>
+            <span className="text-white/60 text-sm tabular-nums">
+            {active + 1} / {SERVICES.length}
+            </span>
+        </div>
+
+        {/* CTA */}
+        <a
             href="/solutions"
             className="
-              inline-flex items-center gap-2 rounded-full
-              bg-[var(--color-primary)] px-5 py-3 text-sm font-medium
-              text-white hover:opacity-95 focus-visible:outline-none
-              focus-visible:ring-2 focus-visible:ring-white/60
+            inline-flex items-center gap-2 self-center md:self-auto
+            rounded-full bg-[var(--color-primary)] px-5 py-3 text-sm font-medium
+            text-white hover:opacity-95 focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-white/60
             "
-          >
+        >
             Discover Functionalities
             <ArrowRight className="h-4 w-4" />
-          </a>
+        </a>
         </div>
       </Container>
     </section>

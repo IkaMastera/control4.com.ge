@@ -15,7 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ka" className={`${inter.variable} ${montserrat.variable}`}>
       <body className='min-h-dvh'>
         <Header />
-        {children}
+        
+        <div className="pt-[var(--header-h,72px)]">
+          {children}
+        </div>
       </body>
     </html>
   )
