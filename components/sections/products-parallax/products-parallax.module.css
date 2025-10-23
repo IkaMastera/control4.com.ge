@@ -1,0 +1,57 @@
+/* viewport container */
+.external { overflow: hidden; height: 100svh; }
+
+/* rotate trick: vertical scroll -> horizontal movement */
+.wrapper {
+  display: flex; flex-direction: column; align-items: center;
+  width: 100svh; height: 100vw;
+  overflow-y: auto; overflow-x: hidden;
+  transform: rotate(-90deg) translate3d(0,-100svh,0);
+  transform-origin: right top;
+  perspective: 1px; transform-style: preserve-3d;
+  padding-bottom: 12rem; scrollbar-width: none;
+}
+.wrapper::-webkit-scrollbar { width: 0; height: 0; }
+
+.card {
+  transform: rotate(90deg) translateZ(.1px) scale(.9) translateY(-3svh);
+  transform-origin: 50% 50%;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 32svh; transition: transform .9s cubic-bezier(.22,.61,.36,1), min-height .6s ease;
+  will-change: transform;
+}
+
+/* depth variants */
+.slower      { transform: rotate(90deg) translateZ(-.20px) scale(1.06) translateY(-8svh); }
+.slower1     { transform: rotate(90deg) translateZ(-.25px) scale(1.02) translateY( 6svh); }
+.slower2     { transform: rotate(90deg) translateZ(-.30px) scale(1.18) translateY( 1svh); }
+.slowerDown  { transform: rotate(90deg) translateZ(-.20px) scale(1.06) translateY(14svh); }
+.faster      { transform: rotate(90deg) translateZ(.15px)  scale(.82) translateY(12svh); }
+.faster1     { transform: rotate(90deg) translateZ(.05px)  scale(.84) translateY( 9svh); }
+.fastest     { transform: rotate(90deg) translateZ(.22px)  scale(.74) translateX(-8svh) translateY(-12svh); }
+.vertical    { transform: rotate(90deg) translateZ(-.15px) scale(1.12) translateY(0); }
+.last        { transform: rotate(90deg) translateZ(-.20px) scale(1.06) translateX(22svh) translateY(-6svh); }
+
+/* hover spice */
+.card:hover { min-height: 46svh; transform: rotate(90deg) translateZ(.1px) scale(1) translateY(-1svh); }
+
+.link {
+  display: block; overflow: hidden; padding: .8svh;
+  background: #0D1117; border-radius: 16px;
+  box-shadow: 0 12px 60px rgba(0, 86, 184, 0.18);
+  outline: 1px solid rgba(255,255,255,0.06);
+}
+
+.img {
+  max-width: 36svh; max-height: 40svh; vertical-align: top;
+  transition: transform .6s ease, filter .5s ease, opacity .4s;
+  filter: saturate(75%) contrast(105%) brightness(92%);
+}
+.link:hover .img { transform: scale(1.04) translateY(-2px) rotateZ(.2deg); filter: none; }
+
+.caption {
+  position: absolute; left: .8rem; bottom: .8rem;
+  padding: .35rem .6rem; border-radius: .6rem;
+  background: rgba(0,0,0,.45); color: #F9FAFB; font-size: .8rem;
+  border: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(4px);
+}

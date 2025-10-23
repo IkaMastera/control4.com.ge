@@ -1,0 +1,7 @@
+[
+  { "title_en": "Smart Lighting", "title_ka": "ჭკვიანი განათება", "img": "/public/Images/lighting.jpg" },
+  { "title_en": "Audio & Video", "title_ka": "აუდიო და ვიდეო", "img": "/public/Images/audio.jpg" },
+  { "title_en": "Security Systems", "title_ka": "უსაფრთხოების სისტემა", "img": "/public/Images/security.jpg" },
+  { "title_en": "Climate Control", "title_ka": "ტემპერატურის კონტროლი", "img": "/public/Images/climate.jpg" },
+  { "title_en": "Intercom & Access", "title_ka": "ინტერკომი და წვდომა", "img": "/public/Images/intercom.jpg" }
+]
