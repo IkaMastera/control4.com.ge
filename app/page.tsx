@@ -12,8 +12,8 @@ export default function Home() {
       <HeroSticky />
       <AboutSection />
       <ServicesSlider />
-      <BrandWall />
       <ProductsRail />
+      <BrandWall />
       {/* other sections… */}
     </>
   );
