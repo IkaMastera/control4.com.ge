@@ -125,8 +125,7 @@ export default function Header() {
 
             <Link
               href="/contact"
-              className="hidden md:inline-block rounded-2xl bg-primary px-5 py-2.5 text-sm text-white shadow transition-all
-                         hover:shadow-lg hover:opacity-95 hover:-translate-y-0.5
+              className="btn-glow hidden md:inline-block rounded-2xl bg-primary px-5 py-2.5 text-sm text-white shadow transition-all
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)]/60"
             >
               Contact

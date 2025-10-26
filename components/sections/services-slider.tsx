@@ -311,7 +311,7 @@ export default function ServicesSlider() {
         <a
             href="/solutions"
             className="
-            inline-flex items-center gap-2 self-center md:self-auto
+            btn-glow inline-flex items-center gap-2 self-center md:self-auto
             rounded-full bg-[var(--color-primary)] px-5 py-3 text-sm font-medium
             text-white hover:opacity-95 focus-visible:outline-none
             focus-visible:ring-2 focus-visible:ring-white/60

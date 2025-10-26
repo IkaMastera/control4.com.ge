@@ -65,3 +65,80 @@ html {
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* === Control4 Glow Button =============================== */
+@keyframes c4-glow {
+  0%   { background-position:   0% 0; }
+  50%  { background-position: 100% 0; }
+  100% { background-position:   0% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow::before { animation: none !important; }
+}
+
+/* ===== Control4 Glow (multi-stop) ===== */
+:root{
+  --c4-primary: var(--color-primary, #0056B8);
+  --c4-accent:  var(--color-accent,  #00C2FF);
+  --c4-electric: #1DAEFF; 
+}
+
+@keyframes c4-glow-move {
+  0%   { background-position:   0% 0; }
+  50%  { background-position: 200% 0; }
+  100% { background-position:   0% 0; }
+}
+
+/* base button (unchanged) */
+.btn-glow{
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:.625rem 1.25rem; border-radius:1rem; font-size:.875rem; line-height:1.25rem;
+  color:#fff; background:var(--c4-primary);
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+  transition:transform .15s ease, box-shadow .2s ease, opacity .2s ease;
+  isolation:isolate; /* keeps pseudo glow behind the label */
+}
+.btn-glow:hover{ transform:translateY(-1px); }
+.btn-glow:active{ transform:translateY(0); }
+.btn-glow:focus-visible{ box-shadow:0 0 0 2px color-mix(in srgb, var(--c4-accent) 55%, transparent), 0 6px 20px rgba(0,0,0,.25); outline:0; }
+
+.btn-glow::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  background:color-mix(in srgb, var(--c4-primary) 92%, #000);
+  z-index:-1;
+}
+
+.btn-glow::before{
+  content:""; position:absolute; inset:-2px; border-radius:inherit; z-index:-2;
+  background:linear-gradient(110deg, var(--c4-accent) 0%, var(--c4-primary) 50%, var(--c4-accent) 100%);
+  background-size:220% 100%;
+  filter:blur(8px);
+  opacity:0; transition:opacity .25s ease;
+  animation:c4-glow-move 6s linear infinite;
+}
+.btn-glow:hover::before,
+.btn-glow:focus-visible::before{ opacity:1; }
+
+.btn-glow--trio::before{
+  background:linear-gradient(120deg,
+    var(--c4-accent) 0%,
+    var(--c4-electric) 30%,
+    var(--c4-primary) 65%,
+    var(--c4-accent) 100%);
+  background-size:300% 100%;
+  animation-duration:7s;
+}
+
+.btn-glow--outline{ background:transparent; }
+.btn-glow--outline::after{ background:transparent; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .btn-glow::before{ animation:none !important; }
+}

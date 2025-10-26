@@ -5,6 +5,7 @@ import HeroSticky from "@/components/sections/hero-sticky";
 import ServicesSlider from "@/components/sections/services-slider";
 import ProductsShowcase from "@/components/sections/products-rail";
 import ProductsRail from "@/components/sections/products-rail";
+import ContactCTA from "@/components/sections/contact-cta";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <ServicesSlider />
       <ProductsShowcase />
       <BrandWall />
+      <ContactCTA />
       {/* other sections… */}
     </>
   );
