@@ -17,60 +17,81 @@ const items: Item[] = [
   { id: "intercom",    title_en: "Intercom & Access",  title_ka: "ინტერკომი და წვდომა",     img: "/images/intercom.jpg" },
 ];
 
-export default function ProductsRail() {
+export default function ProductsShowcase() {
   return (
-    <section aria-labelledby="products-rail-heading" className="relative py-20 bg-[--color-bg]">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <p className="text-xs uppercase tracking-widest text-[--color-accent]">Products</p>
-        <h2 id="products-rail-heading" className="mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold text-[--color-ink]">
-          Control4 — Premium Smart Home Line
-          <span className="block text-sm md:text-base font-normal text-white/60">
-            კონტროლ4 — ჭკვიანი სახლის პრემიუმ მოწყობილობები
-          </span>
-        </h2>
-      </div>
+    <section aria-labelledby="products-heading" className="relative bg-[--color-bg] py-20">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        {/* Sticky intro */}
+        <div className="lg:col-span-4">
+          <div className="lg:sticky lg:top-24">
+            <p className="text-xs uppercase tracking-widest text-[--color-accent]">Products</p>
+            <h2 id="products-heading" className="mt-2 text-3xl md:text-4xl font-semibold text-[--color-ink]">
+              Control4 — Premium Smart Home Line
+            </h2>
+            <p className="mt-3 text-white/70">
+              კონტროლ4 — ჭკვიანი სახლის პრემიუმ მოწყობილობები. ერთიანი ეკოსისტემა განათებისთვის,
+              უსაფრთხოებისთვის, აუდიო/ვიდეოსთვის და წვდომისთვის.
+            </p>
 
-      {/* Rail */}
-      <div className="relative mt-10">
-        {/* edge fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[--color-bg] to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[--color-bg] to-transparent z-10" />
+            {/* Non-functional chips now; wire to filters later */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Controllers","Climate","Security","Audio/Video","Lighting","Intercom"].map((c) => (
+                <span key={c} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
+                  {c}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
 
-        <ul
-          aria-roledescription="carousel"
-          className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 overflow-x-auto snap-x snap-mandatory flex gap-6 md:gap-8 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none]"
-        >
-          {/* hide scrollbar webkit */}
-          <style>{`.snap-x::-webkit-scrollbar{display:none}`}</style>
-
+        {/* Right grid */}
+        <ul className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
           {items.map((item, i) => (
-            <li key={item.id} className="snap-center shrink-0">
+            <li key={item.id}>
               <a
                 href={item.href ?? "#"}
-                className="group relative block w-[78vw] sm:w-[56vw] md:w-[420px] aspect-[4/3] rounded-2xl ring-1 ring-white/10 overflow-hidden bg-[--color-surface] focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-accent]/60"
+                className="group relative block overflow-hidden rounded-2xl ring-1 ring-white/10 bg-[--color-surface] aspect-[16/10] focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-accent]/60"
                 aria-label={`${item.title_en} / ${item.title_ka}`}
               >
+                {/* image */}
                 <Image
                   src={item.img}
                   alt={`${item.title_en} / ${item.title_ka}`}
                   fill
-                  sizes="(max-width:640px) 78vw, (max-width:1024px) 56vw, 420px"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 640px"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   priority={i === 0}
                 />
-                {/* subtle blue vignette */}
-                <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_80%_20%,rgba(0,98,255,0.18),transparent_60%)] mix-blend-screen" />
+
+                {/* tonal unifier (duotone-ish) */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 mix-blend-multiply opacity-[0.92] transition-opacity duration-500 group-hover:opacity-[0.88]"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(0,86,184,0.28) 0%, rgba(0,194,255,0.20) 40%, rgba(0,0,0,0.35) 100%)",
+                  }}
+                />
+
+                {/* bottom gradient for text legibility */}
+                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 to-transparent" />
 
                 {/* caption */}
-                <div className="absolute left-3 bottom-3 md:left-4 md:bottom-4">
-                  <div className="backdrop-blur-sm bg-black/40 text-white rounded-xl px-3 py-2 ring-1 ring-white/10">
-                    <div className="text-[13px] md:text-sm font-semibold">{item.title_en}</div>
-                    <div className="text-[11px] md:text-xs text-white/80">{item.title_ka}</div>
+                <div className="absolute left-4 right-4 bottom-4">
+                  <div className="flex items-center justify-between">
+                    <div className="backdrop-blur-sm bg-black/35 rounded-xl px-3 py-2 ring-1 ring-white/10">
+                      <div className="text-white font-semibold leading-tight">{item.title_en}</div>
+                      <div className="text-white/80 text-xs leading-tight">{item.title_ka}</div>
+                    </div>
+                    {/* arrow */}
+                    <div className="ml-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 text-white/90 transition-all group-hover:translate-x-0.5 group-hover:bg-white/15">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                        <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
-                {/* hover parallax overlay lines (tiny movement) */}
-                <div className="pointer-events-none absolute inset-0 transition-transform duration-500 group-hover:translate-y-[-2px]" />
               </a>
             </li>
           ))}
