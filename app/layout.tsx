@@ -3,6 +3,7 @@ import './globals.css'
 import { inter, montserrat } from '../lib/fonts'
 import dynamic from 'next/dynamic'
 import Footer from '@/components/layout/footer'
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Header = dynamic(() => import('@/components/layout/header'))
 

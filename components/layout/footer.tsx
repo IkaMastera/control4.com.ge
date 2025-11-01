@@ -38,16 +38,26 @@ export default function Footer() {
             <p className="text-sm text-white/70">Monthly tips on smart living & Control4 news (no spam).</p>
           </div>
           <form
-            action="https://formspree.io/f/your-id" method="POST"
-            className="flex w-full max-w-xl items-center gap-3"
+            action="https://formspree.io/f/your-id"
+            method="POST"
+            className="flex w-full max-w-xl items-end gap-3"
           >
-            <input
-              name="email" type="email" required
-              placeholder="Enter your email address"
-              className="w-full rounded-2xl bg-white/5 px-4 py-3 text-sm placeholder:text-white/50 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-[#00C2FF]/60"
-            />
+            <div className="c4-float flex-1">
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder=" "
+                className="w-full text-sm rounded-2xl bg-white/5 text-white outline-none"
+              />
+              <label>
+                <span className="c4-label-text">Enter your email address</span>
+              </label>
+            </div>
+
             <button
-              className="rounded-2xl bg-[#0056B8] px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#0063CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]"
+              className="btn-glow rounded-2xl bg-[#0056B8] px-5 py-3 text-sm font-medium text-white shadow-sm 
+                        hover:bg-[#0063CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]"
             >
               Subscribe
             </button>

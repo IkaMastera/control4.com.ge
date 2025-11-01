@@ -128,6 +128,7 @@ img {
   opacity:0; transition:opacity .25s ease;
   animation:c4-glow-move 6s linear infinite;
 }
+
 .btn-glow:hover::before,
 .btn-glow:focus-visible::before{ opacity:1; }
 
@@ -155,3 +156,70 @@ img {
   100% { transform: translateX(100%); opacity:.0 }
 }
 
+:root{
+  --c4-ink:#F9FAFB; --c4-bg: rgba(255,255,255,.07);
+  --c4-stroke: rgba(255,255,255,.18);
+  --c4-primary:#0056B8; --c4-accent:#00C2FF;
+  --c4-ease: cubic-bezier(.22,.61,.36,1);
+}
+
+/* wrappers */
+.c4-float{ position:relative; height:44px; overflow:hidden; border-radius:10px; }
+.c4-float--textarea{ height:auto; }
+
+/* fields */
+.c4-float input, .c4-float textarea{
+  width:100%; height:100%;
+  background: var(--c4-bg);
+  color: var(--c4-ink);
+  border:none; outline:none; border-radius:10px;
+  padding:14px 14px 8px;             /* compact padding */
+  font-size:.95rem;
+}
+
+/* label frame + animated underline */
+.c4-float label{
+  position:absolute; inset:0; pointer-events:none;
+  border-bottom:1px solid var(--c4-stroke);
+  border-radius:10px;
+}
+.c4-float label::after{
+  content:""; position:absolute; left:10px; right:10px; bottom:8px; height:2px;
+  border-radius:999px;
+  background: linear-gradient(90deg, var(--c4-primary), var(--c4-accent));
+  transform: translateX(-105%);
+  transition: transform .48s var(--c4-ease);
+  will-change: transform;
+}
+
+/* label text */
+.c4-label-text{
+  position:absolute; left:14px; bottom:10px;
+  color: rgba(249,250,251,.75);
+  transition:
+    transform .45s var(--c4-ease),
+    color .45s var(--c4-ease),
+    font-size .45s var(--c4-ease);
+}
+
+/* float when focused OR value exists (use placeholder=" ") */
+.c4-float input:focus + label .c4-label-text,
+.c4-float textarea:focus + label .c4-label-text,
+.c4-float input:not(:placeholder-shown) + label .c4-label-text,
+.c4-float textarea:not(:placeholder-shown) + label .c4-label-text{
+  transform: translateY(-16px); font-size:12.5px; color: var(--c4-accent);
+}
+.c4-float input:focus + label::after,
+.c4-float textarea:focus + label::after,
+.c4-float input:not(:placeholder-shown) + label::after,
+.c4-float textarea:not(:placeholder-shown) + label::after{
+  transform: translateX(0);
+}
+
+/* textarea refinement */
+.c4-float--textarea textarea{ min-height:120px; padding:16px 14px 12px; }
+
+/* motion reduction */
+@media (prefers-reduced-motion: reduce){
+  .c4-label-text, .c4-float label::after{ transition-duration:.01ms; }
+}

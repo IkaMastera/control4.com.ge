@@ -68,42 +68,53 @@ export default function ContactCTA() {
                 shadow-[0_80px_220px_-80px_rgba(0,0,0,.95),0_0_60px_-20px_rgba(0,194,255,.20)]
               "
             >
-              {/* Inner top glow strip (to catch the dome light) */}
               <div className="pointer-events-none absolute inset-x-6 top-0 h-20 rounded-t-[22px] bg-[radial-gradient(120%_50%_at_50%_0%,rgba(0,194,255,.16),transparent_70%)]" />
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="First Name">
+                {/* First Name */}
+                <div className="c4-float">
                   <input
                     name="firstName"
                     required
-                    placeholder="Enter your first name"
-                    className="w-full rounded-xl bg-white/7 px-3 py-3 text-white placeholder-white/45 outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-[--color-accent]/60"
+                    placeholder=" "
+                    className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                </Field>
-                <Field label="Last Name">
+                  <label><span className="c4-label-text">First Name</span></label>
+                </div>
+
+                {/* Last Name */}
+                <div className="c4-float">
                   <input
                     name="lastName"
                     required
-                    placeholder="Enter your last name"
-                    className="w-full rounded-xl bg-white/7 px-3 py-3 text-white placeholder-white/45 outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-[--color-accent]/60"
+                    placeholder=" "
+                    className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                </Field>
-                <Field label="Work Email Address">
+                  <label><span className="c4-label-text">Last Name</span></label>
+                </div>
+
+                {/* Email (span both on small screens) */}
+                <div className="c4-float sm:col-span-2">
                   <input
                     type="email"
                     name="email"
                     required
-                    placeholder="Enter your work email"
-                    className="w-full rounded-xl bg-white/7 px-3 py-3 text-white placeholder-white/45 outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-[--color-accent]/60"
+                    placeholder=" "
+                    className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                </Field>
-                <Field label="Phone">
+                  <label><span className="c4-label-text">Work Email Address</span></label>
+                </div>
+
+                {/* Phone */}
+                <div className="c4-float">
                   <input
                     name="phone"
-                    placeholder="+995 5XX XX XX XX"
-                    className="w-full rounded-xl bg-white/7 px-3 py-3 text-white placeholder-white/45 outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-[--color-accent]/60"
+                    inputMode="tel"
+                    placeholder=" "
+                    className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                </Field>
+                  <label><span className="c4-label-text">Phone</span></label>
+                </div>
               </div>
 
               {/* Divider */}
@@ -129,9 +140,8 @@ export default function ContactCTA() {
 
                 <button
                   type="submit"
-                  className="rounded-2xl bg-primary px-6 py-3 text-sm font-medium text-white shadow
-                             transition-all hover:-translate-y-0.5 hover:opacity-95 hover:shadow-lg
-                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-accent]/60"
+                  className="btn-glow rounded-2xl bg-primary px-6 py-3 text-sm font-medium text-white shadow
+                             transition-all"
                 >
                   Submit
                 </button>
@@ -149,8 +159,6 @@ export default function ContactCTA() {
   );
 }
 
-/* ---------- Small helpers (local to this file) ---------- */
-
 function Field({
   label,
   children,
@@ -161,7 +169,10 @@ function Field({
   return (
     <label className="block">
       <span className="mb-1 block text-xs text-white/75">{label}</span>
-      {children}
+      <div className="c4-wrap relative">
+        {children}
+        <span aria-hidden className="c4-beam" />
+      </div>
     </label>
   );
 }
