@@ -12,6 +12,7 @@ import {
   useReducedMotion,
   type MotionStyle,
 } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export type DockItem = {
   id: string;
@@ -165,9 +166,23 @@ export default function ProductDockMagnetic({
           type="button"
           aria-label="Previous"
           onClick={() => page(-1)}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-20 rounded-xl bg-black/50 ring-1 ring-white/20 px-3 py-2 hover:bg-black/60"
+          className="
+            absolute left-3 md:left-4 top-1/2 -translate-y-1/2 z-30
+            flex items-center justify-center
+            w-12 h-12 md:w-11 md:h-11 rounded-full
+            text-white cursor-pointer
+            bg-black/55 backdrop-blur-xl
+            border border-white/15
+            shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_0_18px_rgba(0,194,255,0.45)]
+            ring-1 ring-white/10
+            transition-all duration-200
+            hover:scale-105 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_0_28px_rgba(0,194,255,0.7)]
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]/70
+            active:scale-95
+            opacity-95 group-hover:opacity-100
+          "
         >
-          ‹
+          <ChevronLeft className="w-6 h-6 md:w-5 md:h-5" aria-hidden="true" />
         </button>
 
         {/* Right arrow */}
@@ -175,9 +190,23 @@ export default function ProductDockMagnetic({
           type="button"
           aria-label="Next"
           onClick={() => page(1)}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-20 rounded-xl bg-black/50 ring-1 ring-white/20 px-3 py-2 hover:bg-black/60"
+          className="
+            absolute right-3 md:right-4 top-1/2 -translate-y-1/2 z-30
+            flex items-center justify-center
+            w-12 h-12 md:w-11 md:h-11 rounded-full
+            text-white cursor-pointer
+            bg-black/55 backdrop-blur-xl
+            border border-white/15
+            shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_0_18px_rgba(0,194,255,0.45)]
+            ring-1 ring-white/10
+            transition-all duration-200
+            hover:scale-105 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_0_28px_rgba(0,194,255,0.7)]
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]/70
+            active:scale-95
+            opacity-95 group-hover:opacity-100
+          "
         >
-          ›
+          <ChevronRight className="w-6 h-6 md:w-5 md:h-5" aria-hidden="true" />
         </button>
 
         {/* Track */}
