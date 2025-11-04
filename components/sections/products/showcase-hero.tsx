@@ -11,7 +11,7 @@ export default function ShowcaseHero() {
     >
       <div className="relative aspect-[16/7] w-full">
         <Image
-          src="/images/products/hero/hero.jpg"
+          src="/images/hero.jpg"
           alt="Control4 smart home — cinematic hero"
           fill
           priority

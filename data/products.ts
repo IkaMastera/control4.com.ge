@@ -14,7 +14,7 @@ export const products: ProductItem[] = [
     slug: "controllers",
     title_en: "Core Controllers",
     title_ka: "კონტროლერები (Core)",
-    img: "/images/controllers.jpg",
+    img: "/images/controller.jpg",
     depth: 0.15,
   },
   {

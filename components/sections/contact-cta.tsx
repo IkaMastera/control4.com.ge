@@ -12,7 +12,7 @@ export default function ContactCTA() {
       {/* Background: your sphere image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/images/contactBG.webp"
+          src="/images/contactBG.jpg"
           alt=""
           fill
           priority
