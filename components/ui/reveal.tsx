@@ -1,22 +1,20 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+
 
 type Props = {
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;        // ← simple and safe
   children: React.ReactNode;
   className?: string;
-  /** ms */
-  delay?: number;
-  /** px offsets for slide-in */
-  y?: number;
-  x?: number;
-  /** reveal again when leaving/entering */
+  delay?: number;                // ms
+  y?: number;                    // px
+  x?: number;                    // px
   once?: boolean;
 };
 
 export default function Reveal({
-  as = 'div',
+  as: As = 'div',
   children,
   className = '',
   delay = 0,
@@ -24,8 +22,10 @@ export default function Reveal({
   x = 0,
   once = true,
 }: Props) {
-  const Tag = as as any;
   const ref = useRef<HTMLElement | null>(null);
+  const setRef: React.RefCallback<HTMLElement> = (node: HTMLElement | null) => {
+  ref.current = node;
+};
 
   useEffect(() => {
     const el = ref.current;
@@ -47,20 +47,20 @@ export default function Reveal({
     return () => io.disconnect();
   }, [once]);
 
-  return (
-    <Tag
-      ref={ref as any}
-      data-reveal
-      style={
-        {
-          '--reveal-delay': `${delay}ms`,
-          '--reveal-y': `${y}px`,
-          '--reveal-x': `${x}px`,
-        } as React.CSSProperties
-      }
-      className={className}
-    >
-      {children}
-    </Tag>
-  );
+    return (
+        <As
+            ref={setRef}
+            data-reveal
+            style={
+            {
+                '--reveal-delay': `${delay}ms`,
+                '--reveal-y': `${y}px`,
+                '--reveal-x': `${x}px`,
+            } as React.CSSProperties
+            }
+            className={className}
+        >
+            {children}
+        </As>
+    );
 }

@@ -286,3 +286,24 @@ img {
   transform: translateZ(0);
   backface-visibility: hidden;
 }
+
+/* === Scroll reveal utility === */
+:root { --c4-ease: cubic-bezier(.22,.61,.36,1); }
+
+[data-reveal]{
+  opacity: 0;
+  transform: translate3d(var(--reveal-x,0px), var(--reveal-y,16px), 0);
+  transition:
+    opacity .6s var(--c4-ease),
+    transform .7s var(--c4-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+[data-reveal].is-in{
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  [data-reveal]{ opacity: 1; transform: none; transition: none !important; }
+}
