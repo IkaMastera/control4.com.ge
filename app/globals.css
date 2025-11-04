@@ -17,6 +17,8 @@
     --shadow-card: 0 8px 32px rgba(0,0,0,.35)
 }
 
+html, body { overflow-x: clip; }
+
 :root { --header-h: 72px; }
 @media (max-width: 640px ) {
     :root {--header-h: 64px; }
@@ -25,6 +27,16 @@
 html, body { height: 100% }
 body {
   color: var(--color-ink);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -267,4 +279,10 @@ img {
 @media (prefers-reduced-motion: reduce){
   .c4-divider::before,
   .c4-divider::after { animation: none !important; }
+}
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }

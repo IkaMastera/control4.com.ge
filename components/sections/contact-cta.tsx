@@ -172,7 +172,7 @@ function CornerDot({ className = '' }: { className?: string }) {
   return (
     <span
       aria-hidden
-      className={`pointer-events-none absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full
+      className={`pointer-events-none absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full
                   bg-white/90 shadow-[0_0_16px_rgba(255,255,255,.6),0_0_36px_rgba(0,194,255,.45)]
                   ring-1 ring-white/30 ${className}`}
     />

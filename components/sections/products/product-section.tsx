@@ -25,7 +25,7 @@ export default function ProductSection({
   heroImage,
   ctaLabel,
   topic,
-  index
+  index,
 }: Props) {
   const reverse = index % 2 === 1;
 
@@ -33,9 +33,14 @@ export default function ProductSection({
     <section
       id={slug}
       aria-labelledby={`${slug}-title`}
-      className="relative scroll-mt-24"
+      style={{ scrollMarginTop: 'var(--header-h)' }}
+      className="relative"
     >
-      <div className={`grid items-center gap-8 md:gap-12 md:grid-cols-2 ${reverse ? 'md:[&>div:first-child]:order-2' : ''}`}>
+      <div
+        className={`grid items-center gap-8 md:gap-12 md:grid-cols-2 ${
+          reverse ? 'md:[&>div:first-child]:order-2' : ''
+        }`}
+      >
         {/* Media */}
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl ring-1 ring-white/10 bg-black/40">
           <Image
