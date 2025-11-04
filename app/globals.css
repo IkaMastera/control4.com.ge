@@ -268,31 +268,3 @@ img {
   .c4-divider::before,
   .c4-divider::after { animation: none !important; }
 }
-
-@keyframes c4-star-fall {
-  0%   { transform: translate3d(var(--drift,0), -12%, 0); opacity: 0; }
-  10%  { opacity: var(--alpha, .85); }
-  100% { transform: translate3d(var(--drift,0), 112%, 0); opacity: 0; }
-}
-
-.starfall { contain: strict; }
-
-.starfall__star{
-  position: absolute;
-  top: -6%;
-  left: var(--left);
-  width: var(--size);
-  height: var(--size);
-  border-radius: 9999px;
-  background: radial-gradient(circle,
-    rgba(255,255,255,1) 0%,
-    rgba(255,255,255,.85) 45%,
-    rgba(255,255,255,0) 75%);
-  filter: blur(.25px);
-  animation: c4-star-fall var(--dur) linear var(--delay) infinite;
-  will-change: transform, opacity;
-}
-
-@media (prefers-reduced-motion: reduce){
-  .starfall__star{ animation: none; opacity: .5; }
-}

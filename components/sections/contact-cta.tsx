@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Container from '@/components/common/container';
+import StarfallCanvas from '../ui/star-fall-canvas';
 
 export default function ContactCTA() {
   return (
@@ -21,6 +22,14 @@ export default function ContactCTA() {
         />
         <div className="absolute inset-0 bg-[radial-gradient(125%_85%_at_50%_-6%,transparent_42%,rgba(0,0,0,.28)_70%,rgba(0,0,0,.55)_100%)]" />
       </div>
+
+      <StarfallCanvas
+        mode="ambient"
+        count={30}
+        speed={4}
+        maxSize={2.2}
+        zIndex={1}
+      />
 
       <Container>
         {/* Heading */}
@@ -156,24 +165,6 @@ export default function ContactCTA() {
         </div>
       </Container>
     </section>
-  );
-}
-
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1 block text-xs text-white/75">{label}</span>
-      <div className="c4-wrap relative">
-        {children}
-        <span aria-hidden className="c4-beam" />
-      </div>
-    </label>
   );
 }
 
