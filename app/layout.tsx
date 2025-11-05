@@ -17,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ka" className={`${inter.variable} ${montserrat.variable}`}>
       <body className='min-h-dvh bg-grid antialiased'>
         <Header />
+
         
         <div className="relative pt-[var(--header-h,72px)]">
           {children}
