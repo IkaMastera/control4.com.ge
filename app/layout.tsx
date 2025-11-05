@@ -4,6 +4,7 @@ import { inter, montserrat } from '../lib/fonts'
 import dynamic from 'next/dynamic'
 import Footer from '@/components/layout/footer'
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import BackToTop from '@/components/common/back-to-top'
 
 const Header = dynamic(() => import('@/components/layout/header'))
 
@@ -24,6 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         <Footer />
+
+        <BackToTop />
       </body>
     </html>
   )
