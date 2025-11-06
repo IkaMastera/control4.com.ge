@@ -5,9 +5,8 @@ import dynamic from 'next/dynamic'
 import Footer from '@/components/layout/footer'
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import BackToTop from '@/components/common/back-to-top'
-import HeaderDynamic from '@/components/layout/header-dynamic'
 
-const Header = dynamic(() => import('@/components/layout/header'))
+const HeaderDynamic = dynamic(() => import('@/components/layout/header-dynamic'))
 
 export const metadata: Metadata = {
   title: 'Control4 Georgia',

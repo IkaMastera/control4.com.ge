@@ -6,6 +6,7 @@ import ProductSeparator from './separator';
 import { showcaseProducts } from '@/data/showcase-products';
 import ProductDockMagnetic, { type DockItem } from './product-dock';
 import Reveal from '@/components/ui/reveal';
+import DockStage from './dock-stage';
 
 type ShowcaseItem = typeof showcaseProducts[number];
 
@@ -28,11 +29,13 @@ export default function ProductsShowcaseSection() {
       <div className="-mx-4 sm:-mx-6 lg:-mx-8">
         <div className="px-4 sm:px-6 lg:px-8">
           <Reveal y={24} delay={80}>
-            <ProductDockMagnetic
-              items={dockItems}
-              cardWidth={260}
-              mediaHeight={160}
-            />
+            <DockStage id="products-dock" title="PRODUCT CATEGORIES">
+              <ProductDockMagnetic
+                items={dockItems}
+                cardWidth={260}
+                mediaHeight={160}
+              />
+            </DockStage>
           </Reveal>
         </div>
       </div>

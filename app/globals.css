@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import '@fortawesome/fontawesome-free/css/all.min.css';
 
 @theme {
     --color-bg: #0D1117;
@@ -352,17 +353,91 @@ img {
   .contact-stars--near, .contact-stars--far { animation: none !important; }
 }
 
+/**/
 @media (prefers-reduced-motion: no-preference) {
-  .animate-c4-gradient {
-    animation: c4-pan 12s linear infinite;
+  @keyframes c4-drop-slow {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(0%); }
   }
-  .animate-c4-gradient-hero {
-    animation: c4-pan 18s linear infinite;
+  @keyframes c4-drop-slow-out {
+    0%   { transform: translateY(0%); }
+    100% { transform: translateY(-100%); }
+  }
+
+  @keyframes c4-rise-up {
+    0%   { transform: translateY(48px); }
+    100% { transform: translateY(0); }
   }
 }
 
-@keyframes c4-pan {
-  0% { background-position: 0% 0%, 100% 0%, 0% 0%; }
-  50% { background-position: 50% 0%, 50% 0%, 0% 0%; }
-  100% { background-position: 100% 0%, 0% 0%, 0% 0%; }
+.menu-willchange,
+.motion-safe\:willchange {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Panel */
+  @keyframes c4-drop-bounce {
+    0%   { transform: translateY(-100%); }
+    72%  { transform: translateY(2%); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes c4-drop-bounce-out {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+  }
+
+  @keyframes c4-spring-down-far {
+    0%   { transform: translateY(-12vh); visibility: hidden; }
+    1%   { visibility: visible; }
+    72%  { transform: translateY(6px); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes c4-spring-up-far {
+    0%   { transform: translateY(40vh); visibility: hidden; }
+    1%   { visibility: visible; }
+    72%  { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes c4-spring-right-far {
+    0%   { transform: translateX(50vw); visibility: hidden; }
+    1%   { visibility: visible; }
+    72%  { transform: translateX(-8px); }
+    100% { transform: translateX(0); }
+  }
+}
+
+/* === Contact rise-in animation === */
+@keyframes c4-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.985);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.motion-safe .animate-c4-rise-in {
+  animation: c4-rise-in 720ms cubic-bezier(0.22, 0.8, 0.2, 1) both;
+}
+
+@keyframes contact-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.motion-safe .animate-contact-float {
+  animation: contact-float 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-c4-rise-in,
+  .animate-contact-float,
+  [class*="animate-[c4-rise-in"] {
+    animation: none !important;
+  }
 }
