@@ -351,3 +351,18 @@ img {
 @media (prefers-reduced-motion: reduce){
   .contact-stars--near, .contact-stars--far { animation: none !important; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-c4-gradient {
+    animation: c4-pan 12s linear infinite;
+  }
+  .animate-c4-gradient-hero {
+    animation: c4-pan 18s linear infinite;
+  }
+}
+
+@keyframes c4-pan {
+  0% { background-position: 0% 0%, 100% 0%, 0% 0%; }
+  50% { background-position: 50% 0%, 50% 0%, 0% 0%; }
+  100% { background-position: 100% 0%, 0% 0%, 0% 0%; }
+}
