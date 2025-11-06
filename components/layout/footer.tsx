@@ -16,7 +16,7 @@ export default function Footer() {
         bg-[radial-gradient(1200px_600px_at_80%_-20%,rgba(0,194,255,0.08),transparent),
              radial-gradient(900px_500px_at_10%_-10%,rgba(0,86,184,0.07),transparent),
              linear-gradient(180deg,#0D1117_0%,#0F1623_100%)]
-        text-white
+        text-white z-
       "
     >
       {/* thin glowing top edge */}

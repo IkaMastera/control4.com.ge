@@ -307,3 +307,47 @@ img {
 @media (prefers-reduced-motion: reduce){
   [data-reveal]{ opacity: 1; transform: none; transition: none !important; }
 }
+
+@keyframes contact-float {
+  0%   { transform: translateY(0) }
+  50%  { transform: translateY(-6px) }
+  100% { transform: translateY(0) }
+}
+.animate-contact-float {
+  animation: contact-float 16s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  .animate-contact-float { animation: none !important; }
+}
+
+/* Starfield layers */
+.contact-stars {
+  pointer-events: none;
+  background-repeat: repeat;
+  background-position: 0 0;
+}
+.contact-stars--near {
+  opacity: .22;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1px 1px at 80px 120px, rgba(255,255,255,.8), transparent 60%),
+    radial-gradient(1px 1px at 160px 220px, rgba(255,255,255,.7), transparent 60%);
+  background-size: 200px 200px;
+  animation: stars-pan-1 120s linear infinite;
+}
+.contact-stars--far {
+  opacity: .12;
+  background-image:
+    radial-gradient(1px 1px at 50px 60px, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1px 1px at 140px 100px, rgba(255,255,255,.8), transparent 60%),
+    radial-gradient(1px 1px at 220px 180px, rgba(255,255,255,.7), transparent 60%);
+  background-size: 260px 260px;
+  animation: stars-pan-2 180s linear infinite;
+}
+
+@keyframes stars-pan-1 { to { background-position: -200px 0 } }
+@keyframes stars-pan-2 { to { background-position: 260px 0 } }
+
+@media (prefers-reduced-motion: reduce){
+  .contact-stars--near, .contact-stars--far { animation: none !important; }
+}

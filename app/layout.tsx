@@ -19,7 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className='min-h-dvh bg-grid antialiased'>
         <Header />
 
-        
         <div className="relative pt-[var(--header-h,72px)]">
           {children}
         </div>
