@@ -5,6 +5,9 @@ import dynamic from 'next/dynamic'
 import Footer from '@/components/layout/footer'
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import BackToTop from '@/components/common/back-to-top'
+import IntroLoaderChip from '@/components/layout/intro-loader-chip'
+import IntroLoaderChipDebug from '@/components/layout/intro-loader-chip-test'
+IntroLoaderChipDebug
 
 const HeaderDynamic = dynamic(() => import('@/components/layout/header-dynamic'))
 
