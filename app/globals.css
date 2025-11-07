@@ -441,3 +441,18 @@ img {
     animation: none !important;
   }
 }
+
+@keyframes wa-breathe {
+  0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.28); }
+  50%     { box-shadow: 0 0 0 10px rgba(37,211,102,0.12); }
+}
+
+@keyframes wa-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.55); transform: scale(1); }
+  70%  { box-shadow: 0 0 0 20px rgba(37,211,102,0); transform: scale(1.08); }
+  100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c4-wa-fab, .c4-wa-fab > span { animation: none !important; }
+}
