@@ -8,12 +8,16 @@ type Pane = {
   id: string;
   eyebrow: string;
   title: string;
-  highlight: string; // highlighted phrase inside title
+  highlight: string;
   body: string;
   videoMp4: string;
   videoWebm?: string;
   badgeSrc?: string;
   badgeAlt?: string;
+
+  // Kept for future use, not rendered now
+  features?: string[];
+  tagline?: string;
 };
 
 const PANES: Pane[] = [
@@ -24,13 +28,14 @@ const PANES: Pane[] = [
     highlight: "design",
     body:
       "Our mission is to close the gap between a scooter and a bike. The product is the lightest in its category, designed to be agile and fun for everyone to ride.",
-    videoMp4:
-      "https://assets-global.website-files.com/65ae37af356fab4845432048/65be0fdac914d702e08f70ed_Yoda-Helmet_1-transcode.mp4",
-    videoWebm:
-      "https://assets-global.website-files.com/65ae37af356fab4845432048/65be0fdac914d702e08f70ed_Yoda-Helmet_1-transcode.webm",
-    badgeSrc:
-      "https://assets-global.website-files.com/65ae37af356fab4845432048/65b0dc37d226a551affbf2ea_GDA24_HO_WINNER_MC_RGB.webp",
-    badgeAlt: "German Design Award 2024",
+    videoMp4: "/videos/core5-loop.mp4",
+    videoWebm: "/videos/core5-loop.webm",
+    features: [
+      "8-core processing engine",
+      "Multi-room audio & video",
+      "Secure smart-home automation",
+    ],
+    tagline: "CORE 5 • CENTRAL BRAIN OF YOUR HOME",
   },
   {
     id: "energy",
@@ -39,10 +44,14 @@ const PANES: Pane[] = [
     highlight: "autonomy",
     body:
       "3 riding modes — eco, normal and boost — offering long range on a single charge with a swappable battery.",
-    videoMp4:
-      "https://assets-global.website-files.com/65ae37af356fab4845432048/65ae37af356fab48454320ae_BatteryRemoval_Pingpong_001-transcode.mp4",
-    videoWebm:
-      "https://assets-global.website-files.com/65ae37af356fab4845432048/65ae37af356fab48454320ae_BatteryRemoval_Pingpong_001-transcode.webm",
+    videoMp4: "/videos/halo-remote-loop2.mp4",
+    videoWebm: "/videos/halo-remote-loop2.webm",
+    features: [
+      "Adaptive power management",
+      "Low standby consumption",
+      "Ready for whole-home scenes",
+    ],
+    tagline: "EFFICIENT POWER • ALWAYS ON, NEVER LOUD",
   },
   {
     id: "durable",
@@ -51,10 +60,14 @@ const PANES: Pane[] = [
     highlight: "way",
     body:
       "Years of engineering, stripping away unnecessary components to deliver a simple, efficient experience.",
-    videoMp4:
-      "https://assets-global.website-files.com/65ae37af356fab4845432048/65be104f9aba74d774b7f4a3_Yoda-Exploded-50-transcode.mp4",
-    videoWebm:
-      "https://assets-global.website-files.com/65ae37af356fab4845432048/65be104f9aba74d774b7f4a3_Yoda-Exploded-50-transcode.webm",
+    videoMp4: "/videos/keypad-loop.mp4",
+    videoWebm: "/videos/keypad-loop.webm",
+    features: [
+      "Engineered for daily use",
+      "Minimal moving parts",
+      "Low maintenance ownership",
+    ],
+    tagline: "BUILT TO LAST • DESIGNED TO DISAPPEAR",
   },
 ];
 
@@ -62,7 +75,6 @@ export default function HeroSticky() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
-  // Compute active pane based on scroll progress through the tall wrapper
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
@@ -73,12 +85,16 @@ export default function HeroSticky() {
       rAF = requestAnimationFrame(() => {
         const rect = wrap.getBoundingClientRect();
         const viewportH = window.innerHeight;
-        const total = wrap.scrollHeight - viewportH; // ~height we traverse
-        // position from 0..1 within this section
+
         const scrolled = Math.min(
           1,
-          Math.max(0, (viewportH - rect.top - viewportH * 0.05) / (wrap.offsetHeight - viewportH))
+          Math.max(
+            0,
+            (viewportH - rect.top - viewportH * 0.05) /
+              (wrap.offsetHeight - viewportH)
+          )
         );
+
         const idx = Math.min(
           PANES.length - 1,
           Math.max(0, Math.floor(scrolled * PANES.length))
@@ -90,6 +106,7 @@ export default function HeroSticky() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+
     return () => {
       cancelAnimationFrame(rAF);
       window.removeEventListener("scroll", onScroll);
@@ -98,25 +115,25 @@ export default function HeroSticky() {
   }, []);
 
   return (
-    <section id="hero-sticky" aria-label="Sticky Hero" className="relative z-0 bg-[var(--color-bg)]">
+    <section
+      id="hero-sticky"
+      aria-label="Sticky Hero"
+      className="relative z-0 bg-[var(--color-bg)]"
+    >
       <div
         ref={wrapRef}
-        className="
-          relative
-          z-0
-          h-[500vh] sm:h-[560vh]
-          rounded-none
-        "
+        className="relative z-0 h-[500vh] sm:h-[560vh] rounded-none"
       >
-        <Container className="sticky top-[var(--header-h,72px)] h-[calc(100svh-var(--header-h,72px))] py-4 sm:py-6">
-          {/* grid: left text, right media */}
+        <Container className="sticky top-[var(--header-h,72px)] h-[calc(92.5svh-var(--header-h,72px))] py-4 sm:py-6">
           <div className="grid h-full grid-cols-1 gap-6 md:grid-cols-[0.42fr_1fr]">
-            {/* LEFT: stacked texts (fade cross) */}
-            <div className="
-            rounded-2xl bg-[var(--color-surface)]/80 ring-1 ring-white/10
-            p-6 sm:p-8 md:p-10 pb-12 md:pb-14 pb-safe
-            flex flex-col justify-between overflow-hidden z-0
-            ">
+            {/* LEFT PANEL */}
+            <div
+              className="
+                rounded-2xl bg-[var(--color-surface)]/80 ring-1 ring-white/10
+                p-6 sm:p-8 md:p-10 pb-12 md:pb-14 pb-safe
+                flex flex-col justify-between overflow-hidden z-0
+              "
+            >
               <div className="relative min-h-0 z-0">
                 {PANES.map((p, i) => (
                   <div
@@ -124,7 +141,11 @@ export default function HeroSticky() {
                     aria-hidden={active !== i}
                     className={`
                       absolute inset-0 transition-all duration-500
-                      ${active === i ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+                      ${
+                        active === i
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 translate-y-4"
+                      }
                     `}
                   >
                     <h2 className="text-white/90 text-base tracking-[0.15em] uppercase">
@@ -132,7 +153,10 @@ export default function HeroSticky() {
                       <span className="text-[var(--color-accent)]">•</span>
                     </h2>
                     <h3 className="mt-3 text-4xl sm:text-5xl font-semibold leading-tight text-white">
-                      {p.title} <span className="text-[var(--color-accent)]">{p.highlight}</span>
+                      {p.title}{" "}
+                      <span className="text-[var(--color-accent)]">
+                        {p.highlight}
+                      </span>
                     </h3>
                     <div className="my-5 h-px w-full bg-white/15" />
                     <p className="text-white/75 text-base sm:text-lg leading-relaxed">
@@ -142,7 +166,6 @@ export default function HeroSticky() {
                 ))}
               </div>
 
-              {/* CTA */}
               <a
                 href="/contact"
                 className="
@@ -156,11 +179,11 @@ export default function HeroSticky() {
               </a>
             </div>
 
-            {/* RIGHT: stacked videos (fade/swap) */}
+            {/* RIGHT PANEL – video fills the card */}
             <div
               className="
-                relative overflow-hidden rounded-2xl ring-1 ring-white/10
-                bg-[var(--color-surface)]
+                relative rounded-2xl ring-1 ring-white/10
+                bg-black overflow-hidden
               "
             >
               {PANES.map((p, i) => (
@@ -168,30 +191,36 @@ export default function HeroSticky() {
                   key={p.id}
                   className={`
                     absolute inset-0 transition-all duration-500
-                    ${active === i ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+                    ${
+                      active === i
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4"
+                    }
                   `}
                 >
-                  {/* badge (optional) */}
-                  {p.badgeSrc && (
-                    <img
-                      src={p.badgeSrc}
-                      alt={p.badgeAlt || ""}
-                      className="absolute right-4 top-4 z-10 w-20"
-                      loading="lazy"
-                    />
-                  )}
+                  <div className="relative h-full w-full">
+                    {p.badgeSrc && (
+                      <img
+                        src={p.badgeSrc}
+                        alt={p.badgeAlt || ""}
+                        className="absolute right-4 top-4 z-10 w-20"
+                        loading="lazy"
+                      />
+                    )}
 
-                  <video
-                    className="h-full w-full object-cover z-0"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    poster=""
-                  >
-                    <source src={p.videoMp4} type="video/mp4" />
-                    {p.videoWebm && <source src={p.videoWebm} type="video/webm" />}
-                  </video>
+                    <video
+                      className="h-full w-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      {p.videoWebm && (
+                        <source src={p.videoWebm} type="video/webm" />
+                      )}
+                      <source src={p.videoMp4} type="video/mp4" />
+                    </video>
+                  </div>
                 </div>
               ))}
             </div>

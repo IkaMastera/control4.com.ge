@@ -456,3 +456,129 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .c4-wa-fab, .c4-wa-fab > span { animation: none !important; }
 }
+
+/* ============ APEX INTRO (beams, grid, ink, underline) ============ */
+.apx-beams{
+  position:absolute; inset:-10% -20%;
+  background:
+    linear-gradient(115deg, rgba(0,194,255,.10), transparent 40%),
+    linear-gradient(295deg, rgba(0,86,184,.10), transparent 40%);
+  filter:saturate(1.15);
+  animation: beams 10s linear infinite;
+}
+@keyframes beams{
+  0%{ transform: translate3d(-2%,0,0) }
+  100%{ transform: translate3d(2%,0,0) }
+}
+.apx-grid{
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(transparent 31px, rgba(255,255,255,.06) 32px),
+    linear-gradient(90deg, transparent 31px, rgba(255,255,255,.06) 32px);
+  background-size:32px 32px;
+  mask-image: radial-gradient(1000px 600px at 50% 45%, #000 60%, transparent 100%);
+  transform: translate3d(0, calc(var(--p,0) * -6px), 0);
+  opacity: .6;
+}
+.apx-ink{
+  background: linear-gradient(90deg, #e7f4ff 0%, #ffffff 40%, #d7ebff 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  transition: filter .6s ease;
+  filter: blur(calc(2px - var(--p,0)*2px));
+}
+.apx-underline{
+  background: linear-gradient(90deg, rgba(0,194,255,.9), rgba(0,86,184,.9));
+  transform: scaleX(calc(.3 + var(--p,0)*.7));
+  transform-origin: left center;
+  box-shadow: 0 0 18px rgba(0,194,255,.45);
+}
+
+/* ============ STORY STRATA (parallax layers) ============ */
+.strata{ position:absolute; inset: -10% -6%; opacity:.55; pointer-events:none; }
+.layer-a{ background: radial-gradient(80% 40% at 10% 90%, rgba(0,86,184,.18), transparent 60%); transform: translate3d(0, calc(var(--par,0)*-10px), 0); }
+.layer-b{ background: radial-gradient(70% 50% at 90% 10%, rgba(0,194,255,.18), transparent 60%); transform: translate3d(0, calc(var(--par,0)*6px), 0); }
+.layer-c{ background: conic-gradient(from 180deg at 50% 50%, rgba(255,255,255,.06), rgba(255,255,255,0)); transform: translate3d(0, calc(var(--par,0)*-3px), 0); }
+
+/* ============ SIGNATURE LINE (path draw) ============ */
+.signature-path{ stroke-dasharray: 0; stroke-dashoffset: 0; }
+.sig-in{ animation: sig 1.8s cubic-bezier(.3,.7,.2,1) forwards; }
+@keyframes sig{ to { stroke-dashoffset: 0; } }
+
+/* ============ VALUES FLIP (3D) ============ */
+.perspective{ perspective: 1000px; }
+.vals-inner{ position:relative; transform-style:preserve-3d; transition: transform .7s cubic-bezier(.2,.6,.2,1); }
+.vals:hover .vals-inner, .vals:focus-within .vals-inner{ transform: rotateY(180deg); }
+.vals-face{ position:absolute; inset:0; border-radius: 1rem; border:1px solid rgba(255,255,255,.08); background:#0F1524; padding:1.2rem; display:grid; place-content:center; backface-visibility:hidden; }
+.vals-front{ }
+.vals-back{ transform: rotateY(180deg); }
+.led{ position:absolute; right:.9rem; top:.9rem; width:10px; height:10px; border-radius:999px; background: radial-gradient(circle, #9beafe 0%, #00C2FF 40%, #004a96 70%); box-shadow: 0 0 14px 4px rgba(0,194,255,.35); }
+
+/* ============ SPIRAL PROCESS ============ */
+.spiral{ isolation:isolate; }
+.spiral-dot{
+  --i: 0;
+  position:absolute; left:50%; top:50%;
+  width:10px; height:10px; border-radius:999px;
+  background: radial-gradient(circle, #9beafe 0%, #00C2FF 40%, #004a96 80%);
+  box-shadow: 0 0 14px 4px rgba(0,194,255,.35);
+  transform:
+    translate(-50%,-50%)
+    rotate(calc(var(--i)*10deg))
+    translate(calc(8px + var(--i)*6px));
+  opacity:.35; transition:.25s ease;
+}
+.spiral-dot.dot-on{ opacity:1; transform:
+  translate(-50%,-50%) rotate(calc(var(--i)*10deg)) translate(calc(8px + var(--i)*6px)) scale(1.1);
+}
+.spiral-center{
+  position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+}
+
+/* ============ STUDIO PANELS (magnetic/parallax) ============ */
+/* handled inline; kept minimal here */
+
+/* ============ TRUST BADGES (marquee + shimmer) ============ */
+.brands-marquee{ display:flex; gap:48px; white-space:nowrap; animation: marquee 18s linear infinite; }
+.brand-chip{
+  padding:.6rem 1rem; border-radius:999px; border:1px solid rgba(255,255,255,.1);
+  background: #0F1524; opacity:.8; text-transform:uppercase; letter-spacing:.08em; font-weight:600;
+}
+.badge{
+  position:relative; border:1px solid rgba(255,255,255,.08); background:#0F1524;
+  border-radius:14px; padding:14px; overflow:hidden;
+}
+.badge .shine{
+  position:absolute; inset:0; background:
+    linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 30%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform .9s cubic-bezier(.2,.6,.2,1);
+}
+.badge:hover .shine{ transform: translateX(100%); }
+@keyframes marquee{ from{ transform: translateX(0);} to{ transform: translateX(-50%);} }
+
+/* ============ FINALE BRIDGE ============ */
+.bridge{
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(60% 60% at 50% 0%, rgba(0,194,255,.25), transparent 70%),
+    radial-gradient(50% 60% at 50% 100%, rgba(0,86,184,.25), transparent 70%);
+  animation: breathe 6s ease-in-out infinite; filter: saturate(1.2);
+}
+@keyframes breathe{ 0%,100%{opacity:.7; transform: translateY(0)} 50%{opacity:1; transform: translateY(-6px)} }
+
+@media (prefers-reduced-motion: reduce){
+  .apx-beams,.apx-grid,.apx-ink,.apx-underline,.strata,.sig-in,.vals-inner,.spiral-dot,.brands-marquee,.bridge{ animation:none !important; transition:none !important; }
+}
+
+@keyframes core-glow {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.animate-core-glow {
+  animation: core-glow 2.4s ease-in-out infinite;
+}
