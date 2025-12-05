@@ -1,10 +1,70 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Container from '@/components/common/container';
 import StarfallCanvas from '../ui/star-fall-canvas';
 
+type SubmitStatus = 'idle' | 'loading' | 'ok' | 'err';
+
 export default function ContactCTA() {
+  const [status, setStatus] = useState<SubmitStatus>('idle');
+  const [msg, setMsg] = useState('');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus('loading');
+    setMsg('');
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // simple required check on this side too
+    const email = (data.get('email') || '').toString().trim();
+    const firstName = (data.get('firstName') || '').toString().trim();
+
+    if (!email || !firstName) {
+      setStatus('err');
+      setMsg('Please fill in your name and email.');
+      return;
+    }
+
+    const payload = {
+      first_name: firstName,
+      last_name: (data.get('lastName') || '').toString(),
+      email,
+      phone: (data.get('phone') || '').toString(),
+      topic: 'Homepage CTA',
+      message: 'Lead submitted via homepage contact card.',
+      company_size: '',
+      schedule_demo: true,
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setStatus('ok');
+        setMsg('Thanks! We’ll get back to you shortly.');
+        form.reset();
+      } else {
+        const body = await res.json().catch(() => null);
+        setStatus('err');
+        setMsg(
+          body?.error || 'Something went wrong. Please try again in a moment.'
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('err');
+      setMsg('Network error. Please try again.');
+    }
+  }
+
   return (
     <section
       aria-labelledby="contact-cta-heading"
@@ -34,12 +94,18 @@ export default function ContactCTA() {
       <Container>
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs uppercase tracking-widest text-[--color-accent]">Contact</p>
-          <h2 id="contact-cta-heading" className="mt-3 text-4xl font-semibold text-[--color-ink] sm:text-5xl">
+          <p className="text-xs uppercase tracking-widest text-[--color-accent]">
+            Contact
+          </p>
+          <h2
+            id="contact-cta-heading"
+            className="mt-3 text-4xl font-semibold text-[--color-ink] sm:text-5xl"
+          >
             Power Your Home with Control4
           </h2>
           <p className="mt-4 text-base text-white/70">
-            Access fast, reliable integration from certified Control4 experts in Georgia.
+            Access fast, reliable integration from certified Control4 experts
+            in Georgia.
           </p>
         </div>
 
@@ -56,8 +122,8 @@ export default function ContactCTA() {
             <div
               className="pointer-events-none absolute inset-0 rounded-[26px]"
               style={{
-                background: 'linear-gradient(180deg, rgba(0,194,255,.35), rgba(0,86,184,.35))',
-                // Gradient border mask trick
+                background:
+                  'linear-gradient(180deg, rgba(0,194,255,.35), rgba(0,86,184,.35))',
                 WebkitMask:
                   'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
                 WebkitMaskComposite: 'xor',
@@ -68,8 +134,7 @@ export default function ContactCTA() {
 
             {/* The card itself */}
             <form
-              action="https://formspree.io/f/your-form-id" // TODO: replace
-              method="POST"
+              onSubmit={handleSubmit}
               className="
                 relative rounded-[24px] px-5 py-6 sm:p-8
                 bg-white/[0.045] backdrop-blur-xl
@@ -88,7 +153,9 @@ export default function ContactCTA() {
                     placeholder=" "
                     className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                  <label><span className="c4-label-text">First Name</span></label>
+                  <label>
+                    <span className="c4-label-text">First Name</span>
+                  </label>
                 </div>
 
                 {/* Last Name */}
@@ -99,7 +166,9 @@ export default function ContactCTA() {
                     placeholder=" "
                     className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                  <label><span className="c4-label-text">Last Name</span></label>
+                  <label>
+                    <span className="c4-label-text">Last Name</span>
+                  </label>
                 </div>
 
                 {/* Email (span both on small screens) */}
@@ -111,7 +180,9 @@ export default function ContactCTA() {
                     placeholder=" "
                     className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                  <label><span className="c4-label-text">Work Email Address</span></label>
+                  <label>
+                    <span className="c4-label-text">Work Email Address</span>
+                  </label>
                 </div>
 
                 {/* Phone */}
@@ -122,7 +193,9 @@ export default function ContactCTA() {
                     placeholder=" "
                     className="w-full rounded-xl bg-white/7 text-white outline-none"
                   />
-                  <label><span className="c4-label-text">Phone</span></label>
+                  <label>
+                    <span className="c4-label-text">Phone</span>
+                  </label>
                 </div>
               </div>
 
@@ -132,8 +205,7 @@ export default function ContactCTA() {
               {/* Toggle + Submit */}
               <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <label className="inline-flex items-center gap-3">
-                  {/* Decorative toggle (posts hidden field) */}
-                  <input type="hidden" name="demo" value="yes" />
+                  {/* Decorative toggle – always true for this CTA */}
                   <span
                     className="relative h-6 w-11 rounded-full bg-[--color-accent]/60 ring-1 ring-white/10
                                after:absolute after:left-5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow
@@ -143,21 +215,39 @@ export default function ContactCTA() {
                   />
                   <span className="text-sm text-white">
                     <span className="font-medium">Schedule a Demo Call</span>
-                    <span className="ml-2 text-white/70">Arrange a demo with our team.</span>
+                    <span className="ml-2 text-white/70">
+                      Arrange a demo with our team.
+                    </span>
                   </span>
                 </label>
 
                 <button
                   type="submit"
+                  disabled={status === 'loading'}
                   className="btn-glow rounded-2xl bg-primary px-6 py-3 text-sm font-medium text-white shadow
                              transition-all"
                 >
-                  Submit
+                  {status === 'loading' ? 'Submitting…' : 'Submit'}
                 </button>
               </div>
 
+              {status !== 'idle' && (
+                <p
+                  className={`mt-3 text-center text-xs ${
+                    status === 'ok'
+                      ? 'text-emerald-400'
+                      : status === 'err'
+                      ? 'text-red-400'
+                      : 'text-white/60'
+                  }`}
+                >
+                  {msg}
+                </p>
+              )}
+
               <p className="mt-4 text-center text-xs text-white/60">
-                By contacting us, you agree to our <span className="text-white">Terms</span> and{' '}
+                By contacting us, you agree to our{' '}
+                <span className="text-white">Terms</span> and{' '}
                 <span className="text-white">Privacy Policy</span>.
               </p>
             </form>

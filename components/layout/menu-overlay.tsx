@@ -149,7 +149,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
                     poster="/images/menu-poster.jpg"
                   >
                     {/* Use your file in /public/videos */}
-                    <source src="/videos/test-video-menu.mp4" type="video/mp4" />
+                    <source src="/videos/dropdown-menu-video2.mp4" type="video/mp4" />
                     {/* <source src="/videos/test-video-menu.webm" type="video/webm" /> */}
                   </video>
                 </div>

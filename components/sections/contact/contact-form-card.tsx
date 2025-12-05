@@ -2,48 +2,67 @@
 
 import { useState } from 'react';
 
-const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
-
 type Props = {
   className?: string;
 };
 
 export default function ContactFormCard({ className = '' }: Props) {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'err'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'err'>(
+    'idle'
+  );
   const [msg, setMsg] = useState('');
   const [demo, setDemo] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!FORMSPREE_ID) {
-      setStatus('err');
-      setMsg('Missing Formspree ID.');
-      return;
-    }
     setStatus('loading');
     setMsg('');
+
     const form = e.currentTarget;
     const data = new FormData(form);
+
+    // honeypot: if filled, silently succeed
     if (data.get('company')) {
       setStatus('ok');
       form.reset();
+      setDemo(false);
       return;
     }
-    data.set('schedule_demo', demo ? 'yes' : 'no');
 
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: data,
-    });
-    if (res.ok) {
-      setStatus('ok');
-      setMsg('Thanks! We’ll get back to you shortly.');
-      form.reset();
-      setDemo(false);
-    } else {
+    const payload = {
+      first_name: (data.get('first_name') || '').toString(),
+      last_name: (data.get('last_name') || '').toString(),
+      email: (data.get('email') || '').toString(),
+      company_size: (data.get('company_size') || '').toString(),
+      phone: (data.get('phone') || '').toString(),
+      topic: (data.get('topic') || '').toString(),
+      message: (data.get('message') || '').toString(),
+      schedule_demo: demo,
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setStatus('ok');
+        setMsg('Thanks! We’ll get back to you shortly.');
+        form.reset();
+        setDemo(false);
+      } else {
+        const body = await res.json().catch(() => null);
+        setStatus('err');
+        setMsg(
+          body?.error || 'Something went wrong. Please try again in a moment.'
+        );
+      }
+    } catch (err) {
+      console.error(err);
       setStatus('err');
-      setMsg('Something went wrong. Please try again.');
+      setMsg('Network error. Please try again.');
     }
   }
 
@@ -76,11 +95,20 @@ export default function ContactFormCard({ className = '' }: Props) {
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/20" />
         </div>
 
-        <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+        <form
+          onSubmit={onSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6"
+        >
           {/* honeypot */}
-          <input type="text" name="company" className="hidden" tabIndex={-1} autoComplete="off" />
+          <input
+            type="text"
+            name="company"
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
 
-          {/* Staggered fields (each rises in with a small delay) */}
+          {/* fields unchanged */}
           <div className="c4-float motion-safe:animate-[c4-rise-in_640ms_cubic-bezier(0.22,0.8,0.2,1)_60ms_both]">
             <input id="first_name" name="first_name" placeholder=" " required />
             <label htmlFor="first_name">

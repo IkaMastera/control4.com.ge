@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/container";
 import { ArrowUpRight } from "lucide-react";
 
+type VideoFit = "cover" | "contain" | "fill";
+
 type Pane = {
   id: string;
   eyebrow: string;
@@ -14,6 +16,8 @@ type Pane = {
   videoWebm?: string;
   badgeSrc?: string;
   badgeAlt?: string;
+  videoFit?: VideoFit;
+  videoScale?: number; // for tiny zoom to hide baked-in bars
 
   // Kept for future use, not rendered now
   features?: string[];
@@ -23,51 +27,43 @@ type Pane = {
 const PANES: Pane[] = [
   {
     id: "award",
-    eyebrow: "Reinventing micro-mobility with",
-    title: "Award winning",
-    highlight: "design",
+    eyebrow: "A smarter way to live with",
+    title: "Fully connected",
+    highlight: "home",
     body:
-      "Our mission is to close the gap between a scooter and a bike. The product is the lightest in its category, designed to be agile and fun for everyone to ride.",
-    videoMp4: "/videos/core5-loop.mp4",
-    videoWebm: "/videos/core5-loop.webm",
-    features: [
-      "8-core processing engine",
-      "Multi-room audio & video",
-      "Secure smart-home automation",
-    ],
-    tagline: "CORE 5 • CENTRAL BRAIN OF YOUR HOME",
+      "Your entire living space — lights, climate, security, audio, blinds, and entertainment — working together in perfect harmony. A single intelligent ecosystem that adapts to you.",
+    videoMp4: "/videos/smarthome-loop2.mp4",
+    videoFit: "cover", 
+    videoScale: 1,
+    tagline: "WHOLE-HOME AUTOMATION • EVERYTHING WORKS TOGETHER",
   },
+
   {
     id: "energy",
-    eyebrow: "Best in class energy management for",
-    title: "optimal",
-    highlight: "autonomy",
+    eyebrow: "The central intelligence behind",
+    title: "Your home’s",
+    highlight: "brain",
     body:
-      "3 riding modes — eco, normal and boost — offering long range on a single charge with a swappable battery.",
-    videoMp4: "/videos/halo-remote-loop2.mp4",
-    videoWebm: "/videos/halo-remote-loop2.webm",
-    features: [
-      "Adaptive power management",
-      "Low standby consumption",
-      "Ready for whole-home scenes",
-    ],
-    tagline: "EFFICIENT POWER • ALWAYS ON, NEVER LOUD",
+      "The Core 5 processes every command instantly — orchestrating lighting, audio, climate, security, and scenes with enterprise-grade reliability. Quiet. Powerful. Always on.",
+    videoMp4: "/videos/core5-loop.mp4",
+    videoWebm: "/videos/core5-loop.webm",
+    videoFit: "fill",
+    videoScale: 1,
+    tagline: "CORE 5 CONTROLLER • THE ENGINE OF YOUR SMART HOME",
   },
+
   {
     id: "durable",
-    eyebrow: "Durable and effortless,",
-    title: "all the",
-    highlight: "way",
+    eyebrow: "Effortless control through",
+    title: "One elegant",
+    highlight: "remote",
     body:
-      "Years of engineering, stripping away unnecessary components to deliver a simple, efficient experience.",
-    videoMp4: "/videos/keypad-loop.mp4",
-    videoWebm: "/videos/keypad-loop.webm",
-    features: [
-      "Engineered for daily use",
-      "Minimal moving parts",
-      "Low maintenance ownership",
-    ],
-    tagline: "BUILT TO LAST • DESIGNED TO DISAPPEAR",
+      "Navigate your entire smart home with tactile precision. The Halo Remote delivers instant access to lighting, scenes, music, TV control, and security — all from a single, beautifully engineered device.",
+    videoMp4: "/videos/halo-remote-loop2.mp4",
+    videoWebm: "/videos/halo-remote-loop2.webm",
+    videoFit: "cover",
+    videoScale: 1,
+    tagline: "HALO REMOTE • CONTROL EVERYTHING FROM ANYWHERE",
   },
 ];
 
@@ -117,7 +113,7 @@ export default function HeroSticky() {
   return (
     <section
       id="hero-sticky"
-      aria-label="Sticky Hero"
+      aria-label="Control4 Product Hero"
       className="relative z-0 bg-[var(--color-bg)]"
     >
       <div
@@ -179,7 +175,7 @@ export default function HeroSticky() {
               </a>
             </div>
 
-            {/* RIGHT PANEL – video fills the card */}
+            {/* RIGHT PANEL – per-pane video behaviour */}
             <div
               className="
                 relative rounded-2xl ring-1 ring-white/10
@@ -209,7 +205,23 @@ export default function HeroSticky() {
                     )}
 
                     <video
-                      className="h-full w-full object-cover"
+                      className={`
+                        h-full w-full
+                        ${
+                          p.videoFit === "contain"
+                            ? "object-contain bg-black"
+                            : p.videoFit === "fill"
+                            ? "object-fill"
+                            : "object-cover"
+                        }
+                      `}
+                      style={{
+                        transform:
+                          p.videoScale && p.videoScale !== 1
+                            ? `scale(${p.videoScale})`
+                            : undefined,
+                        transformOrigin: "center",
+                      }}
                       autoPlay
                       muted
                       loop
