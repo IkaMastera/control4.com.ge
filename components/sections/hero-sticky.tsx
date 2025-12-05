@@ -17,7 +17,7 @@ type Pane = {
   badgeSrc?: string;
   badgeAlt?: string;
   videoFit?: VideoFit;
-  videoScale?: number; // for tiny zoom to hide baked-in bars
+  videoScale?: number;
 
   // Kept for future use, not rendered now
   features?: string[];
