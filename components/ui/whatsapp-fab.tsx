@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 type Locale = 'ka' | 'en' | 'ru';
 
 type Props = {
+  phone?: string; // <-- added
   message?: { ka?: string; en?: string; ru?: string };
   locale?: Locale;
   fixed?: boolean;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export default function WhatsAppFAB({
+  phone,
   message,
   locale = 'ka',
   fixed = true,
@@ -23,11 +25,13 @@ export default function WhatsAppFAB({
     message?.en ||
     'Hello! I’d like to talk about Control4.';
 
+  const targetPhone = phone ?? '995511223366';
+
   const href = useMemo(() => {
-    const phone = '995511223366'; // <-- YOUR EXACT WHATSAPP NUMBER
-    const base = `https://wa.me/${phone}`;
+    if (!targetPhone) return '#';
+    const base = `https://wa.me/${targetPhone}`;
     return `${base}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
-  }, [text]);
+  }, [targetPhone, text]);
 
   return (
     <a

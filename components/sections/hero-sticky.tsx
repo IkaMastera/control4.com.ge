@@ -28,12 +28,12 @@ const PANES: Pane[] = [
   {
     id: "award",
     eyebrow: "A smarter way to live with",
-    title: "Fully connected",
+    title: "A fully connected",
     highlight: "home",
     body:
-      "Your entire living space — lights, climate, security, audio, blinds, and entertainment — working together in perfect harmony. A single intelligent ecosystem that adapts to you.",
+      "Experience a home where every system works together in perfect harmony - Lighting, HVAC, Audio, Video & TV, Security, Access Control, Blinds, Energy Systems, Sensors, and Networking - all unified through one intelligent platform. A seamless ecosystem that enhances comfort and simplifies everyday living.",
     videoMp4: "/videos/smarthome-loop2.mp4",
-    videoFit: "cover", 
+    videoFit: "cover",
     videoScale: 1,
     tagline: "WHOLE-HOME AUTOMATION • EVERYTHING WORKS TOGETHER",
   },
@@ -44,7 +44,7 @@ const PANES: Pane[] = [
     title: "Your home’s",
     highlight: "brain",
     body:
-      "The Core 5 processes every command instantly — orchestrating lighting, audio, climate, security, and scenes with enterprise-grade reliability. Quiet. Powerful. Always on.",
+      "The Core 5 processes every command instantly - orchestrating lighting, audio, climate, security, and scenes with enterprise-grade reliability. Quiet. Powerful. Always on.",
     videoMp4: "/videos/core5-loop.mp4",
     videoWebm: "/videos/core5-loop.webm",
     videoFit: "fill",
@@ -56,15 +56,14 @@ const PANES: Pane[] = [
     id: "durable",
     eyebrow: "Effortless control through",
     title: "One elegant",
-    highlight: "remote",
+    highlight: "touch panel",
     body:
-      "Navigate your entire smart home with tactile precision. The Halo Remote delivers instant access to lighting, scenes, music, TV control, and security — all from a single, beautifully engineered device.",
-    videoMp4: "/videos/halo-remote-loop2.mp4",
-    videoWebm: "/videos/halo-remote-loop2.webm",
+      "Your home's entire intelligence at your fingertips. The Touch Panel gives you seamless control of lighting, HVAC, audio, video, security, access, and scenes — all through a beautifully responsive, always-ready interface designed for modern living.",
+    videoMp4: "/videos/touchpad-loop.mp4",
     videoFit: "cover",
     videoScale: 1,
-    tagline: "HALO REMOTE • CONTROL EVERYTHING FROM ANYWHERE",
-  },
+    tagline: "TOUCH PANEL • YOUR HOME AT YOUR FINGERTIPS",
+  }
 ];
 
 export default function HeroSticky() {

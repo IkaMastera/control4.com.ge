@@ -14,7 +14,7 @@ export default function AboutSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
           className="mb-6"
         >
@@ -24,23 +24,22 @@ export default function AboutSection() {
           </h2>
         </motion.div>
 
-        {/* Paragraph */}
+        {/* Updated Paragraph */}
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
+          transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-base sm:text-lg text-white/80 leading-relaxed"
         >
-          <strong>Control4 Georgia</strong> operates under{' '}
-          <strong>Technical Service Company</strong> an engineering firm led by
-          <strong> Mamuka and Tamta</strong>, specializing in smart system integration, fire safety,
-          and advanced building automation across Georgia. Our mission is to bring
-          <span className="text-[var(--color-accent)] font-medium">
-            {' '}intelligent comfort, security, and control{' '}
-          </span>
-          into homes and businesses through world-class Control4 solutions, tailored for
-          the local environment.
+          <strong>Control4 Georgia</strong> operates under Technical Service Company,
+          delivering complete MEP solutions, intelligent system integration, and advanced
+          building automation across Georgia. We bring world-class Control4 technology into
+          homes and businesses, creating environments defined by comfort, security, and
+          seamless control built for modern living.
+          <br /><br />
+          Innovation is at the core of our work — ensuring every project achieves greater
+          efficiency, enhanced safety, and a truly smarter way of living.
         </motion.p>
 
         {/* Optional CTA */}
