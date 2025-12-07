@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const apiKey = process.env.RESEND_API_KEY;
+const resend = apiKey ? new Resend(apiKey) : null;
 
 export async function POST(req: Request) {
   try {
@@ -25,11 +26,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // 🔍 DEBUG: read CONTACT_TO at runtime and log it
     const envTo = process.env.CONTACT_TO;
     console.log('CONTACT_TO in /api/contact =', envTo);
 
-    // if env missing, fall back to technicalservice
     const to = envTo && envTo.length > 0
       ? envTo
       : 'info@technicalservice.ge';
@@ -108,6 +107,25 @@ export async function POST(req: Request) {
         </table>
       </div>
     `;
+
+    // 🔑 If no API key, skip sending but don't crash (good for demo/preview)
+    if (!resend) {
+      console.log('No RESEND_API_KEY set, skipping email send. Payload:', {
+        to,
+        from,
+        subject,
+        email,
+      });
+
+      return NextResponse.json(
+        {
+          ok: true,
+          preview: true,
+          message: 'Email sending is disabled (no RESEND_API_KEY).',
+        },
+        { status: 200 }
+      );
+    }
 
     const result = await resend.emails.send({
       from,
