@@ -1,10 +1,36 @@
 'use client';
 
 import { useState } from 'react';
+import { PhoneCall, Mail, MapPin } from 'lucide-react';
 
 type Props = {
   className?: string;
 };
+
+const CONTACT_ITEMS = [
+  {
+    id: 'phone',
+    label: 'Call us',
+    value: '+995 511 22 33 66',
+    href: 'tel:+995555123456',
+    Icon: PhoneCall,
+  },
+  {
+    id: 'email',
+    label: 'Email',
+    value: 'info@technicalservice.ge',
+    href: 'mailto:info@technicalservice.ge',
+    Icon: Mail,
+  },
+  {
+    id: 'office',
+    label: 'Visit our office',
+    value: 'Batumi, Georgia',
+    // change to your real Google Maps link
+    href: 'https://maps.app.goo.gl/WTNAnMoYAZRASmRs7',
+    Icon: MapPin,
+  },
+];
 
 export default function ContactFormCard({ className = '' }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'err'>(
@@ -72,7 +98,7 @@ export default function ContactFormCard({ className = '' }: Props) {
       <div
         aria-hidden
         className="absolute -inset-x-6 -inset-y-8 md:-inset-x-8 md:-inset-y-10
-                   rounded-[2rem] blur-2xl opacity-35
+                   rounded-4xl blur-2xl opacity-35
                    bg-[radial-gradient(closest-side,rgba(0,194,255,.35),transparent_60%)]
                    pointer-events-none"
       />
@@ -90,7 +116,7 @@ export default function ContactFormCard({ className = '' }: Props) {
       >
         {/* small “lights” */}
         <div className="flex items-center gap-2 pb-5">
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#00C2FF]/70 shadow-[0_0_12px_rgba(0,194,255,.8)]" />
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent/70 shadow-[0_0_12px_rgba(0,194,255,.8)]" />
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/30" />
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/20" />
         </div>
@@ -171,7 +197,7 @@ export default function ContactFormCard({ className = '' }: Props) {
                 className="relative inline-flex h-6 w-11 items-center rounded-full bg-white/15 transition
                            before:content-[''] before:absolute before:left-0.5 before:h-5 before:w-5 before:rounded-full
                            before:bg-white/80 before:transition
-                           peer-checked:bg-[#00C2FF]/40 peer-checked:before:translate-x-5"
+                           peer-checked:bg-accent/40 peer-checked:before:translate-x-5"
               />
               <span>Schedule a demo call</span>
             </label>
@@ -201,6 +227,41 @@ export default function ContactFormCard({ className = '' }: Props) {
             </div>
           )}
         </form>
+
+        {/* contact info rail */}
+        <div className="mt-7 border-t border-white/5 pt-5 motion-safe:animate-[c4-rise-in_760ms_cubic-bezier(0.22,0.8,0.2,1)_480ms_both]">
+          <div className="grid gap-3 sm:grid-cols-3">
+            {CONTACT_ITEMS.map(({ id, label, value, href, Icon }) => (
+              <a
+                key={id}
+                href={href}
+                target={id === 'office' ? '_blank' : undefined}
+                rel={id === 'office' ? 'noreferrer' : undefined}
+                className="
+                  group flex items-center gap-3 rounded-2xl px-3 py-3
+                  bg-white/2 hover:bg-white/6
+                  ring-1 ring-white/5 hover:ring-accent/40
+                  transition
+                  shadow-[0_0_0_rgba(0,0,0,0)]
+                  hover:shadow-[0_0_24px_rgba(0,194,255,.35)]
+                  cursor-pointer
+                "
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white/5 group-hover:bg-accent/30 transition">
+                  <Icon className="h-4 w-4 text-accent/80 group-hover:scale-110 transition-transform" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[11px] uppercase tracking-[0.14em] text-white/45">
+                    {label}
+                  </span>
+                  <span className="text-sm text-white/90 group-hover:text-white">
+                    {value}
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

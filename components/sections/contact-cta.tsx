@@ -10,6 +10,7 @@ type SubmitStatus = 'idle' | 'loading' | 'ok' | 'err';
 export default function ContactCTA() {
   const [status, setStatus] = useState<SubmitStatus>('idle');
   const [msg, setMsg] = useState('');
+  const [scheduleDemo, setScheduleDemo] = useState(true);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,7 +20,6 @@ export default function ContactCTA() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // simple required check on this side too
     const email = (data.get('email') || '').toString().trim();
     const firstName = (data.get('firstName') || '').toString().trim();
 
@@ -29,15 +29,19 @@ export default function ContactCTA() {
       return;
     }
 
+    const messageText =
+      (data.get('message') || '').toString().trim() ||
+      'Lead submitted via homepage contact card.';
+
     const payload = {
       first_name: firstName,
       last_name: (data.get('lastName') || '').toString(),
       email,
       phone: (data.get('phone') || '').toString(),
       topic: 'Homepage CTA',
-      message: 'Lead submitted via homepage contact card.',
+      message: messageText,
       company_size: '',
-      schedule_demo: true,
+      schedule_demo: scheduleDemo,
     };
 
     try {
@@ -51,6 +55,7 @@ export default function ContactCTA() {
         setStatus('ok');
         setMsg('Thanks! We’ll get back to you shortly.');
         form.reset();
+        setScheduleDemo(true); // reset to default ON
       } else {
         const body = await res.json().catch(() => null);
         setStatus('err');
@@ -104,8 +109,8 @@ export default function ContactCTA() {
             Power Your Home with Control4
           </h2>
           <p className="mt-4 text-base text-white/70">
-            Access fast, reliable integration from certified Control4 experts
-            in Georgia.
+            Access fast, reliable integration from certified Control4 experts in
+            Georgia.
           </p>
         </div>
 
@@ -117,7 +122,7 @@ export default function ContactCTA() {
           <CornerDot className="-bottom-5 -right-5" />
 
           {/* Card wrapper with glow and gradient edge */}
-          <div className="relative rounded-[26px] p-[1px]">
+          <div className="relative rounded-[26px] p-px">
             {/* Gradient edge (very subtle) */}
             <div
               className="pointer-events-none absolute inset-0 rounded-[26px]"
@@ -135,12 +140,10 @@ export default function ContactCTA() {
             {/* The card itself */}
             <form
               onSubmit={handleSubmit}
-              className="
-                relative rounded-[24px] px-5 py-6 sm:p-8
-                bg-white/[0.045] backdrop-blur-xl
-                ring-1 ring-white/10
-                shadow-[0_80px_220px_-80px_rgba(0,0,0,.95),0_0_60px_-20px_rgba(0,194,255,.20)]
-              "
+              className="relative rounded-3xl px-5 py-6 sm:p-8
+                         bg-white/4.5 backdrop-blur-xl
+                         ring-1 ring-white/10
+                         shadow-[0_80px_220px_-80px_rgba(0,0,0,.95),0_0_60px_-20px_rgba(0,194,255,.20)]"
             >
               <div className="pointer-events-none absolute inset-x-6 top-0 h-20 rounded-t-[22px] bg-[radial-gradient(120%_50%_at_50%_0%,rgba(0,194,255,.16),transparent_70%)]" />
 
@@ -197,6 +200,19 @@ export default function ContactCTA() {
                     <span className="c4-label-text">Phone</span>
                   </label>
                 </div>
+
+                {/* Message – big box */}
+                <div className="c4-float sm:col-span-2">
+                  <textarea
+                    name="message"
+                    placeholder=" "
+                    rows={5}
+                    className="w-full rounded-xl bg-white/7 text-white outline-none resize-none min-h-[180px] sm:min-h-[200px]"
+                  />
+                  <label>
+                    <span className="c4-label-text">Message</span>
+                  </label>
+                </div>
               </div>
 
               {/* Divider */}
@@ -204,28 +220,43 @@ export default function ContactCTA() {
 
               {/* Toggle + Submit */}
               <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <label className="inline-flex items-center gap-3">
-                  {/* Decorative toggle – always true for this CTA */}
-                  <span
-                    className="relative h-6 w-11 rounded-full bg-[--color-accent]/60 ring-1 ring-white/10
-                               after:absolute after:left-5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow
-                               "
+                <div className="flex items-center gap-3">
+                  {/* Toggle */}
+                  <button
+                    type="button"
+                    onClick={() => setScheduleDemo((v) => !v)}
+                    className={`cursor-pointer relative flex h-7 w-14 items-center rounded-full transition-colors duration-200 ease-out
+                      ${
+                        scheduleDemo
+                          ? 'bg-primary'
+                          : 'bg-white/10'
+                      }`}
                     role="switch"
-                    aria-checked="true"
-                  />
+                    aria-checked={scheduleDemo}
+                    aria-label="Schedule a demo call"
+                  >
+                    <span
+                      className={`absolute left-0.5 top-0.5 h-6 w-6 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,.4)] transition-transform duration-200 ease-out
+                        ${
+                          scheduleDemo
+                            ? 'translate-x-7'
+                            : 'translate-x-0'
+                        }`}
+                    />
+                  </button>
+
                   <span className="text-sm text-white">
-                    <span className="font-medium">Schedule a Demo Call</span>
+                    <span className="font-medium">Schedule a demo call</span>
                     <span className="ml-2 text-white/70">
                       Arrange a demo with our team.
                     </span>
                   </span>
-                </label>
+                </div>
 
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="btn-glow rounded-2xl bg-primary px-6 py-3 text-sm font-medium text-white shadow
-                             transition-all"
+                  className="cursor-pointer btn-glow rounded-2xl bg-primary px-6 py-3 text-sm font-medium text-white shadow transition-all disabled:opacity-70"
                 >
                   {status === 'loading' ? 'Submitting…' : 'Submit'}
                 </button>

@@ -15,7 +15,6 @@ const LINKS = [
 ];
 
 export default function MenuOverlay({ open, onClose }: Props) {
-  // mount guard (no SSR flash) — keep hooks before any return
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -38,7 +37,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
       aria-modal="true"
       aria-hidden={!open}
       className={[
-        'fixed inset-0 z-[60]',
+        'fixed inset-0 z-60',
         open ? 'pointer-events-auto' : 'pointer-events-none',
         mounted ? 'visible' : 'invisible',
       ].join(' ')}
@@ -46,18 +45,25 @@ export default function MenuOverlay({ open, onClose }: Props) {
       {/* PANEL: drops from top with overshoot */}
       <div
         className={[
-          'absolute inset-x-0 top-0 h-[100dvh] overflow-hidden',
+          'absolute inset-x-0 top-0 h-dvh overflow-hidden',
           'bg-[#0B1220] border-b border-white/10',
           'bg-[radial-gradient(1400px_900px_at_8%_0%,#0056B8_0%,transparent_60%),radial-gradient(1400px_900px_at_92%_0%,#00C2FF_0%,transparent_60%),linear-gradient(180deg,#0B1220_0%,#0D1117_100%)]',
           open
-            ? 'motion-safe:[animation:c4-drop-bounce_820ms_cubic-bezier(.2,.8,.16,1)_both]'
-            : 'motion-safe:[animation:c4-drop-bounce-out_360ms_cubic-bezier(.4,0,.2,1)_both]',
+            ? 'motion-safe:animate-[c4-drop-bounce_820ms_cubic-bezier(.2,.8,.16,1)_both]'
+            : 'motion-safe:animate-[c4-drop-bounce-out_360ms_cubic-bezier(.4,0,.2,1)_both]',
         ].join(' ')}
-        style={{ transform: open ? 'translateY(0)' : 'translateY(-100%)' }}
+        style={{
+          transform: open ? 'translateY(0)' : 'translateY(-100%)',
+        }}
       >
-        <div className="mx-auto flex h-full max-w-[1400px] flex-col gap-8 px-6 sm:px-10">
-          {/* Top bar */}
-          <div className="flex items-center justify-between pt-6 overflow-hidden">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-8 px-6 sm:px-10">
+          {/* Top bar – safe-area aware */}
+          <div
+            className="flex items-center justify-between overflow-hidden"
+            style={{
+              paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1.5rem)',
+            }}
+          >
             <Link
               href="/"
               onClick={onClose}
@@ -65,29 +71,37 @@ export default function MenuOverlay({ open, onClose }: Props) {
               className="text-white text-xl font-semibold"
               style={
                 open
-                  ? { animation: `c4-spring-down-far 560ms cubic-bezier(.2,.8,.16,1) ${base + 40}ms both` }
+                  ? {
+                      animation: `c4-spring-down-far 560ms cubic-bezier(.2,.8,.16,1) ${
+                        base + 40
+                      }ms both`,
+                    }
                   : { transform: 'translateY(-12vh)' }
               }
             >
-              Control<span className="text-[#00C2FF]">4</span>.ge
+              Control<span className="text-accent">4</span>.ge
             </Link>
 
             <button
               onClick={onClose}
               aria-label="Close menu"
-              className="group inline-flex items-center gap-3 rounded-xl px-4 py-2 text-sm font-medium text-white/90 hover:text-white focus-visible:ring-2 focus-visible:ring-[#00C2FF] focus-visible:ring-offset-2 focus-visible:ring-offset-black transition"
+              className="group inline-flex items-center gap-3 rounded-xl px-4 py-2 text-sm font-medium text-white/90 hover:text-white focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black transition"
               style={
                 open
-                  ? { animation: `c4-spring-down-far 560ms cubic-bezier(.2,.8,.16,1) ${base + 80}ms both` }
+                  ? {
+                      animation: `c4-spring-down-far 560ms cubic-bezier(.2,.8,.16,1) ${
+                        base + 80
+                      }ms both`,
+                    }
                   : { transform: 'translateY(-12vh)' }
               }
             >
               <span className="uppercase tracking-wide">Close</span>
               <span
                 aria-hidden
-                className="relative inline-block h-[12px] w-6
-                 before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-white
-                 after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:bg-white
+                className="relative inline-block h-3 w-6
+                 before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-white
+                 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-white
                  before:translate-y-[5px] before:rotate-45 after:-translate-y-[5px] after:-rotate-45"
               />
             </button>
@@ -107,7 +121,9 @@ export default function MenuOverlay({ open, onClose }: Props) {
                       style={
                         open
                           ? {
-                              animation: `c4-spring-up-far 640ms cubic-bezier(.2,.8,.16,1) ${base + 160 + i * 90}ms both`,
+                              animation: `c4-spring-up-far 640ms cubic-bezier(.2,.8,.16,1) ${
+                                base + 160 + i * 90
+                              }ms both`,
                             }
                           : { transform: 'translateY(40vh)' }
                       }
@@ -125,7 +141,11 @@ export default function MenuOverlay({ open, onClose }: Props) {
               className="mt-8 flex flex-col gap-6 overflow-hidden"
               style={
                 open
-                  ? { animation: `c4-spring-right-far 580ms cubic-bezier(.2,.8,.16,1) ${base + 220}ms both` }
+                  ? {
+                      animation: `c4-spring-right-far 580ms cubic-bezier(.2,.8,.16,1) ${
+                        base + 220
+                      }ms both`,
+                    }
                   : { transform: 'translateX(50vw)' }
               }
             >
@@ -134,11 +154,15 @@ export default function MenuOverlay({ open, onClose }: Props) {
                 className="rounded-2xl border border-white/10 bg-black/30 p-3"
                 style={
                   open
-                    ? { animation: `c4-spring-right-far 600ms cubic-bezier(.2,.8,.16,1) ${base + 260}ms both` }
+                    ? {
+                        animation: `c4-spring-right-far 600ms cubic-bezier(.2,.8,.16,1) ${
+                          base + 260
+                        }ms both`,
+                      }
                     : { transform: 'translateX(50vw)' }
                 }
               >
-                <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl">
+                <div className="relative w-full aspect-video overflow-hidden rounded-xl">
                   <video
                     className="absolute inset-0 h-full w-full object-cover"
                     autoPlay
@@ -148,8 +172,10 @@ export default function MenuOverlay({ open, onClose }: Props) {
                     preload="metadata"
                     poster="/images/menu-poster.jpg"
                   >
-                    {/* Use your file in /public/videos */}
-                    <source src="/videos/dropdown-menu-video2.mp4" type="video/mp4" />
+                    <source
+                      src="/videos/dropdown-menu-video2.mp4"
+                      type="video/mp4"
+                    />
                     {/* <source src="/videos/test-video-menu.webm" type="video/webm" /> */}
                   </video>
                 </div>
@@ -165,15 +191,35 @@ export default function MenuOverlay({ open, onClose }: Props) {
                 className="flex gap-4"
                 style={
                   open
-                    ? { animation: `c4-spring-right-far 640ms cubic-bezier(.2,.8,.16,1) ${base + 420}ms both` }
+                    ? {
+                        animation: `c4-spring-right-far 640ms cubic-bezier(.2,.8,.16,1) ${
+                          base + 420
+                        }ms both`,
+                      }
                     : { transform: 'translateX(50vw)' }
                 }
               >
                 {[
-                  { href: 'https://instagram.com', icon: 'fa-instagram', fill: 'bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#cc2366]' },
-                  { href: 'https://facebook.com',  icon: 'fa-facebook-f', fill: 'bg-[#3b5999]' },
-                  { href: 'https://linkedin.com',  icon: 'fa-linkedin-in', fill: 'bg-[#0077b5]' },
-                  { href: 'https://wa.me/995',      icon: 'fa-whatsapp',   fill: 'bg-[#25D366]' },
+                  {
+                    href: 'https://instagram.com',
+                    icon: 'fa-instagram',
+                    fill: 'bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#cc2366]',
+                  },
+                  {
+                    href: 'https://facebook.com',
+                    icon: 'fa-facebook-f',
+                    fill: 'bg-[#3b5999]',
+                  },
+                  {
+                    href: 'https://linkedin.com',
+                    icon: 'fa-linkedin-in',
+                    fill: 'bg-[#0077b5]',
+                  },
+                  {
+                    href: 'https://wa.me/995',
+                    icon: 'fa-whatsapp',
+                    fill: 'bg-[#25D366]',
+                  },
                 ].map((s) => (
                   <li key={s.href}>
                     <a
@@ -181,10 +227,14 @@ export default function MenuOverlay({ open, onClose }: Props) {
                       target="_blank"
                       rel="noreferrer"
                       className="group relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-white text-[#0B1220] transition-all duration-500 overflow-hidden"
-                      aria-label={s.icon.replace('fa-','')}
+                      aria-label={s.icon.replace('fa-', '')}
                     >
-                      <i className={`fab ${s.icon} text-2xl relative z-10 transition-transform duration-700 group-hover:rotate-[360deg] group-hover:text-white`} />
-                      <span className={`absolute inset-0 top-full ${s.fill} transition-all duration-500 group-hover:top-0`} />
+                      <i
+                        className={`fab ${s.icon} text-2xl relative z-10 transition-transform duration-700 group-hover:rotate-360 group-hover:text-white`}
+                      />
+                      <span
+                        className={`absolute inset-0 top-full ${s.fill} transition-all duration-500 group-hover:top-0`}
+                      />
                     </a>
                   </li>
                 ))}
@@ -195,7 +245,11 @@ export default function MenuOverlay({ open, onClose }: Props) {
                 className="pt-4 text-xs text-white/55"
                 style={
                   open
-                    ? { animation: `c4-spring-right-far 560ms cubic-bezier(.2,.8,.16,1) ${base + 700}ms both` }
+                    ? {
+                        animation: `c4-spring-right-far 560ms cubic-bezier(.2,.8,.16,1) ${
+                          base + 700
+                        }ms both`,
+                      }
                     : { transform: 'translateX(50vw)' }
                 }
               >
@@ -205,7 +259,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-black/40 to-transparent" />
       </div>
     </div>
   );

@@ -38,18 +38,18 @@ export default function IntroLoaderChipDebug() {
   return (
     <div
       id="c4-intro-overlay"
-      className="fixed inset-0 z-[99999] grid place-items-end sm:place-items-center pointer-events-none"
+      className="fixed inset-0 z-99999 grid place-items-end sm:place-items-center pointer-events-none"
       aria-live="polite"
       suppressHydrationWarning
     >
       {/* backdrop */}
-      <div className="absolute inset-0 bg-[color:var(--color-bg)]/75 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-bg/75 backdrop-blur-sm" />
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(40%_55%_at_50%_60%,rgba(0,86,184,.35),rgba(0,194,255,.18)_55%,transparent)]" />
 
       {/* badge */}
       <div className="mb-8 sm:mb-0 relative pointer-events-none c4-chip-badge">
         <div className="absolute -inset-6 -z-10 blur-2xl opacity-80 bg-[radial-gradient(40%_60%_at_50%_100%,rgba(0,86,184,.30),rgba(0,194,255,.12)_70%,transparent)]" />
-        <div className="flex items-center gap-3 rounded-2xl bg-white/[0.06] px-6 py-4 ring-1 ring-white/10">
+        <div className="flex items-center gap-3 rounded-2xl bg-white/6 px-6 py-4 ring-1 ring-white/10">
           <div className="text-[--color-primary]">
             <MicrochipSVG />
           </div>
@@ -60,7 +60,7 @@ export default function IntroLoaderChipDebug() {
               className={
                 phase === 'connected'
                   ? 'font-semibold text-emerald-400 transition-colors'
-                  : 'font-semibold bg-gradient-to-r from-[#0056B8] via-[#00C2FF] to-[#0056B8] bg-clip-text text-transparent animate-[c4TextPulse_1.6s_ease-in-out_infinite]'
+                  : 'font-semibold bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-[c4TextPulse_1.6s_ease-in-out_infinite]'
               }
             >
               {statusText}
@@ -68,8 +68,8 @@ export default function IntroLoaderChipDebug() {
             <span className="text-white/85"> to Control4 Director</span>
 
             {phase === 'connecting' && (
-              <span aria-hidden="true" className="block mt-1 h-[2px] overflow-hidden rounded-full bg-white/10">
-                <span className="block h-full w-1/3 rounded-full bg-gradient-to-r from-[#0056B8] via-[#00C2FF] to-[#0056B8] animate-[c4Bar_1.4s_ease-in-out_infinite_alternate]" />
+              <span aria-hidden="true" className="block mt-1 h-0.5 overflow-hidden rounded-full bg-white/10">
+                <span className="block h-full w-1/3 rounded-full bg-linear-to-r from-primary via-accent to-primary animate-[c4Bar_1.4s_ease-in-out_infinite_alternate]" />
               </span>
             )}
           </div>

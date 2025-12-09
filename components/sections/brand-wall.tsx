@@ -18,6 +18,11 @@ const BRANDS: Brand[] = [
   { name: 'Denon', file: 'denon.svg' },
   { name: 'Yale', file: 'yale.svg' },
   { name: 'Sonos', file: 'sonos.svg' },
+  { name: 'Ubiquiti', file: 'ubiquiti.svg' },
+  { name: 'Dashlane', file: 'dashlane.svg' },
+  { name: 'PhilipsHue', file: 'philipshue.svg' },
+  { name: 'Panasonic', file: 'panasonic.svg' },
+  { name: 'google', file: 'google.svg' },
 ];
 
 export default function BrandWall() {
@@ -37,7 +42,7 @@ export default function BrandWall() {
   const onLeave = () => {
     const el = spotRef.current;
     if (!el) return;
-    // park spotlight off-canvas
+    // park spotlight off-canvas so the panel returns to calm state
     el.style.setProperty('--mx', `-1000px`);
     el.style.setProperty('--my', `-1000px`);
   };
@@ -45,9 +50,9 @@ export default function BrandWall() {
   return (
     <section
       aria-labelledby="brands"
-      className="relative overflow-hidden bg-[var(--color-surface)]/40 py-16 sm:py-20"
+      className="relative overflow-hidden bg-surface/40 py-16 sm:py-20"
     >
-      {/* Tech grid background */}
+      {/* Tech grid background behind everything */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.08]"
@@ -63,28 +68,38 @@ export default function BrandWall() {
         {/* Heading */}
         <div className="mb-8 sm:mb-10">
           <p className="text-xs sm:text-sm tracking-[0.22em] uppercase text-white/60">
-            Works with Control4 • ერთ სისტემაში, ათასობით მოწყობილობა
+            Works with Control4 • One System, Thousands of Devices
           </p>
-          <h2 id="brands" className="mt-2 text-3xl sm:text-4xl font-semibold text-white">
-            Works with <span className="text-[var(--color-primary)]">Control4</span>
+          <h2
+            id="brands"
+            className="mt-2 text-3xl sm:text-4xl font-semibold text-white"
+          >
+            Works with <span className="text-primary">Control4</span>
           </h2>
           <p className="mt-3 max-w-3xl text-white/75">
-            Your system integrates popular devices—manage them with a tap, voice, or full
-            automation. <span className="text-white/80">• Control4 სისტემები მუშაობს წამყვან ბრენდებთან.</span>
+            Control4 works effortlessly with the world-leading brands - giving
+            you simple, unified control of all your favorite devices in one
+            place.
           </p>
         </div>
 
-        {/* Spotlight wrapper */}
+        {/* Spotlight wrapper – this is the panel we make more visible */}
         <div
           ref={spotRef}
           onMouseMove={onMove}
           onMouseLeave={onLeave}
-          className="relative rounded-2xl p-6 sm:p-8 ring-1 ring-white/10 bg-[var(--color-bg)]/30"
+          className="
+            relative overflow-hidden
+            rounded-2xl p-6 sm:p-8
+            ring-1 ring-white/15
+            bg-[color-mix(in_oklab,var(--color-surface),#000000_22%)]
+            shadow-[0_24px_60px_rgba(0,0,0,0.85)]
+          "
           style={
             prefersReduced
               ? undefined
               : {
-                  // radial spotlight revealing max brightness under cursor
+                  // radial spotlight that reveals more brightness under the cursor
                   WebkitMaskImage:
                     'radial-gradient(240px 240px at var(--mx) var(--my), #000 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.85) 100%)',
                   maskImage:
@@ -93,9 +108,21 @@ export default function BrandWall() {
                 }
           }
         >
-          {/* Grid */}
+          {/* Soft inner glow so the panel reads as a card, not just flat bg */}
+          <div
+            aria-hidden
+            className="
+              pointer-events-none absolute inset-0
+              rounded-2xl
+              bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.07),transparent_65%)]
+              opacity-90
+            "
+          />
+
+          {/* Grid of logos */}
           <ul
             className="
+              relative
               grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5
               gap-x-8 gap-y-12 sm:gap-y-14
             "
@@ -107,15 +134,21 @@ export default function BrandWall() {
                 initial={prefersReduced ? false : { opacity: 0, y: 10 }}
                 whileInView={prefersReduced ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, delay: prefersReduced ? 0 : idx * 0.04 }}
+                transition={{
+                  duration: 0.45,
+                  delay: prefersReduced ? 0 : idx * 0.04,
+                }}
               >
                 <Image
                   src={`/logos/${b.file}`}
                   alt={b.name}
-                  width={b.width ?? 180}
-                  height={b.height ?? 72}
-                  // Make logos crisp/bright on dark
+                  width={0}
+                  height={0}
+                  // Responsive, smaller, cleaner icons
                   className="
+                    w-[100px] h-auto
+                    sm:w-[120px]
+                    md:w-[140px]
                     contrast-125 brightness-[2.1] invert
                     opacity-80 hover:opacity-100
                     transition-opacity duration-200
@@ -129,7 +162,8 @@ export default function BrandWall() {
         </div>
 
         <p className="mt-8 text-xs text-white/50">
-          Logos are trademarks of their respective owners. Shown for compatibility context only.
+          Logos are trademarks of their respective owners. Shown for
+          compatibility context only.
         </p>
       </Container>
     </section>

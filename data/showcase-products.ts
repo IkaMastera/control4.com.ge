@@ -63,7 +63,7 @@ export const showcaseProducts: ShowcaseProduct[] = [
     bullets: ["Pakedge hardware", "Traffic QoS", "Remote monitoring"],
     heroImage: "/images/network.jpg",
     thumb: "/images/network.jpg",
-    ctaLabel: "Stabilize Your Network",
+    ctaLabel: "Optimize Your Network",
     topic: "networking"
   },
   {

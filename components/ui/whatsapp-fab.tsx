@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 type Locale = 'ka' | 'en' | 'ru';
 
 type Props = {
-  phone?: string; // <-- added
+  phone?: string;
   message?: { ka?: string; en?: string; ru?: string };
   locale?: Locale;
   fixed?: boolean;

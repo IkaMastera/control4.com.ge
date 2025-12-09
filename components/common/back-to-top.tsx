@@ -31,7 +31,7 @@ export default function BackToTop() {
     <div
       aria-hidden={!show}
       className={`
-        fixed z-[55] right-4 sm:right-6
+        fixed z-55 right-4 sm:right-6
         ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}
         transition-all duration-300
       `}
@@ -48,7 +48,7 @@ export default function BackToTop() {
           border border-white/15
           shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_0_22px_rgba(0,194,255,0.45)]
           hover:scale-105 active:scale-95 transition-transform
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]/70
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70
         "
       >
         <ArrowUp className="w-6 h-6" aria-hidden="true" />

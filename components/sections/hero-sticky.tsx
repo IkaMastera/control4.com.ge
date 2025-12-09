@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/container";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 type VideoFit = "cover" | "contain" | "fill";
 
@@ -18,8 +20,6 @@ type Pane = {
   badgeAlt?: string;
   videoFit?: VideoFit;
   videoScale?: number;
-
-  // Kept for future use, not rendered now
   features?: string[];
   tagline?: string;
 };
@@ -37,7 +37,6 @@ const PANES: Pane[] = [
     videoScale: 1,
     tagline: "WHOLE-HOME AUTOMATION • EVERYTHING WORKS TOGETHER",
   },
-
   {
     id: "energy",
     eyebrow: "The central intelligence behind",
@@ -51,7 +50,6 @@ const PANES: Pane[] = [
     videoScale: 1,
     tagline: "CORE 5 CONTROLLER • THE ENGINE OF YOUR SMART HOME",
   },
-
   {
     id: "durable",
     eyebrow: "Effortless control through",
@@ -63,37 +61,41 @@ const PANES: Pane[] = [
     videoFit: "cover",
     videoScale: 1,
     tagline: "TOUCH PANEL • YOUR HOME AT YOUR FINGERTIPS",
-  }
+  },
 ];
 
 export default function HeroSticky() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
+  // Decide which pane is active based on scroll position
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
 
     let rAF = 0;
+
     const onScroll = () => {
       cancelAnimationFrame(rAF);
+
       rAF = requestAnimationFrame(() => {
         const rect = wrap.getBoundingClientRect();
         const viewportH = window.innerHeight;
+        const effectiveHeight = wrap.offsetHeight - viewportH * 0.7;
 
         const scrolled = Math.min(
           1,
           Math.max(
             0,
-            (viewportH - rect.top - viewportH * 0.05) /
-              (wrap.offsetHeight - viewportH)
-          )
+            (viewportH - rect.top - viewportH * 0.05) / effectiveHeight,
+          ),
         );
 
         const idx = Math.min(
           PANES.length - 1,
-          Math.max(0, Math.floor(scrolled * PANES.length))
+          Math.max(0, Math.floor(scrolled * PANES.length)),
         );
+
         setActive(idx);
       });
     };
@@ -109,27 +111,50 @@ export default function HeroSticky() {
     };
   }, []);
 
+  // Scroll page so that a specific pane becomes active
+  const scrollToPane = (index: number) => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+
+    const viewportH = window.innerHeight;
+    const wrapRect = wrap.getBoundingClientRect();
+    const wrapTop = wrapRect.top + window.scrollY;
+    const wrapHeight = wrap.offsetHeight;
+
+    const effectiveHeight = wrapHeight - viewportH * 0.7;
+    const segment = 1 / PANES.length;
+    const scrolledTarget = segment * (index + 0.5);
+
+    const newScrollY =
+      wrapTop - viewportH * 0.95 + scrolledTarget * effectiveHeight;
+
+    window.scrollTo({ top: newScrollY, behavior: "smooth" });
+  };
+
   return (
     <section
       id="hero-sticky"
       aria-label="Control4 Product Hero"
-      className="relative z-0 bg-[var(--color-bg)]"
+      className="relative z-0 bg-bg"
     >
       <div
         ref={wrapRef}
-        className="relative z-0 h-[500vh] sm:h-[560vh] rounded-none"
+        className="relative z-0 h-[360vh] rounded-none sm:h-[420vh] md:h-[480vh]"
       >
-        <Container className="sticky top-[var(--header-h,72px)] h-[calc(92.5svh-var(--header-h,72px))] py-4 sm:py-6">
-          <div className="grid h-full grid-cols-1 gap-6 md:grid-cols-[0.42fr_1fr]">
-            {/* LEFT PANEL */}
-            <div
+        <Container className="sticky top-(--header-h,72px) h-[calc(92.5svh-var(--header-h,72px))] py-4 sm:py-6">
+          <div className="relative grid h-full grid-cols-1 gap-6 md:grid-cols-[0.42fr_1fr]">
+            {/* LEFT PANEL – text block */}
+            <motion.div
               className="
-                rounded-2xl bg-[var(--color-surface)]/80 ring-1 ring-white/10
+                z-0 flex flex-col justify-between overflow-hidden
+                rounded-2xl bg-surface/80 ring-1 ring-white/10
                 p-6 sm:p-8 md:p-10 pb-12 md:pb-14 pb-safe
-                flex flex-col justify-between overflow-hidden z-0
               "
+              initial={{ opacity: 0, x: -40, y: 20, scale: 0.97 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <div className="relative min-h-0 z-0">
+              <div className="relative z-0 min-h-0">
                 {PANES.map((p, i) => (
                   <div
                     key={p.id}
@@ -138,48 +163,71 @@ export default function HeroSticky() {
                       absolute inset-0 transition-all duration-500
                       ${
                         active === i
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-4"
+                          ? "translate-y-0 opacity-100"
+                          : "translate-y-4 opacity-0"
                       }
                     `}
                   >
-                    <h2 className="text-white/90 text-base tracking-[0.15em] uppercase">
-                      {p.eyebrow}{" "}
-                      <span className="text-[var(--color-accent)]">•</span>
+                    <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-white/80 sm:text-sm">
+                      {p.eyebrow} <span className="text-accent">•</span>
                     </h2>
-                    <h3 className="mt-3 text-4xl sm:text-5xl font-semibold leading-tight text-white">
+                    <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
                       {p.title}{" "}
-                      <span className="text-[var(--color-accent)]">
-                        {p.highlight}
-                      </span>
+                      <span className="text-accent">{p.highlight}</span>
                     </h3>
+
+                    {/* MOBILE DOT NAV */}
+                    <div className="mt-3 flex gap-2 md:hidden pointer-events-auto">
+                      {PANES.map((pane, index) => (
+                        <button
+                          key={pane.id}
+                          type="button"
+                          aria-label={`Go to ${pane.title}`}
+                          aria-pressed={index === active}
+                          onClick={() => scrollToPane(index)}
+                          className={`
+                            h-3.5 w-3.5 cursor-pointer rounded-full border border-white/30 transition
+                            ${
+                              index === active
+                                ? "scale-110 bg-accent shadow-[0_0_0_4px_rgba(0,194,255,0.35)]"
+                                : "bg-white/10 hover:bg-white/40"
+                            }
+                          `}
+                        />
+                      ))}
+                    </div>
+
                     <div className="my-5 h-px w-full bg-white/15" />
-                    <p className="text-white/75 text-base sm:text-lg leading-relaxed">
+                    <p className="text-sm leading-relaxed text-white/75 sm:text-base">
                       {p.body}
                     </p>
                   </div>
                 ))}
               </div>
 
+              {/* CTA */}
               <a
                 href="/contact"
                 className="
-                  mt-8 inline-flex items-center justify-center gap-2 self-start
-                  rounded-xl border border-[var(--color-accent)]/60 px-4 py-3
-                  text-sm font-medium text-white hover:bg-[var(--color-accent)]/15
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 mb-4
+                  mt-8 mb-4 inline-flex items-center justify-center gap-2 self-start
+                  rounded-xl border border-accent/60 px-4 py-3
+                  text-sm font-medium text-white hover:bg-accent/15
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
                 "
               >
                 Order Today <ArrowUpRight className="h-4 w-4" />
               </a>
-            </div>
+            </motion.div>
 
-            {/* RIGHT PANEL – per-pane video behaviour */}
-            <div
+            {/* RIGHT PANEL – video area */}
+            <motion.div
               className="
-                relative rounded-2xl ring-1 ring-white/10
-                bg-black overflow-hidden
+                relative overflow-hidden rounded-2xl bg-black
+                ring-1 ring-white/10
               "
+              initial={{ opacity: 0, x: 40, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.08 }}
             >
               {PANES.map((p, i) => (
                 <div
@@ -188,18 +236,19 @@ export default function HeroSticky() {
                     absolute inset-0 transition-all duration-500
                     ${
                       active === i
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-4"
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-4 opacity-0"
                     }
                   `}
                 >
                   <div className="relative h-full w-full">
                     {p.badgeSrc && (
-                      <img
+                      <Image
                         src={p.badgeSrc}
                         alt={p.badgeAlt || ""}
+                        width={80}
+                        height={80}
                         className="absolute right-4 top-4 z-10 w-20"
-                        loading="lazy"
                       />
                     )}
 
@@ -234,6 +283,29 @@ export default function HeroSticky() {
                   </div>
                 </div>
               ))}
+            </motion.div>
+
+            {/* DESKTOP VERTICAL DOT NAV – clickable */}
+            <div className="pointer-events-none absolute inset-y-0 -left-10 hidden md:flex">
+              <div className="pointer-events-auto flex flex-col items-center justify-center gap-4">
+                {PANES.map((pane, index) => (
+                  <button
+                    key={pane.id}
+                    type="button"
+                    aria-label={`Go to ${pane.title}`}
+                    aria-pressed={index === active}
+                    onClick={() => scrollToPane(index)}
+                    className={`
+                      h-4 w-4 cursor-pointer rounded-full border border-white/30 transition
+                      ${
+                        index === active
+                          ? "scale-125 bg-accent shadow-[0_0_0_6px_rgba(0,194,255,0.35)]"
+                          : "bg-white/10 hover:bg-white/40"
+                      }
+                    `}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </Container>

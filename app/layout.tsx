@@ -9,6 +9,7 @@ import WhatsAppFAB from '@/components/ui/whatsapp-fab';
 import { SITE } from '@/data/config/site';
 
 
+
 const HeaderDynamic = dynamic(() => import('@/components/layout/header-dynamic'))
 
 export const metadata: Metadata = {
@@ -22,8 +23,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className='min-h-dvh bg-grid antialiased'>
         <HeaderDynamic />
 
-        <div className="relative pt-[var(--header-h,72px)]">
-          {children}
+        <div className="relative pt-(--header-h,72px)">
+
+            {children}
+
         </div>
        
 

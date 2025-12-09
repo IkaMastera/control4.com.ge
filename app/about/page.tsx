@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import AboutHero from "@/components/sections/about/about-hero";
+import AboutStats from "@/components/sections/about/about-stats";
+import AboutStory from "@/components/sections/about/about-story";
+import AboutProcess from "@/components/sections/about/about-process";
+import AboutPartners from "@/components/sections/about/about-partners";
+import AboutValues from "@/components/sections/about/about-values";
+
 
 export const metadata: Metadata = {
   title: "About | Control4 Georgia",
@@ -10,8 +16,13 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen bg-[#0D1117] text-white">
+    <main className="relative min-h-screen bg-bg text-white">
       <AboutHero />
+      <AboutStats />
+      <AboutStory />
+      <AboutProcess />
+      <AboutPartners />
+      <AboutValues />
     </main>
   );
 }

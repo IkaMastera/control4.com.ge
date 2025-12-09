@@ -20,14 +20,14 @@ export default function Footer() {
       "
     >
       {/* thin glowing top edge */}
-      <div className="h-px w-full bg-gradient-to-r from-[#0056B8]/40 via-[#00C2FF]/50 to-transparent" />
+      <div className="h-px w-full bg-linear-to-r from-primary/40 via-accent/50 to-transparent" />
 
       {/* animated scanline for 'techy' feel (very subtle) */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[2px] overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 top-0 h-0.5 overflow-hidden"
       >
-        <i className="block h-[2px] w-1/3 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[scan_6s_linear_infinite]" />
+        <i className="block h-0.5 w-1/3 bg-linear-to-r from-transparent via-white/60 to-transparent animate-[scan_6s_linear_infinite]" />
       </span>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -56,8 +56,8 @@ export default function Footer() {
             </div>
 
             <button
-              className="btn-glow rounded-2xl bg-[#0056B8] px-5 py-3 text-sm font-medium text-white shadow-sm 
-                        hover:bg-[#0063CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]"
+              className="btn-glow rounded-2xl bg-primary px-5 py-3 text-sm font-medium text-white shadow-sm 
+                        hover:bg-[#0063CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Subscribe
             </button>

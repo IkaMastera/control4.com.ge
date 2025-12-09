@@ -9,7 +9,7 @@ export default function ContactHalo() {
       aria-hidden
       className="
         pointer-events-none absolute inset-0 -z-10 overflow-hidden
-        [mask-image:linear-gradient(to_bottom,black_0%,black_88%,transparent_100%)]
+        mask-[linear-gradient(to_bottom,black_0%,black_88%,transparent_100%)]
       "
     >
       <Image
@@ -30,8 +30,8 @@ export default function ContactHalo() {
         shootingStarEverySec={[10, 20]}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[rgb(13,17,23)/.55] to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/25 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-[rgb(13,17,23)/.55] to-transparent" />
     </div>
   );
 }

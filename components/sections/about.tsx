@@ -7,7 +7,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative bg-[var(--color-surface)] text-[var(--color-ink)] py-24 sm:py-32"
+      className="relative bg-surface text-ink py-24 sm:py-32"
     >
       <Container className="max-w-4xl">
         {/* Accent line + heading */}
@@ -18,7 +18,7 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="mb-6"
         >
-          <div className="h-1 w-12 rounded-full bg-[var(--color-primary)] mb-4" />
+          <div className="h-1 w-12 rounded-full bg-primary mb-4" />
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
             About Control4 Georgia
           </h2>

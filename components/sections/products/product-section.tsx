@@ -44,7 +44,7 @@ export default function ProductSection({
       >
         {/* Media */}
         <Reveal y={22}>
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl ring-1 ring-white/10 bg-black/40">
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl ring-1 ring-white/10 bg-black/40">
             <Image
               src={heroImage}
               alt={name}
@@ -67,7 +67,7 @@ export default function ProductSection({
             <ul className="mt-4 space-y-2 text-white/85">
               {bullets.map((b, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span aria-hidden className="mt-2 h-1.5 w-1.5 rounded-full bg-[#00C2FF]" />
+                  <span aria-hidden className="mt-2 h-1.5 w-1.5 rounded-full bg-accent" />
                   <span className="text-sm">{b}</span>
                 </li>
               ))}

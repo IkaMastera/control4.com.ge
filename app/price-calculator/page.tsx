@@ -341,7 +341,7 @@ export default function CalculatorPage() {
 
           {/* RIGHT – SUMMARY */}
           <aside className="space-y-4">
-            <div className="rounded-2xl border border-primary/40 bg-gradient-to-b from-primary/20 via-surface/90 to-black/80 p-5 sm:p-6 shadow-[0_0_40px_rgba(0,86,184,0.45)]">
+            <div className="rounded-2xl border border-primary/40 bg-linear-to-b from-primary/20 via-surface/90 to-black/80 p-5 sm:p-6 shadow-[0_0_40px_rgba(0,86,184,0.45)]">
               <p className="text-xs uppercase tracking-[0.22em] text-primary/40 mb-2">
                 ESTIMATE · პირველადი ბიუჯეტი
               </p>
@@ -400,7 +400,7 @@ export default function CalculatorPage() {
                       </div>
                       <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
+                          className="h-full rounded-full bg-linear-to-r from-primary to-accent"
                           style={{ width: `${Math.max(8, share * 100)}%` }}
                         />
                       </div>

@@ -8,15 +8,26 @@ import { useLockBodyScroll } from '@/components/hooks/use-lock-body-scroll'
 
 export default function HeaderDynamic() {
   const [open, setOpen] = useState(false);
-  useLockBodyScroll(open);
+
+  // ensure we only use browser APIs after mount
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // lock scroll only on the client
+  useLockBodyScroll(open && mounted);
 
   const [scrolled, setScrolled] = useState(false);
+
   useEffect(() => {
+    if (!mounted) return;
+
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [mounted]);
 
   return (
     <>
@@ -24,7 +35,9 @@ export default function HeaderDynamic() {
         className={[
           'fixed top-0 z-50 w-full',
           'bg-[rgba(9,12,18,0.72)] backdrop-blur supports-[backdrop-filter]:bg-black/55',
-          scrolled ? 'shadow-[0_0_0_1px_rgba(0,194,255,.14),0_10px_30px_-12px_rgba(0,86,184,.35)]' : 'shadow-none',
+          mounted && scrolled
+            ? 'shadow-[0_0_0_1px_rgba(0,194,255,.14),0_10px_30px_-12px_rgba(0,86,184,.35)]'
+            : 'shadow-none',
           'transition-shadow duration-300',
         ].join(' ')}
       >
@@ -46,7 +59,6 @@ export default function HeaderDynamic() {
             />
           </Link>
 
-
           <div className="flex items-center gap-2">
 
             <div className="hidden lg:flex items-center gap-2">
@@ -58,7 +70,7 @@ export default function HeaderDynamic() {
               </Link>
               <Link
                 href="/price-calculator"
-                className="rounded-full border border-[#00C2FF]/30 bg-[#0056B8] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#0a63cf] transition"
+                className="rounded-full! btn-glow btn-glow--trio px-3! py-1.5! text-xs! font-medium text-white hover:bg-[#0a63cf] transition"
               >
                 Price Calculator
               </Link>
@@ -88,7 +100,7 @@ export default function HeaderDynamic() {
                     ? 'before:translate-y-[5px] before:rotate-45 after:-translate-y-[5px] after:-rotate-45'
                     : 'before:translate-y-0 after:translate-y-0',
                 ].join(' ')}
-            />
+              />
             </button>
           </div>
         </div>

@@ -177,7 +177,7 @@ export default function ProductDockMagnetic({
             ring-1 ring-white/10
             transition-all duration-200
             hover:scale-105 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_0_28px_rgba(0,194,255,0.7)]
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]/70
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70
             active:scale-95
             opacity-95 group-hover:opacity-100
           "
@@ -201,7 +201,7 @@ export default function ProductDockMagnetic({
             ring-1 ring-white/10
             transition-all duration-200
             hover:scale-105 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_0_28px_rgba(0,194,255,0.7)]
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]/70
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70
             active:scale-95
             opacity-95 group-hover:opacity-100
           "
@@ -330,8 +330,8 @@ function MagneticCard({
             object-cover select-none
             will-change-transform
             [image-rendering:-webkit-optimize-contrast]
-            [backface-visibility:hidden]
-            [transform:translateZ(0)]
+            backface-hidden
+            transform-[translateZ(0)]
           "
           draggable={false}
           priority={false}
@@ -339,7 +339,7 @@ function MagneticCard({
 
         <div
           aria-hidden
-          className="pointer-events-none absolute left-6 right-6 -bottom-2 h-[10px]
+          className="pointer-events-none absolute left-6 right-6 -bottom-2 h-2.5
                     rounded-full blur-md opacity-60"
           style={{
             background: 'linear-gradient(90deg, #00C2FF33, #0056B833)'
@@ -348,7 +348,7 @@ function MagneticCard({
 
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[1rem]"
+          className="pointer-events-none absolute inset-0 rounded-2xl"
           style={{
             background:
               'linear-gradient(180deg, rgba(0,194,255,.28), rgba(0,86,184,.28))',
@@ -360,7 +360,7 @@ function MagneticCard({
           }}
         />
         
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <div className="absolute inset-0 rounded-2xl bg-linear-to-t from-black/70 via-black/10 to-transparent" />
       </div>
 
       <div className="px-4 py-3 text-sm text-white/90 font-medium text-center">
