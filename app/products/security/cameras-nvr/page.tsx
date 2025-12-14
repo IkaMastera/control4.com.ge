@@ -41,7 +41,7 @@ const CAMERAS_RECORDING_CARDS: InfoCard[] = [
     body:
       "With Control4, you can remotely connect and command your home from virtually anywhere, whether inside the house or across the world. View live security camera footage on your television, Control4 touchscreens, and mobile devices. Control4 supports the same streaming capabilities utilized by popular high-performance surveillance cameras to deliver superior video quality and bandwidth savings, increasing efficiency and reliability.",
     imageSrc:
-      "/images/products/security/cameras-nvr/c4-surveillance-features.webp",
+      "/images/products/security/security-cameras1.webp",
     imageAlt: "Homeowner viewing surveillance footage on a TV.",
   },
   {
@@ -50,7 +50,7 @@ const CAMERAS_RECORDING_CARDS: InfoCard[] = [
     body:
       "Luma cameras are available in Bullet, Turret, Dome, Fisheye, and PTZ formats up to 8MP resolution, with fixed and varifocal lens options. Depending on the location and environment, you can choose models with Color at Night technology or IR imagery for low-light settings. Some cameras also feature Active Deterrence with flashing lights and built-in speakers to help ward off unwanted guests.",
     imageSrc:
-      "/images/products/security/cameras-nvr/exceptional-quality.webp",
+      "/images/products/security/security-cameras2.webp",
     imageAlt: "Collection of Luma surveillance cameras.",
   },
   {
@@ -59,7 +59,7 @@ const CAMERAS_RECORDING_CARDS: InfoCard[] = [
     body:
       "Luma NVRs provide powerful all-around performance, recording higher-resolution cameras on every channel with up to 12MP on some models. They offer 4K HDMI output and intelligent analytics capabilities, with configurations up to 32 channels and as much as 144TB of total storage for long-term retention.",
     imageSrc:
-      "/images/products/security/cameras-nvr/capture-moment.webp",
+      "/images/products/security/security-cameras3.webp",
     imageAlt: "Luma NVR on a rack with cameras.",
   },
   {
@@ -68,7 +68,7 @@ const CAMERAS_RECORDING_CARDS: InfoCard[] = [
     body:
       "Luma products are all NDAA-compliant and rigorously tested in quality labs to ensure optimal performance. A Luma 3-Year Limited Warranty provides additional assurance that your surveillance system is built to protect what matters most.",
     imageSrc:
-      "/images/products/security/cameras-nvr/quality-peace-of-mind.webp",
+      "/images/products/security/security-cameras4.webp",
     imageAlt: "Luma surveillance hardware on a dark background.",
   },
 ];
@@ -85,7 +85,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Luma Insights is a subscription-based AI solution that delivers around-the-clock surveillance monitoring for your Control4 Chime Video Doorbell, DS2 Door Station, and Luma X10 and X20 IP cameras.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-smart-surveillance.webp",
+      "/images/products/security/surveillance1.webp",
     imageAlt:
       "Luma cameras, NVR, video doorbell and mobile app running AI features.",
   },
@@ -95,7 +95,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Receive immediate, tailored alerts when someone or something enters a designated area. Each push notification includes a snapshot of the event, helping you instantly assess and respond as needed.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-real-time-alerts.webp",
+      "/images/products/security/surveillance2.webp",
     imageAlt: "Smartphone showing real-time security alerts.",
   },
   {
@@ -104,7 +104,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Jump straight from an alert to the camera’s live view. Need to share what happened? Access 7 days of video clip history and share events via SMS, AirDrop, email and more. Improve notifications and AI accuracy by flagging false positives.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-instant-access.webp",
+      "/images/products/security/surveillance3.webp",
     imageAlt: "User reviewing recorded security clips on a device.",
   },
   {
@@ -113,7 +113,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Enable or disable notifications for each trigger type on each camera individually, so you get alerted only about events that really matter to you.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-controls-empower.webp",
+      "/images/products/security/surveillance4.webp",
     imageAlt: "Control4 app configuration screen for alerts.",
   },
   {
@@ -122,7 +122,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Be alerted when a person enters a private, restricted or dangerous area within the camera view instead of relying solely on generic motion-based alerts, dramatically reducing unnecessary notifications.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-person-detection.webp",
+      "/images/products/security/surveillance5.webp",
     imageAlt: "AI overlay highlighting a person in camera view.",
   },
   {
@@ -131,7 +131,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Monitor driveways, parking lots and private areas with real-time alerts for vehicle entry, helping you track arrivals and potential intrusions.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-vehicle-detection.webp",
+      "/images/products/security/surveillance6.webp",
     imageAlt: "Vehicle entering a monitored driveway at night.",
   },
   {
@@ -140,7 +140,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Get notified the moment a package is detected or when one is removed. Stay on top of deliveries, pickups and potential package theft in real time.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-package-detection.webp",
+      "/images/products/security/surveillance7.webp",
     imageAlt: "Package at a doorstep captured by a doorbell camera.",
   },
   {
@@ -149,7 +149,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Whether it’s a family pet slipping out, deer in the garden or wildlife wandering through, smart alerts let you know whenever an animal passes by monitored areas.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-animal-detection.webp",
+      "/images/products/security/surveillance8.webp",
     imageAlt: "Animal moving through a yard at night on camera.",
   },
   {
@@ -158,7 +158,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "Snapshots and video clips are stored in the Control4 Cloud for 7 days, so you can review any surveillance-triggered event at your convenience from Control4 Touchscreens or the Control4 app on iOS and Android.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-cloud-storage.webp",
+      "/images/products/security/surveillance9.webp",
     imageAlt: "Cloud icon with security footage thumbnails.",
   },
   {
@@ -167,7 +167,7 @@ const SURVEILLANCE_AI_CARDS: InfoCard[] = [
     body:
       "On the History page, quickly find images or clips by filtering by date, camera or event type. Press and hold any entry to share snapshots or video clips via SMS, email, AirDrop and more.",
     imageSrc:
-      "/images/products/security/cameras-nvr/ai-easy-retrieval.webp",
+      "/images/products/security/surveillance10.webp",
     imageAlt: "User browsing surveillance history timeline.",
   },
 ];
@@ -184,9 +184,9 @@ const SMART_LOCK_CARDS: ProductCard[] = [
     body:
       "Baldwin smart locks blend elegant design with advanced security features, offering keyless entry and remote control for peace of mind. Integrated with Control4, they let you manage access, monitor door status and create personalized entry codes for a secure and sophisticated home.",
     imageSrc:
-      "/images/products/security/cameras-nvr/baldwin-locks.webp",
+      "/images/products/security/smartlock1.webp",
     imageAlt: "Baldwin smart lock installed on a front door.",
-    brochureHref: "#baldwin-brochure", // update with real link when ready
+    brochureHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e35e046c5a918471366d7_baldwin-doorlock-brochure-rev-a.pdf",
   },
   {
     id: "kwikset-locks",
@@ -194,18 +194,18 @@ const SMART_LOCK_CARDS: ProductCard[] = [
     body:
       "Kwikset’s Home Connect Technology allows their door locks to work seamlessly with Control4 and wirelessly communicate with other devices. Multiple models and styles make Kwikset a popular choice for Control4 customers.",
     imageSrc:
-      "/images/products/security/cameras-nvr/kwikset-locks.webp",
+      "/images/products/security/smartlock2.webp",
     imageAlt: "Kwikset smart lock in a modern interior.",
-    brochureHref: "#kwikset-brochure",
+    brochureHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e35dd6252ae1a99ab2dee_kwikset-doorlock-brochure-rev-b.pdf",
   },
   {
     id: "yale-locks",
     title: "Yale Smart Locks",
     body:
       "Yale Real Living locks are backed by nearly 200 years of security expertise. Available in several styles and finishes, they provide privacy modes for extra security and allow granular control over user access privileges.",
-    imageSrc: "/images/products/security/cameras-nvr/yale-locks.webp",
+    imageSrc: "/images/products/security/smartlock3.webp",
     imageAlt: "Yale smart lock on a contemporary door.",
-    brochureHref: "#yale-brochure",
+    brochureHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e382c782f711426ee8041_yale-brochure-rev-c.pdf",
   },
 ];
 
@@ -221,7 +221,7 @@ const MOTION_SENSOR_CARDS: InfoCard[] = [
     body:
       "Wireless motion sensors communicate motion and ambient light events to a Control4 system. Based on room occupancy, you can trigger and control events throughout the home. Sensing motion and light inside and outside allows automations that respond intelligently to movement and changing light levels.",
     imageSrc:
-      "/images/products/security/cameras-nvr/wireless-motion-sensor.webp",
+      "/images/products/security/sensor1.webp",
     imageAlt: "Wireless motion sensor on a wall.",
   },
   {
@@ -230,7 +230,7 @@ const MOTION_SENSOR_CARDS: InfoCard[] = [
     body:
       "Packed with intelligent features, wireless contact sensors expand home automation possibilities — monitoring doors, gates and windows inside or outside the home. A simple example: a door sensor that, when opened, turns on the entry light.",
     imageSrc:
-      "/images/products/security/cameras-nvr/contact-sensors.webp",
+      "/images/products/security/sensor2.webp",
     imageAlt: "Door contact sensors in different finishes.",
   },
 ];
@@ -273,7 +273,7 @@ export default function CamerasNvrPage() {
           >
             <div className="relative aspect-video w-full">
               <Image
-                src="/images/products/security/cameras-nvr/hero.webp"
+                src="/images/products/security/security-hero.webp"
                 alt="Luma cameras, NVR and mobile apps on a dark background."
                 fill
                 className="object-cover"
@@ -534,6 +534,8 @@ export default function CamerasNvrPage() {
                   {card.brochureHref && (
                     <div className="mt-4 pt-1">
                       <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
                         href={card.brochureHref}
                         className="inline-flex items-center text-sm font-medium text-sky-400 hover:text-sky-300"
                       >

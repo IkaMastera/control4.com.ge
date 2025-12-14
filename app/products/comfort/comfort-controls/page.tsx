@@ -54,9 +54,9 @@ const COMFORT_CARDS: ComfortCard[] = [
       "Continuously measures the energy used by the fan for better insight and efficiency.",
       "Available in up to nine designer colours and finishes to match your keypads and décor.",
     ],
-    imageSrc: "/images/products/comfort/variable-fan-speed.webp",
+    imageSrc: "/images/products/comfort-controls/comfort-control2.webp",
     imageAlt: "Smart keypad controlling a ceiling fan.",
-    specHref: "#fan-speed-spec",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3bfe4e36df04abce6583_156_24_LuxLighting_SpecSheet_C4-L-4SF120.pdf",
   },
   {
     id: "fireplace-switch",
@@ -69,9 +69,9 @@ const COMFORT_CARDS: ComfortCard[] = [
       "Trigger the fireplace from scenes like Relax, Movie Night or Good Morning.",
       "Helps improve safety by tying the fireplace into occupancy and lockout logic.",
     ],
-    imageSrc: "/images/products/comfort/fireplace-switch.webp",
+    imageSrc: "/images/products/comfort-controls/comfort-control3.webp",
     imageAlt: "Modern fireplace controlled by a smart switch.",
-    specHref: "#fireplace-switch-spec",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3c1ecc0584d5fa4bd36f_156_24_LuxLighting_SpecSheet_C4-L-FSW.pdf",
   },
 ];
 
@@ -110,7 +110,7 @@ export default function ComfortControlsPage() {
           >
             <div className="relative aspect-video w-full">
               <Image
-                src="/images/products/comfort/comfort-controls-hero.webp"
+                src="/images/products/comfort-controls/comfort-control1.webp"
                 alt="Bright living room with a modern fireplace."
                 fill
                 className="object-cover"
@@ -202,6 +202,8 @@ export default function ComfortControlsPage() {
                     <Link
                       href={card.specHref}
                       className="inline-flex items-center text-sm font-medium text-sky-400 hover:text-sky-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       View spec sheet
                       <span className="ml-1 text-xs">→</span>

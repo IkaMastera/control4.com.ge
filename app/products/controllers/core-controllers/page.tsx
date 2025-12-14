@@ -42,7 +42,7 @@ const CONTROLLERS: ControllerItem[] = [
       "Control4 Connect for remote access from the Control4 App on iOS, Android and Apple Watch.",
       "Cloud features like proactive alerts, Intercom Anywhere, Apple Music integration, routines and secure cloud backups.",
     ],
-    imageSrc: "/images/products/controllers/core-controllers.webp",
+    imageSrc: "/images/products/core-controllers/core-controllers1.webp",
     imageAlt: "Rack of Control4 Core Controllers.",
   },
   {
@@ -58,8 +58,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Built-in Wi-Fi, Zigbee and Z-Wave radios for wireless smart devices.",
       "With a Connect subscription, adds remote access, Intercom Anywhere and voice integrations.",
     ],
-    specHref: "#core-5-spec",
-    imageSrc: "/images/products/controllers/core-5.webp",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30309ea251d3e0fba97f_core-5-data-sheet-rev-c.pdf",
+    imageSrc: "/images/products/core-controllers/core5-controller.webp",
     imageAlt: "Close-up of CORE 5 in a rack.",
   },
   {
@@ -75,8 +75,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Wi-Fi, Zigbee and Z-Wave for flexible wireless device support.",
       "Connect subscription adds remote access, Intercom Anywhere and voice integrations.",
     ],
-    specHref: "#core-3-spec",
-    imageSrc: "/images/products/controllers/core-3.webp",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e308c631d8234e954490d_core-3-data-sheet-rev-d.pdf",
+    imageSrc: "/images/products/core-controllers/core3-controller.webp",
     imageAlt: "CORE 3 controller on a dark surface.",
   },
   {
@@ -92,8 +92,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Wi-Fi and Zigbee radios for smart device control.",
       "Connect subscription unlocks remote access, Intercom Anywhere and voice integrations.",
     ],
-    specHref: "#core-1-spec",
-    imageSrc: "/images/products/controllers/core-1.webp",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30ad3c24982263618a70_core-1-data-sheet-rev-d.pdf",
+    imageSrc: "/images/products/core-controllers/core1-controller.webp",
     imageAlt: "CORE 1 controller on a table.",
   },
   {
@@ -108,7 +108,7 @@ const CONTROLLERS: ControllerItem[] = [
       "Bundles let you choose the ideal remote: Halo Touch, Halo, Neeo or SR-260.",
     ],
     specHref: "#core-lite-spec",
-    imageSrc: "/images/products/controllers/core-lite-bundle.webp",
+    imageSrc: "/images/products/core-controllers/corelite-bundle.webp",
     imageAlt: "Group of Control4 remotes with a CORE controller.",
   },
   {
@@ -122,8 +122,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Redundant design with multiple fail-safes to keep the system running even if a PSU, network port, SSD or cooling fan fails.",
       "Built to run mission-critical automation with a long warranty and service life.",
     ],
-    specHref: "#ca-10-spec",
-    imageSrc: "/images/products/controllers/ca-10.webp",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3096f1e798920f897562_ca-10-automation-controller-data-sheet-rev-b.pdf",
+    imageSrc: "/images/products/core-controllers/core-ca10-controller.webp",
     imageAlt: "CA-10 automation server in a rack.",
   },
   {
@@ -137,8 +137,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Controls devices over the network, via serial (for security panels) and wirelessly over Wi-Fi and Zigbee.",
       "Can be expanded with Z-Wave support when needed.",
     ],
-    specHref: "#ca-1-spec",
-    imageSrc: "/images/products/controllers/ca-1.webp",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30a04f4820484bddc3c0_ca-1-automation-controller-data-sheet-rev-b.pdf",
+    imageSrc: "/images/products/core-controllers/core-ca1-controller.webp",
     imageAlt: "CA-1 controller on a desk next to decor.",
   },
 ];
@@ -178,7 +178,7 @@ export default function ControllersPage() {
           >
             <div className="relative aspect-[16/9] w-full">
               <Image
-                src="/images/products/controllers/core-family-hero.webp"
+                src="/images/products/core-controllers/core-hero.webp"
                 alt="Control4 Core Controllers hero group shot."
                 fill
                 className="object-cover"
@@ -285,6 +285,8 @@ export default function ControllersPage() {
                 {item.specHref && (
                   <div className="mt-auto pt-3">
                     <Link
+                      target="_blank"
+                      rel="noopener noreferrer"
                       href={item.specHref}
                       className="inline-flex items-center text-sm font-medium text-sky-400 hover:text-sky-300"
                     >

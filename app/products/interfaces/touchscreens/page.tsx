@@ -39,7 +39,7 @@ const TOUCHSCREEN_CARDS: TouchscreenCard[] = [
       "Adjust scenes, color-capable lighting, climate and security from a single screen.",
       "Use Access Agent to lock or password-protect controls so only the right people can make changes.",
     ],
-    imageSrc: "/images/products/interfaces/touchscreens/touchscreen-features.webp",
+    imageSrc: "/images/products/touchscreens/touchscreen1.webp",
     imageAlt: "Control4 touchscreen showing whole-home status.",
   },
   {
@@ -52,9 +52,9 @@ const TOUCHSCREEN_CARDS: TouchscreenCard[] = [
       "Glossy black or white finishes to match modern interiors.",
       "Perfect for high-traffic areas where quick access to lighting, security and intercom matters.",
     ],
-    imageSrc: "/images/products/interfaces/touchscreens/touchscreen-tabletop.webp",
+    imageSrc: "/images/products/touchscreens/touchscreen2.webp",
     imageAlt: "Tabletop Control4 touchscreen on a counter.",
-    specHref: "#touchscreens-spec",
+    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30db1c02a99481189988_t4-series-touchscreen-data-sheet-rev-d.pdf",
   },
 ];
 
@@ -93,7 +93,7 @@ export default function TouchscreensPage() {
           >
             <div className="relative aspect-video w-full">
               <Image
-                src="/images/products/interfaces/touchscreens/touchscreen-hero.webp"
+                src="/images/products/touchscreens/touchscreen-hero.webp"
                 alt="Control4 T4 touchscreen on a table."
                 fill
                 className="object-cover"
@@ -192,6 +192,8 @@ export default function TouchscreensPage() {
                 {card.specHref && (
                   <div className="mt-4 pt-1">
                     <Link
+                      target="_blank"
+                      rel="noopener noreferrer"
                       href={card.specHref}
                       className="inline-flex items-center text-sm font-medium text-sky-400 hover:text-sky-300"
                     >

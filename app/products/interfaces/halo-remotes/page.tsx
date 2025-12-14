@@ -41,7 +41,7 @@ const FEATURE_CARDS: FeatureCard[] = [
       "Use Xfinity Voice when you are watching Xfinity – push-to-talk for the Xfinity Voice Remote.",
       "Keep a single Halo or Halo Touch on the coffee table while other remotes stay in the drawer.",
     ],
-    imageSrc: "/images/products/interfaces/halo/halo-voice.webp",
+    imageSrc: "/images/products/halo-remotes/halo2.webp",
     imageAlt: "Halo remote highlighting voice assistant button.",
   },
   {
@@ -57,7 +57,7 @@ const FEATURE_CARDS: FeatureCard[] = [
       "Quick-access Watch, Listen and Now Playing pages from the sleep screen.",
       "Use one-handed or in the dark thanks to tactile, backlit buttons that are always ready.",
     ],
-    imageSrc: "/images/products/interfaces/halo/halo-touch.webp",
+    imageSrc: "/images/products/halo-remotes/halo3.webp",
     imageAlt: "Halo Touch remote in black and silver.",
   },
   {
@@ -72,7 +72,7 @@ const FEATURE_CARDS: FeatureCard[] = [
       "New Color Shortcut button maps red / green / blue / yellow functions to 2, 4, 6 and 8.",
       "Complete set of hard, backlit buttons for confident control without looking down.",
     ],
-    imageSrc: "/images/products/interfaces/halo/halo-remote.webp",
+    imageSrc: "/images/products/halo-remotes/halo1.webp",
     imageAlt: "Standard Halo remotes lined up together.",
   },
 ];
@@ -112,7 +112,7 @@ export default function HaloRemotesPage() {
           >
             <div className="relative aspect-video w-full">
               <Image
-                src="/images/products/interfaces/halo/halo-hero.webp"
+                src="/images/products/halo-remotes/halo-hero.webp"
                 alt="Control4 Halo and Halo Touch remotes hero image."
                 fill
                 className="object-cover"

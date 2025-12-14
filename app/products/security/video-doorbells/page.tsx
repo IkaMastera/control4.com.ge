@@ -37,7 +37,7 @@ const CORE_FEATURE_CARDS: FeatureCard[] = [
     body:
       "With motion detection, you are instantly notified that a package has been delivered, even if the bell is not pressed. Video snapshots can be delivered directly to your mobile device or Control4 Touchscreen when someone rings Chime, whether you’re inside or on the go. If you miss a notification, you can still access seven days of snapshots and video recordings.",
     imageSrc:
-      "/images/products/security/video-doorbells/smart-motion-alerts.webp",
+      "/images/products/security/video1.webp",
     imageAlt: "Notification from a video doorbell on a smartphone screen.",
   },
   {
@@ -46,7 +46,7 @@ const CORE_FEATURE_CARDS: FeatureCard[] = [
     body:
       "Chime includes five adjustable motion zones so you don’t get notified for every car that drives by. Your integrator can configure snapshots or recordings whenever someone steps into a specific zone and trigger outdoor lighting when motion is detected on the porch. Your Control4 system can even turn lights on automatically when a person is detected after a certain time of night.",
     imageSrc:
-      "/images/products/security/video-doorbells/motion-zones.webp",
+      "/images/products/security/video2.webp",
     imageAlt: "Camera view with overlaid motion detection zones.",
   },
   {
@@ -55,7 +55,7 @@ const CORE_FEATURE_CARDS: FeatureCard[] = [
     body:
       "First impressions matter, even at the front door. Chime is available in black and nickel finishes for a luxurious appearance, while crisp, natural two-way audio and high-definition video provide user-friendly communication. Night mode keeps the image clear in low light, and the 180-degree field of view lets you monitor more than just the porch.",
     imageSrc:
-      "/images/products/security/video-doorbells/engineering-elegance.webp",
+      "/images/products/security/video4.webp",
     imageAlt: "Control4 Chime doorbells in black and nickel finishes.",
   },
 ];
@@ -67,7 +67,7 @@ const EXPERIENCE_CARDS: FeatureCard[] = [
     body:
       "A large, high-resolution screen lets you see who’s at the door from across the room without reaching for your phone. When Chime is pressed or motion is detected, video can pop up on every Control4 Touchscreen so everyone can see who’s there. You can also call into any touchscreen from the Control4 App, or broadcast a message to every touchscreen when it’s time for dinner.",
     imageSrc:
-      "/images/products/security/video-doorbells/touchscreens-companion.webp",
+      "/images/products/security/video3.webp",
     imageAlt: "Control4 touchscreen showing live video from the doorbell.",
   },
   {
@@ -76,7 +76,7 @@ const EXPERIENCE_CARDS: FeatureCard[] = [
     body:
       "A Control4 Connect subscription unlocks hands-on personalization, voice control, and remote access to your Control4 Smart Home. Connect enables Intercom Anywhere so you can use your phone to monitor and communicate with touchscreens throughout the home, and provides 7 days of cloud storage for Chime snapshots and video recordings.",
     imageSrc:
-      "/images/products/security/video-doorbells/enabled-by-connect.webp",
+      "/images/products/security/video6.webp",
     imageAlt: "Control4 app interface representing Connect subscription.",
   },
   {
@@ -85,7 +85,7 @@ const EXPERIENCE_CARDS: FeatureCard[] = [
     body:
       "Integration with Luma Insights adds premium AI that detects people, packages or vehicles in predefined areas. When something is detected, you receive a proactive alert with a snapshot and a deep link to the video clip or live stream. Snapshots and clips are stored in the cloud for 7 days and are easily accessed from Control4 Touchscreens or the Control4 App.",
     imageSrc:
-      "/images/products/security/video-doorbells/luma-insights-ai.webp",
+      "/images/products/security/video5.webp",
     imageAlt:
       "AI surveillance interface highlighting people, vehicles and packages.",
   },
@@ -130,7 +130,7 @@ export default function VideoDoorbellsPage() {
           >
             <div className="relative aspect-video w-full">
               <Image
-                src="/images/products/security/video-doorbells/hero.webp"
+                src="/images/products/security/video-doorbell-hero.webp"
                 alt="Control4 Chime video doorbell with live video shown on a phone."
                 fill
                 priority
@@ -179,13 +179,17 @@ export default function VideoDoorbellsPage() {
 
             <div className="flex flex-wrap gap-3 pt-2 text-xs">
               <Link
-                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e32711ef894b9b18b8d64_Control4-Chime-Data-Sheet-rev-b.pdf"
                 className="inline-flex items-center rounded-full border border-sky-400/80 px-4 py-2 font-medium text-sky-100 hover:border-sky-300 hover:text-sky-50"
               >
                 View spec sheet
               </Link>
               <Link
-                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3272b6b3f7425c57c2f2_Control4-Chime-Trifold-rev-a.pdf"
                 className="inline-flex items-center rounded-full border border-sky-400/40 px-4 py-2 font-medium text-sky-100/80 hover:border-sky-300/80 hover:text-sky-50"
               >
                 View brochure
