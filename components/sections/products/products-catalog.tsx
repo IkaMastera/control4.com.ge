@@ -23,8 +23,8 @@ type Product = {
   description: string;
   category: CatalogCategoryId;
   href: string;
-  imageSrc?: string; // optional image for the card
-  imageAlt?: string; // optional alt text
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
 /* ---- DATA ---- */
@@ -39,7 +39,6 @@ const CATEGORIES: { id: CatalogCategoryId; label: string }[] = [
   { id: "lighting", label: "Smart Lighting & Control" },
 ];
 
-// no TVs, no thermostats, no door stations here
 const PRODUCTS: Product[] = [
   {
     id: "triad-audio",
@@ -137,7 +136,6 @@ const PRODUCTS: Product[] = [
 
 /* ---- FRAMER MOTION VARIANTS ---- */
 
-/* cards container – controls stagger for left→right reveal */
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -145,25 +143,20 @@ const containerVariants: Variants = {
     transition: {
       duration: 0.3,
       ease: "easeOut",
-      staggerChildren: 0.08, // cards come one by one
+      staggerChildren: 0.08,
     },
   },
 };
 
-/* each card – slide in from the left */
 const cardVariants: Variants = {
   hidden: { opacity: 0, x: -18 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: {
-      duration: 0.35,
-      ease: "easeOut",
-    },
+    transition: { duration: 0.35, ease: "easeOut" },
   },
 };
 
-/* catalog container – whole rail fades in and then children are staggered */
 const catalogContainerVariants: Variants = {
   hidden: { opacity: 0, y: -8 },
   visible: {
@@ -173,21 +166,17 @@ const catalogContainerVariants: Variants = {
       duration: 0.3,
       ease: "easeOut",
       delayChildren: 0.05,
-      staggerChildren: 0.06, // items appear top → down
+      staggerChildren: 0.06,
     },
   },
 };
 
-/* catalog item – small slide from top */
 const catalogItemVariants: Variants = {
   hidden: { opacity: 0, y: -6 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.22,
-      ease: "easeOut",
-    },
+    transition: { duration: 0.22, ease: "easeOut" },
   },
 };
 
@@ -197,7 +186,6 @@ export default function ProductsCatalog() {
   const [activeCategory, setActiveCategory] =
     useState<CatalogCategoryId>("all");
 
-  // filter cards by category
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return PRODUCTS;
     return PRODUCTS.filter((p) => p.category === activeCategory);
@@ -208,7 +196,6 @@ export default function ProductsCatalog() {
       id="product-catalog"
       className="relative overflow-hidden border-t border-sky-500/15 bg-slate-950"
     >
-      {/* soft glow in background */}
       <div className="pointer-events-none absolute inset-x-0 -top-40 h-72 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35),transparent_60%)] opacity-70" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-[radial-gradient(circle_at_bottom,_rgba(8,47,73,0.9),transparent_60%)] opacity-80" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(15,23,42,0.1),rgba(15,23,42,1))]" />
@@ -228,7 +215,6 @@ export default function ProductsCatalog() {
         </div>
 
         <div className="lg:flex lg:items-start lg:gap-10">
-          {/* LEFT RAIL */}
           <aside className="mb-10 lg:mb-0 lg:w-64 lg:shrink-0">
             <motion.div
               className="border-l border-sky-500/40 pl-4 lg:sticky lg:top-28"
@@ -252,7 +238,6 @@ export default function ProductsCatalog() {
                           : "text-slate-400 hover:text-sky-100",
                       ].join(" ")}
                     >
-                      {/* small line on the left of each item */}
                       <span
                         className={[
                           "h-px rounded transition-all",
@@ -271,7 +256,6 @@ export default function ProductsCatalog() {
             </motion.div>
           </aside>
 
-          {/* RIGHT SIDE – cards sit to the right of catalog on desktop */}
           <motion.div
             key={activeCategory}
             variants={containerVariants}
@@ -288,7 +272,6 @@ export default function ProductsCatalog() {
                   transition={{ type: "spring", stiffness: 190, damping: 20 }}
                   className="group flex flex-col overflow-hidden rounded-3xl border border-sky-500/12 bg-slate-950/80 p-4 shadow-[0_18px_40px_rgba(2,6,23,0.9)] ring-1 ring-slate-900/70"
                 >
-                  {/* image or placeholder */}
                   {product.imageSrc ? (
                     <div className="mb-3 aspect-[16/10] w-full overflow-hidden rounded-2xl bg-slate-900 ring-1 ring-slate-800/70">
                       <div className="relative h-full w-full">
@@ -296,6 +279,7 @@ export default function ProductsCatalog() {
                           src={product.imageSrc}
                           alt={product.imageAlt ?? product.name}
                           fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-cover"
                         />
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />

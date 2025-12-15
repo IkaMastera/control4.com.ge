@@ -48,8 +48,7 @@ const PRIMARY_CARDS: InfoCard[] = [
     title: "Beyond the Bulb",
     body:
       "Control4 Vibrant Lighting solutions shine new light on the potential of any space. Fully integrated temperature, color, and brightness elevate an environment into an automated personal experience.",
-    imageSrc:
-      "/images/products/vibrant-linear-lighting/vibrant1.webp",
+    imageSrc: "/images/products/vibrant-linear-lighting/vibrant1.webp",
     imageAlt: "Modern kitchen with integrated linear lighting accents.",
   },
   {
@@ -59,9 +58,9 @@ const PRIMARY_CARDS: InfoCard[] = [
       "Daylight automatically adjusts the brightness and color temperature of fully tunable white (CCT) LEDs to mimic the natural light cycle of the sun, supporting circadian health.",
     body2:
       "Lights start warm and dim with sunrise, then gradually brighten and cool through the day before warming and dimming again in the evening, matching the natural rhythm of the sun.",
-    imageSrc:
-      "/images/products/vibrant-linear-lighting/vibrant2.webp",
-    imageAlt: "Different rooms showing changing color temperature throughout the day.",
+    imageSrc: "/images/products/vibrant-linear-lighting/vibrant2.webp",
+    imageAlt:
+      "Different rooms showing changing color temperature throughout the day.",
   },
   {
     id: "multi-dimensional",
@@ -70,8 +69,7 @@ const PRIMARY_CARDS: InfoCard[] = [
       "The Vibrant Linear Lighting system pairs high-quality LED strips with aluminum extrusions to create a premium diffusion experience.",
     body2:
       "Felt more than it is seen, linear lighting from Vibrant erases harsh shadows and highlights architectural details, adding an accent layer that transforms flat spaces into fully personalized environments.",
-    imageSrc:
-      "/images/products/vibrant-linear-lighting/vibrant3.webp",
+    imageSrc: "/images/products/vibrant-linear-lighting/vibrant3.webp",
     imageAlt: "Linear profiles emphasizing architectural lines in a living space.",
   },
   {
@@ -81,8 +79,7 @@ const PRIMARY_CARDS: InfoCard[] = [
       "Beyond the bulb lies the opportunity to enable lighting experiences that support lifestyle choices and the functional needs of a space — something simple dimmers cannot match.",
     body2:
       "Add splashes of color for celebrations, or automate subtle, incremental sun transitions with warm-to-cool white ambient light for circadian alignment.",
-    imageSrc:
-      "/images/products/vibrant-linear-lighting/vibrant4.webp",
+    imageSrc: "/images/products/vibrant-linear-lighting/vibrant4.webp",
     imageAlt: "Room with colorful accent lighting and tunable white ambient light.",
   },
 ];
@@ -95,8 +92,7 @@ const SECONDARY_CARDS: InfoCard[] = [
       "Vibrant Linear Lighting works beautifully in both residential and commercial spaces.",
     body2:
       "A thoughtful layout combined with your preferred automated colors, hues, and temperatures can energize a workspace just as easily as it can create a calm wellness retreat — any mood is just a few scenes away.",
-    imageSrc:
-      "/images/products/vibrant-linear-lighting/vibrant7.webp",
+    imageSrc: "/images/products/vibrant-linear-lighting/vibrant7.webp",
     imageAlt: "Restaurant bar and lounge with layered linear lighting.",
   },
   {
@@ -106,8 +102,7 @@ const SECONDARY_CARDS: InfoCard[] = [
       "Vibrant uses only high-end, single-bin, temperature-validated diodes across the line-up.",
     body2:
       "With a 90+ color rendering index, the system delivers authentic, rich colors so finishes, fabrics, and artwork look exactly as they should.",
-    imageSrc:
-      "/images/products/vibrant-linear-lighting/vibrant5.webp",
+    imageSrc: "/images/products/vibrant-linear-lighting/vibrant5.webp",
     imageAlt: "Close-up of high quality LED diode and extrusion hardware.",
   },
   {
@@ -117,8 +112,7 @@ const SECONDARY_CARDS: InfoCard[] = [
       "Vibrant Linear Lighting is highly adaptable, friendly to most surfaces, and easy to install. Slim 12 mm extrusion mounts fit into tight clearances, while aluminum profiles dissipate heat and diffuse light through a frosted lens.",
     body2:
       "It’s designed for seamless Control4 integration via phase dimming, DMX, DALI, and the new Zigbee Control Module, so you can treat it like any other native lighting load in the project.",
-    imageSrc:
-      "/images/products/vibrant-linear-lighting/vibrant6.webp",
+    imageSrc: "/images/products/vibrant-linear-lighting/vibrant6.webp",
     imageAlt: "LED profiles installed in cabinetry and stair details.",
     features: [
       "Fixed Color LEDs: 2700K, 3000K, 4000K",
@@ -168,6 +162,7 @@ export default function VibrantLinearLightingPage() {
                 src="/images/products/vibrant-linear-lighting/vibrant-linear-lighting-bg.webp"
                 alt="Vibrant linear lighting highlighting a modern interior."
                 fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover"
                 priority
               />
@@ -226,6 +221,7 @@ export default function VibrantLinearLightingPage() {
                 src="/images/products/vibrant-linear-lighting/vibrant-lookbook.webp"
                 alt="Vibrant Linear Lighting lookbook cover in a modern kitchen."
                 fill
+                sizes="(min-width: 640px) 256px, 100vw"
                 className="object-cover"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
@@ -275,6 +271,7 @@ export default function VibrantLinearLightingPage() {
                     src={card.imageSrc}
                     alt={card.imageAlt ?? card.title}
                     fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     className="object-cover"
                   />
                 ) : (
@@ -323,6 +320,7 @@ export default function VibrantLinearLightingPage() {
                     src={card.imageSrc}
                     alt={card.imageAlt ?? card.title}
                     fill
+                    sizes="(min-width: 1024px) 33vw, 100vw"
                     className="object-cover"
                   />
                 ) : (

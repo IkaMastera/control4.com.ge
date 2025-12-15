@@ -44,9 +44,9 @@ const TOUCHSCREEN_CARDS: TouchscreenCard[] = [
   },
   {
     id: "tabletop-inwall",
-    title: "Tabletop or In-Wall, 8\" or 10\"",
+    title: 'Tabletop or In-Wall, 8" or 10"',
     body:
-      "The 8\" and 10\" T4 touchscreens bring total system control to where you actually live and work. Their clean tablet-style design and crisp high-resolution graphics look good on a table, a counter or mounted in a hallway. They are ideal for whole-home communication, intercom and everyday control.",
+      'The 8" and 10" T4 touchscreens bring total system control to where you actually live and work. Their clean tablet-style design and crisp high-resolution graphics look good on a table, a counter or mounted in a hallway. They are ideal for whole-home communication, intercom and everyday control.',
     bullets: [
       "Available as portable tabletop models on a rechargeable dock or as in-wall touchscreens.",
       "Glossy black or white finishes to match modern interiors.",
@@ -54,7 +54,8 @@ const TOUCHSCREEN_CARDS: TouchscreenCard[] = [
     ],
     imageSrc: "/images/products/touchscreens/touchscreen2.webp",
     imageAlt: "Tabletop Control4 touchscreen on a counter.",
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30db1c02a99481189988_t4-series-touchscreen-data-sheet-rev-d.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30db1c02a99481189988_t4-series-touchscreen-data-sheet-rev-d.pdf",
   },
 ];
 
@@ -96,6 +97,7 @@ export default function TouchscreensPage() {
                 src="/images/products/touchscreens/touchscreen-hero.webp"
                 alt="Control4 T4 touchscreen on a table."
                 fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover"
                 priority
               />
@@ -165,6 +167,7 @@ export default function TouchscreensPage() {
                   src={card.imageSrc}
                   alt={card.imageAlt}
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />

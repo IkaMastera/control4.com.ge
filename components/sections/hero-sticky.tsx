@@ -32,6 +32,7 @@ const PANES: Pane[] = [
     highlight: "home",
     body:
       "Experience a home where every system works together in perfect harmony - Lighting, HVAC, Audio, Video & TV, Security, Access Control, Blinds, Energy Systems, Sensors, and Networking - all unified through one intelligent platform. A seamless ecosystem that enhances comfort and simplifies everyday living.",
+    videoWebm: "/videos/smarthome-loop2.webm",
     videoMp4: "/videos/smarthome-loop2.mp4",
     videoFit: "cover",
     videoScale: 1,
@@ -44,8 +45,8 @@ const PANES: Pane[] = [
     highlight: "brain",
     body:
       "The Core 5 processes every command instantly - orchestrating lighting, audio, climate, security, and scenes with enterprise-grade reliability. Quiet. Powerful. Always on.",
-    videoMp4: "/videos/core5-loop.mp4",
     videoWebm: "/videos/core5-loop.webm",
+    videoMp4: "/videos/core5-loop.mp4",
     videoFit: "fill",
     videoScale: 1,
     tagline: "CORE 5 CONTROLLER • THE ENGINE OF YOUR SMART HOME",
@@ -57,6 +58,7 @@ const PANES: Pane[] = [
     highlight: "touch panel",
     body:
       "Your home's entire intelligence at your fingertips. The Touch Panel gives you seamless control of lighting, HVAC, audio, video, security, access, and scenes — all through a beautifully responsive, always-ready interface designed for modern living.",
+    videoWebm: "/videos/touchpad-loop.webm",
     videoMp4: "/videos/touchpad-loop.mp4",
     videoFit: "cover",
     videoScale: 1,

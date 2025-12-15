@@ -11,18 +11,31 @@ const BRANDS: Brand[] = [
   { name: 'Apple TV', file: 'appletv.svg' },
   { name: 'Roku', file: 'roku.svg' },
   { name: 'PlayStation 5', file: 'playstation5.svg' },
+  { name: 'Amazon Fire TV', file: 'amazonfiretv.svg' },
+  { name: 'DirecTV', file: 'DirecTV.svg' },
+
   { name: 'LG', file: 'lg.svg' },
   { name: 'Samsung', file: 'samsung.svg' },
   { name: 'Sony', file: 'sony.svg' },
   { name: 'Bose', file: 'bose.svg' },
   { name: 'Denon', file: 'denon.svg' },
+
   { name: 'Yale', file: 'yale.svg' },
   { name: 'Sonos', file: 'sonos.svg' },
   { name: 'Ubiquiti', file: 'ubiquiti.svg' },
-  { name: 'Dashlane', file: 'dashlane.svg' },
-  { name: 'PhilipsHue', file: 'philipshue.svg' },
+  { name: 'Philips Hue', file: 'philipshue.svg' },
   { name: 'Panasonic', file: 'panasonic.svg' },
-  { name: 'google', file: 'google.svg' },
+  { name: 'Google', file: 'google.svg' },
+
+  { name: 'Dashlane', file: 'dashlane.svg' },
+  { name: 'Dish', file: 'dish.svg' },
+  { name: 'Harman', file: 'harman.svg' },
+  { name: 'Honeywell', file: 'honeywell.svg' },
+  { name: 'Kwikset', file: 'kwiksete.svg' },
+  { name: 'Lutron', file: 'lutron.svg' },
+  { name: 'Sharp', file: 'sharp.svg' },
+  { name: 'Somfy', file: 'somfy.svg' },
+  { name: 'Xbox', file: 'Xbox.svg' },
 ];
 
 export default function BrandWall() {
@@ -142,19 +155,17 @@ export default function BrandWall() {
                 <Image
                   src={`/logos/${b.file}`}
                   alt={b.name}
-                  width={0}
-                  height={0}
-                  // Responsive, smaller, cleaner icons
+                  width={120}
+                  height={48}
                   className="
-                    w-[100px] h-auto
-                    sm:w-[120px]
-                    md:w-[140px]
+                    w-[80px] sm:w-[90px] md:w-[100px]
+                    h-auto
                     contrast-125 brightness-[2.1] invert
-                    opacity-80 hover:opacity-100
+                    opacity-70 hover:opacity-100
                     transition-opacity duration-200
                     will-change-opacity
                   "
-                  priority={false}
+                  loading="lazy"
                 />
               </motion.li>
             ))}

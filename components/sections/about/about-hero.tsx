@@ -71,25 +71,18 @@ export default function AboutHero() {
 
             <div className="mt-5 space-y-3 text-sm sm:text-base text-white/80">
               <p>
-                For 17 years, we’ve engineered the hidden infrastructure behind
-                high-performance buildings – fire protection systems, smart home
-                automation, HVAC control, BMS logic, secure electrical design,
-                and enterprise-grade networking. Our work stays invisible, but
-                its impact is felt every day: stability, safety, comfort, and
-                effortless control.
+                For over 17 years, we’ve designed and delivered the core MEP infrastructure that buildings depend on, electrical and mechanical systems, FLS Systems, HVAC control, IT/Telecommunications and BMS logic.
+
+                Today, we extend that engineering foundation into intelligent living, integrating Control4 smart home automation seamlessly with the building’s systems.
+
+                Our work is rarely seen, but it’s experienced every day, through safety, stability, comfort, and effortless control.
               </p>
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3 text-xs sm:text-sm text-white/70">
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 backdrop-blur">
-                FIRE SYSTEMS · HVAC · BMS
-              </span>
+            <div className="mt-7 flex flex-wrap gap-3 text-xs sm:text-sm text-white/70">             
               <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 backdrop-blur">
                 CONTROL4 AUTOMATION
-              </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 backdrop-blur">
-                ENGINEERING-LED DESIGN
-              </span>
+              </span>              
             </div>
           </motion.div>
 

@@ -56,7 +56,8 @@ const COMFORT_CARDS: ComfortCard[] = [
     ],
     imageSrc: "/images/products/comfort-controls/comfort-control2.webp",
     imageAlt: "Smart keypad controlling a ceiling fan.",
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3bfe4e36df04abce6583_156_24_LuxLighting_SpecSheet_C4-L-4SF120.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3bfe4e36df04abce6583_156_24_LuxLighting_SpecSheet_C4-L-4SF120.pdf",
   },
   {
     id: "fireplace-switch",
@@ -71,7 +72,8 @@ const COMFORT_CARDS: ComfortCard[] = [
     ],
     imageSrc: "/images/products/comfort-controls/comfort-control3.webp",
     imageAlt: "Modern fireplace controlled by a smart switch.",
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3c1ecc0584d5fa4bd36f_156_24_LuxLighting_SpecSheet_C4-L-FSW.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3c1ecc0584d5fa4bd36f_156_24_LuxLighting_SpecSheet_C4-L-FSW.pdf",
   },
 ];
 
@@ -113,6 +115,7 @@ export default function ComfortControlsPage() {
                 src="/images/products/comfort-controls/comfort-control1.webp"
                 alt="Bright living room with a modern fireplace."
                 fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover"
                 priority
               />
@@ -166,6 +169,7 @@ export default function ComfortControlsPage() {
                     src={card.imageSrc}
                     alt={card.imageAlt ?? card.title}
                     fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover"
                   />
                 ) : (

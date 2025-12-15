@@ -94,7 +94,8 @@ const PRODUCT_CARDS: ProductCard[] = [
       "Triad’s handcrafted soundbars pair beautifully with any TV, providing far better sound than the TV speakers. Built-to-order up to 86\" long, with custom paint matching and real-wood veneers, they blend into walls, millwork and decor while delivering powerful, detailed audio for media rooms, family rooms and bedrooms.",
     imageSrc: "/images/products/triad-speakers/triad-speaker6.webp",
     imageAlt: "Custom Triad soundbar mounted under a TV.",
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3dc26c9c3c8f6dc7bd06_Triad_Soundbar_Datasheet.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3dc26c9c3c8f6dc7bd06_Triad_Soundbar_Datasheet.pdf",
   },
   {
     id: "every-room-audio",
@@ -138,7 +139,7 @@ export default function TriadSpeakersPage() {
           </Link>
         </motion.div>
 
-        {/* HERO – using your triad-speakers.webp image */}
+        {/* HERO */}
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] lg:items-center">
           {/* hero media */}
           <motion.div
@@ -152,6 +153,7 @@ export default function TriadSpeakersPage() {
                 src="/images/products/triad-speakers.webp"
                 alt="Triad speakers hero visual."
                 fill
+                sizes="(min-width: 1024px) 55vw, 100vw"
                 className="object-cover"
                 priority
               />
@@ -219,6 +221,7 @@ export default function TriadSpeakersPage() {
                       src={card.imageSrc}
                       alt={card.imageAlt ?? card.title}
                       fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
                       className="object-cover opacity-80"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-slate-950/60 via-slate-950/20 to-slate-950/60" />
@@ -230,9 +233,7 @@ export default function TriadSpeakersPage() {
                 )}
               </div>
 
-              <h2 className="text-base font-semibold text-sky-50">
-                {card.title}
-              </h2>
+              <h2 className="text-base font-semibold text-sky-50">{card.title}</h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-200/85">
                 {card.body}
               </p>
@@ -261,6 +262,7 @@ export default function TriadSpeakersPage() {
                     src={card.imageSrc}
                     alt={card.imageAlt ?? card.title}
                     fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
                     className="object-cover"
                   />
                 ) : (
@@ -273,9 +275,7 @@ export default function TriadSpeakersPage() {
 
               {/* text */}
               <div className="flex flex-1 flex-col p-5 sm:p-6">
-                <h3 className="text-sm font-semibold text-sky-50">
-                  {card.title}
-                </h3>
+                <h3 className="text-sm font-semibold text-sky-50">{card.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-200/85">
                   {card.body}
                 </p>

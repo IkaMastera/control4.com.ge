@@ -123,13 +123,13 @@ export default function TriadAudioElectronicsPage() {
             className="overflow-hidden rounded-3xl border border-sky-500/20 bg-slate-900/40 shadow-[0_32px_80px_rgba(0,0,0,0.85)]"
           >
             <div className="relative aspect-[16/9] w-full">
-              {/* replace src with your Gemini 3 Pro hero image */}
               <Image
                 src="/images/products/triad-audio-electronics/triad-audio-electronics-bg.webp"
                 alt="Triad audio electronics hero shot."
                 fill
-                className="object-cover"
                 priority
+                sizes="(max-width: 1024px) 100vw, 58vw"
+                className="object-cover"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 space-y-2">
@@ -160,10 +160,9 @@ export default function TriadAudioElectronicsPage() {
               Triad in the system
             </p>
             <p className="text-sm leading-relaxed text-slate-200/90">
-              Triad electronics are built to be the audio backbone of a
-              Control4 project. They keep power clean, routing organised, and
-              sources easy to manage, from background music to cinema-level
-              sound.
+              Triad electronics are built to be the audio backbone of a Control4
+              project. They keep power clean, routing organised, and sources
+              easy to manage, from background music to cinema-level sound.
             </p>
             <p className="text-sm leading-relaxed text-slate-200/80">
               In a finished rack, amplifiers, streaming amps, and matrix
@@ -189,20 +188,19 @@ export default function TriadAudioElectronicsPage() {
               variants={fadeUp}
               className="flex h-full flex-col overflow-hidden rounded-3xl border border-sky-500/15 bg-slate-950/80 shadow-[0_20px_60px_rgba(2,6,23,0.9)]"
             >
-              {/* image */}
               {item.imageSrc && (
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
                   <Image
                     src={item.imageSrc}
                     alt={item.imageAlt ?? item.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
                 </div>
               )}
 
-              {/* text block */}
               <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
                 <div>
                   <h2 className="text-base font-semibold text-sky-50">
@@ -217,7 +215,6 @@ export default function TriadAudioElectronicsPage() {
                   {item.body}
                 </p>
 
-                {/* pin spec link at bottom of card */}
                 {item.specHref && (
                   <div className="mt-auto pt-3">
                     <Link

@@ -5,28 +5,28 @@ import { motion } from "framer-motion";
 
 const VALUES = [
   {
-    title: "Reliability over features.",
-    text: "Features impress. Reliability keeps systems stable for years.",
+    title: "A smarter way to live.",
+    text: "Where your home works in harmony with you.",
   },
   {
-    title: "Clean wiring = clean logic.",
-    text: "A stable system always begins with neat racks, structured routing, and proper grounding.",
+    title: "One system, total control.",
+    text: "All your home systems connected through one seamless experience.",
   },
   {
-    title: "Every device must earn its place.",
-    text: "If it doesn’t improve safety, comfort, or consistency, it doesn’t belong in the design.",
+    title: "Built to last.",
+    text: "Professional engineering ensures stability, reliability, and long-term performance.",
   },
   {
-    title: "Design for the future, not today.",
-    text: "We engineer systems that scale for 10+ years without rewiring or redesigning everything.",
+    title: "Beauty built on intelligence.",
+    text: "True elegance comes from systems that are thoughtfully designed and perfectly engineered",
   },
   {
-    title: "Transparent communication.",
-    text: "Clear drawings, clear logic, clear expectations — no surprises, no guesswork.",
+    title: "Future-ready.",
+    text: "Easily expandable systems designed to grow with your needs.",
   },
   {
-    title: "Engineering before aesthetics.",
-    text: "A beautiful project is the result of engineering excellence — not a substitute for it.",
+    title: "Defined by experience.",
+    text: "An intelligent living experience built on years of real-world use.",
   },
 ];
 

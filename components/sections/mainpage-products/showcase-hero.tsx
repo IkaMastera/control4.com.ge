@@ -8,11 +8,8 @@ export default function ShowcaseHero() {
   return (
     <section
       aria-label="Product Showcase Hero"
-      className="relative isolate overflow-hidden rounded-3xl bg-black ring-1 ring-white/10"
+      className="relative mb-12 isolate overflow-hidden rounded-3xl bg-black ring-1 ring-white/10"
     >
-      {/* Background media wrapper
-          - Taller aspect on mobile so text isn't cut
-          - Wide cinematic aspect once we hit sm breakpoint */}
       <div className="relative w-full aspect-[4/5] sm:aspect-[16/7]">
         <Image
           src="/images/hero.jpg"
@@ -25,9 +22,6 @@ export default function ShowcaseHero() {
         <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
       </div>
 
-      {/* Overlay content
-          - On mobile: sit near the bottom with padding
-          - On larger screens: vertically centered like a hero */}
       <div className="absolute inset-0 flex items-end sm:items-center px-6 sm:px-10 lg:px-16 pb-6 sm:pb-0">
         <Reveal y={20}>
           <div className="max-w-2xl">

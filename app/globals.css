@@ -119,6 +119,7 @@ img {
   transition:transform .15s ease, box-shadow .2s ease, opacity .2s ease;
   isolation:isolate;
 }
+
 .btn-glow:hover{ transform:translateY(-1px); }
 .btn-glow:active{ transform:translateY(0); }
 .btn-glow:focus-visible{ box-shadow:0 0 0 2px color-mix(in srgb, var(--c4-accent) 55%, transparent), 0 6px 20px rgba(0,0,0,.25); outline:0; }
@@ -534,9 +535,6 @@ img {
   position:absolute; inset:0; display:grid; place-items:center; text-align:center;
 }
 
-/* ============ STUDIO PANELS (magnetic/parallax) ============ */
-/* handled inline; kept minimal here */
-
 /* ============ TRUST BADGES (marquee + shimmer) ============ */
 .brands-marquee{ display:flex; gap:48px; white-space:nowrap; animation: marquee 18s linear infinite; }
 .brand-chip{
@@ -804,5 +802,36 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .c4-blob {
     animation: none;
+  }
+}
+
+/* Smooth infinite marquee */
+.c4-partner-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  white-space: nowrap;
+
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.c4-partner-track--run {
+  animation: c4-marquee 50s linear infinite;
+}
+
+@keyframes c4-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .c4-partner-track--run {
+    animation: none !important;
   }
 }

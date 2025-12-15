@@ -1,10 +1,16 @@
 "use client";
 
-import { useState, KeyboardEvent } from "react";
+import { useState } from "react";
 import Container from "@/components/common/container";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-type StoryCard = {
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+type StoryCardData = {
   id: string;
   title: string;
   subtitle: string;
@@ -12,12 +18,13 @@ type StoryCard = {
   backLines: string[];
 };
 
-const CARDS: StoryCard[] = [
+// --- Data ---
+const CARDS: StoryCardData[] = [
   {
     id: "origins",
-    title: "From local jobs to landmark systems.",
+    title: "Built through practice.",
     subtitle:
-      "17+ years going from apartments and small sites to Georgia’s biggest hotels, malls and hospitals.",
+      "17+ years of experience. Our foundation was built on real projects — learning constraints, solving problems, and delivering results before scaling up. Over time, this grew from residential projects into complex hotels, commercial spaces, and large-scale developments across Georgia.",
     backTitle: "Where we came from",
     backLines: [
       "Started with fire systems and electrical work on local projects.",
@@ -27,21 +34,21 @@ const CARDS: StoryCard[] = [
   },
   {
     id: "method",
-    title: "Systems first, not devices.",
+    title: "Clarity through engineering",
     subtitle:
-      "We treat every constraint as an engineering problem — not something to patch later on site.",
+      "When systems are engineered correctly, complexity becomes manageable and possibilities expand.",
     backTitle: "How we build",
     backLines: [
-      "Clean drawings, clean wiring, clean logic. No guesswork on site.",
+      "We design with structure, coordination, and long-term operation in mind — so projects move forward smoothly, without improvisation or compromise.",
       "Reliability over features: load, routing, grounding and networks come first.",
-      "Every device must earn its place in the design.",
+      "Well-designed systems stand the test of time.",
     ],
   },
   {
     id: "future",
-    title: "Georgian engineering, global standards.",
+    title: "Built locally. Measured globally.",
     subtitle:
-      "Nothing is impossible, everything is permitted — if it is engineered properly.",
+      "We design systems to international standards, ensuring reliability and long-term performance. As we expand beyond Georgia, we help shape the next generation of building, automation, and integrated engineering.",
     backTitle: "Where we’re going",
     backLines: [
       "Expanding from Georgia to Dubai, Turkey and beyond.",
@@ -51,58 +58,154 @@ const CARDS: StoryCard[] = [
   },
 ];
 
-const gridVariants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.14,
-    },
-  },
-};
+function getTopLabel(id: string) {
+  switch (id) {
+    case "origins": return "Origins";
+    case "method": return "How we build";
+    default: return "Future";
+  }
+}
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.96 },
-  show: { opacity: 1, y: 0, scale: 1 },
-};
+// --- Sub-Component: Flip Card ---
+// Separating this makes the main logic much cleaner
+function StoryCard({
+  card,
+  isActive,
+  onToggle,
+  reduceMotion,
+}: {
+  card: StoryCardData;
+  isActive: boolean;
+  onToggle: () => void;
+  reduceMotion: boolean | null;
+}) {
+  return (
+    <motion.div
+      initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.98 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.55, ease: "easeOut" }}
+    >
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={isActive}
+        className={cn(
+          "group relative w-full text-left perspective-1000",
+          "rounded-3xl border border-white/10 bg-[#020617]",
+          "shadow-[0_0_0_1px_rgba(15,23,42,0.75)]",
+          "transition-shadow duration-300",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-0",
+          "active:shadow-[0_0_52px_rgba(0,194,255,0.30)] active:border-accent/50",
+          isActive
+            ? "shadow-[0_0_42px_rgba(0,194,255,0.26)]"
+            : "hover:shadow-[0_0_34px_rgba(0,194,255,0.18)]"
+        )}
+      >
+        {/* Notebook Texture Overlay */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,194,255,0.16),transparent_58%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(0,86,184,0.22),transparent_62%)]" />
+          <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:44px_44px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(2,6,23,0.85)_100%)]" />
+        </div>
 
+        {/* 3D Flip Container */}
+        <div className="relative min-h-[360px] rounded-3xl [perspective:1200px] lg:min-h-[380px]">
+          <div
+            className={cn(
+              "absolute inset-0 transition-transform duration-700 [transform-style:preserve-3d]",
+              !reduceMotion && "motion-safe:ease-[cubic-bezier(0.2,0.8,0.2,1)]",
+              isActive ? "[transform:rotateY(180deg)]" : "[transform:rotateY(0deg)]"
+            )}
+          >
+            {/* FRONT FACE */}
+            <div className="absolute inset-0 grid h-full grid-rows-[auto,1fr,auto] overflow-hidden rounded-3xl px-6 py-8 [backface-visibility:hidden] sm:px-8 sm:py-9 lg:px-10 lg:py-11">
+              <div className="flex items-center justify-between">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.26em] text-white/60">
+                  {getTopLabel(card.id)}
+                </p>
+                <span className="inline-flex items-center gap-2 text-[0.72rem] text-white/40">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent/80" />
+                  Flip
+                </span>
+              </div>
+
+              <div className="mt-10 max-w-[54ch] pb-16">
+                <h3 className="text-xl font-semibold tracking-tight text-white sm:text-[1.4rem] lg:text-2xl">
+                  {card.title}
+                </h3>
+                <p className="mt-4 line-clamp-5 text-sm leading-relaxed text-pretty text-white/75 lg:line-clamp-6">
+                  {card.subtitle}
+                </p>
+              </div>
+
+              {/* Footer Front */}
+              <div className="absolute bottom-9 left-8 right-8 z-20 sm:bottom-11 sm:left-10 sm:right-10">
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+                <p className="mt-4 text-xs text-white/50">
+                  Click or press Enter to read details →
+                </p>
+              </div>
+            </div>
+
+            {/* BACK FACE */}
+            <div className="absolute inset-0 grid h-full grid-rows-[auto,1fr,auto] overflow-hidden rounded-3xl px-6 py-8 [backface-visibility:hidden] [transform:rotateY(180deg)] sm:px-8 sm:py-9 lg:px-10 lg:py-11">
+              <div className="flex items-center justify-between">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.26em] text-white/60">
+                  {card.backTitle}
+                </p>
+                <span className="inline-flex items-center gap-2 text-[0.72rem] text-white/40">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent/80" />
+                  Back
+                </span>
+              </div>
+
+              <div className="mt-10 max-w-[54ch] pb-16">
+                <ul className="space-y-3 text-sm leading-relaxed text-white/80">
+                  {card.backLines.map((line) => (
+                    <li key={line} className="flex gap-3">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <span className="text-pretty">{line}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Footer Back */}
+              <div className="absolute bottom-9 left-8 right-8 sm:bottom-11 sm:left-10 sm:right-10">
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+                <p className="mt-4 text-xs text-white/50">
+                  Click or press Enter to return
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+    </motion.div>
+  );
+}
+
+// --- Main Component ---
 export default function AboutStory() {
+  const reduceMotion = useReducedMotion();
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const toggleCard = (id: string) => {
-    setActiveId((prev) => (prev === id ? null : id));
-  };
-
-  const handleKeyDown =
-    (id: string) => (event: KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggleCard(id);
-      }
-    };
+  const toggle = (id: string) => setActiveId((prev) => (prev === id ? null : id));
 
   return (
-    <motion.section
-      className="
-        relative
-        border-t border-white/5
-        bg-[#020617]
-        py-16 sm:py-20 lg:py-24
-        overflow-hidden
-      "
+    <section
       aria-labelledby="about-story-heading"
-      initial={{ opacity: 0, y: 80 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="relative overflow-hidden border-t border-white/5 bg-[#020617] py-16 sm:py-20 lg:py-24"
     >
       <Container>
-        {/* Header */}
         <motion.div
-          className="text-center mb-10 sm:mb-14"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="mb-10 text-center sm:mb-14"
+          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-4 py-1 text-[0.7rem] uppercase tracking-[0.22em] text-white/60">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
@@ -111,133 +214,30 @@ export default function AboutStory() {
 
           <h2
             id="about-story-heading"
-            className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white"
+            className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl lg:text-4xl"
           >
             Nothing is impossible.{" "}
             <span className="block sm:inline">Everything is permitted.</span>
           </h2>
 
-          <p className="mt-3 text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:text-base">
             Three short chapters of how we think, build and where we&apos;re
             taking Georgian engineering next.
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <motion.div
-          className="
-            grid gap-8
-            sm:grid-cols-3
-          "
-          variants={gridVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {CARDS.map((card) => {
-            const isActive = activeId === card.id;
-
-            return (
-              <motion.div
-                key={card.id}
-                role="button"
-                tabIndex={0}
-                aria-pressed={isActive}
-                aria-label={`${card.title} – ${
-                  isActive ? "details open" : "details closed"
-                }`}
-                variants={cardVariants}
-                transition={{ duration: 0.55, ease: "easeOut" }}
-                className={
-                  "story-card group relative min-h-[260px] sm:min-h-[300px] lg:min-h-[340px] cursor-pointer rounded-3xl border border-white/10 bg-linear-to-b from-[#020617] via-[#050816] to-[#020617] p-px " +
-                  "shadow-[0_0_0_1px_rgba(15,23,42,0.7)] transition-shadow duration-300 " +
-                  (isActive
-                    ? "story-card--flipped shadow-[0_0_40px_rgba(0,194,255,0.35)]"
-                    : "hover:shadow-[0_0_30px_rgba(0,194,255,0.22)] focus-visible:shadow-[0_0_30px_rgba(0,194,255,0.3)]")
-                }
-                onClick={() => toggleCard(card.id)}
-                onKeyDown={handleKeyDown(card.id)}
-              >
-                <div
-                  className="
-                    story-card-inner
-                    relative h-full
-                    rounded-[1.4rem]
-                    bg-[#020617]
-                    px-8 py-10 sm:px-10 sm:py-12
-                    transition-transform duration-300
-                    group-hover:-translate-y-1
-                  "
-                >
-                  {/* animated glow background */}
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute inset-0
-                      rounded-[1.4rem]
-                      overflow-hidden
-                    "
-                  >
-                    <div
-                      className="
-                        absolute -inset-10
-                        opacity-40
-                        bg-[radial-gradient(circle_at_top,rgba(0,194,255,0.45),transparent_55%),radial-gradient(circle_at_bottom,rgba(0,86,184,0.55),transparent_60%)]
-                        animate-[story-orbit_16s_ease-in-out_infinite]
-                      "
-                    />
-                  </div>
-
-                  {/* FRONT */}
-                  <div className="story-card-face relative flex h-full flex-col justify-end">
-                    <div className="mb-auto">
-                      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/60">
-                        {card.id === "origins"
-                          ? "Origins"
-                          : card.id === "method"
-                          ? "How we build"
-                          : "Future"}
-                      </p>
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-semibold text-white">
-                      {card.title}
-                    </h3>
-                    <p className="mt-3 text-sm text-white/80">
-                      {card.subtitle}
-                    </p>
-
-                    <p className="mt-4 text-xs text-[#9CA3AF]">
-                      Click or press Enter to flip.
-                    </p>
-                  </div>
-
-                  {/* BACK */}
-                  <div className="story-card-face story-card-back relative flex h-full flex-col justify-between">
-                    <div>
-                      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/60">
-                        {card.backTitle}
-                      </p>
-                      <ul className="mt-4 space-y-2.5 text-sm text-white/80">
-                        {card.backLines.map((line) => (
-                          <li key={line} className="flex gap-2">
-                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent" />
-                            <span>{line}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <p className="mt-5 text-xs text-[#9CA3AF]">
-                      Click or press Enter again to go back.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {CARDS.map((card) => (
+            <StoryCard
+              key={card.id}
+              card={card}
+              isActive={activeId === card.id}
+              onToggle={() => toggle(card.id)}
+              reduceMotion={reduceMotion}
+            />
+          ))}
+        </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }

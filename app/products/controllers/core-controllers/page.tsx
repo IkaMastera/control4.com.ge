@@ -58,7 +58,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Built-in Wi-Fi, Zigbee and Z-Wave radios for wireless smart devices.",
       "With a Connect subscription, adds remote access, Intercom Anywhere and voice integrations.",
     ],
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30309ea251d3e0fba97f_core-5-data-sheet-rev-c.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30309ea251d3e0fba97f_core-5-data-sheet-rev-c.pdf",
     imageSrc: "/images/products/core-controllers/core5-controller.webp",
     imageAlt: "Close-up of CORE 5 in a rack.",
   },
@@ -75,7 +76,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Wi-Fi, Zigbee and Z-Wave for flexible wireless device support.",
       "Connect subscription adds remote access, Intercom Anywhere and voice integrations.",
     ],
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e308c631d8234e954490d_core-3-data-sheet-rev-d.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e308c631d8234e954490d_core-3-data-sheet-rev-d.pdf",
     imageSrc: "/images/products/core-controllers/core3-controller.webp",
     imageAlt: "CORE 3 controller on a dark surface.",
   },
@@ -92,7 +94,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Wi-Fi and Zigbee radios for smart device control.",
       "Connect subscription unlocks remote access, Intercom Anywhere and voice integrations.",
     ],
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30ad3c24982263618a70_core-1-data-sheet-rev-d.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30ad3c24982263618a70_core-1-data-sheet-rev-d.pdf",
     imageSrc: "/images/products/core-controllers/core1-controller.webp",
     imageAlt: "CORE 1 controller on a table.",
   },
@@ -122,7 +125,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Redundant design with multiple fail-safes to keep the system running even if a PSU, network port, SSD or cooling fan fails.",
       "Built to run mission-critical automation with a long warranty and service life.",
     ],
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3096f1e798920f897562_ca-10-automation-controller-data-sheet-rev-b.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e3096f1e798920f897562_ca-10-automation-controller-data-sheet-rev-b.pdf",
     imageSrc: "/images/products/core-controllers/core-ca10-controller.webp",
     imageAlt: "CA-10 automation server in a rack.",
   },
@@ -137,7 +141,8 @@ const CONTROLLERS: ControllerItem[] = [
       "Controls devices over the network, via serial (for security panels) and wirelessly over Wi-Fi and Zigbee.",
       "Can be expanded with Z-Wave support when needed.",
     ],
-    specHref: "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30a04f4820484bddc3c0_ca-1-automation-controller-data-sheet-rev-b.pdf",
+    specHref:
+      "https://cdn.prod.website-files.com/629926620ba03720384bebb3/682e30a04f4820484bddc3c0_ca-1-automation-controller-data-sheet-rev-b.pdf",
     imageSrc: "/images/products/core-controllers/core-ca1-controller.webp",
     imageAlt: "CA-1 controller on a desk next to decor.",
   },
@@ -181,6 +186,7 @@ export default function ControllersPage() {
                 src="/images/products/core-controllers/core-hero.webp"
                 alt="Control4 Core Controllers hero group shot."
                 fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover"
                 priority
               />
@@ -237,7 +243,7 @@ export default function ControllersPage() {
               transition: { staggerChildren: 0.08 },
             },
           }}
-          className="mt-14 grid gap-8 md:grid-cols-2 items-stretch"
+          className="mt-14 grid gap-8 items-stretch md:grid-cols-2"
         >
           {CONTROLLERS.map((item) => (
             <motion.article
@@ -252,6 +258,7 @@ export default function ControllersPage() {
                     src={item.imageSrc}
                     alt={item.imageAlt ?? item.name}
                     fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />

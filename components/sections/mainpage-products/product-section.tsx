@@ -35,7 +35,7 @@ export default function ProductSection({
       id={slug}
       aria-labelledby={`${slug}-title`}
       style={{ scrollMarginTop: 'var(--header-h)' }}
-      className="relative"
+      className="relative py-12"
     >
       <div
         className={`grid items-center gap-8 md:gap-12 md:grid-cols-2 ${

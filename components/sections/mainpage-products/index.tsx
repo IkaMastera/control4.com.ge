@@ -24,7 +24,7 @@ export default function ProductsShowcaseSection() {
       className="
         relative overflow-hidden
         text-white
-        pb-20 space-y-10 md:space-y-14
+        pb-20
       "
     >
       {/* BACKGROUND FOR THE WHOLE PRODUCTS AREA */}

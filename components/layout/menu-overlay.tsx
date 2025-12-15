@@ -170,7 +170,6 @@ export default function MenuOverlay({ open, onClose }: Props) {
                     loop
                     playsInline
                     preload="metadata"
-                    poster="/images/menu-poster.jpg"
                   >
                     <source
                       src="/videos/dropdown-menu-video2.mp4"

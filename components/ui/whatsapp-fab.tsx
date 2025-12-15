@@ -8,16 +8,12 @@ type Props = {
   phone?: string;
   message?: { ka?: string; en?: string; ru?: string };
   locale?: Locale;
-  fixed?: boolean;
-  className?: string;
 };
 
 export default function WhatsAppFAB({
   phone,
   message,
   locale = 'ka',
-  fixed = true,
-  className,
 }: Props) {
   const text =
     (locale === 'ka' && message?.ka) ||
@@ -28,36 +24,38 @@ export default function WhatsAppFAB({
   const targetPhone = phone ?? '995511223366';
 
   const href = useMemo(() => {
-    if (!targetPhone) return '#';
     const base = `https://wa.me/${targetPhone}`;
-    return `${base}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
+    return `${base}?text=${encodeURIComponent(text)}`;
   }, [targetPhone, text]);
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      title="WhatsApp"
-      className={[
-        fixed
-          ? 'fixed right-5 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-[60]'
-          : 'static',
-        'group inline-flex h-14 w-14 items-center justify-center rounded-full',
-        'bg-[#25D366] shadow-lg shadow-[#25D366]/35',
-        'outline-none ring-0 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#00C2FF] focus-visible:ring-offset-[#0D1117]',
-        'animate-[wa-breathe_2.8s_ease-in-out_infinite]',
-        'transition-transform duration-150 will-change-transform hover:translate-y-[-1px] active:translate-y-0',
-        'pointer-events-auto relative overflow-visible',
-        className || '',
-      ].join(' ')}
+    <div
+      className="
+        fixed z-55 right-4 sm:right-6
+        transition-all duration-300
+      "
+      style={{ bottom: '1.25rem' }}
     >
-      <span className="absolute inset-0 rounded-full border-2 border-[#25D366]/60 opacity-0 group-hover:opacity-100 group-hover:animate-[wa-pulse_900ms_ease-out_forwards]" />
-      <i
-        className="fab fa-whatsapp text-white text-[1.7rem] leading-none"
-        aria-hidden="true"
-      />
-    </a>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+        title="WhatsApp"
+        className="
+          cursor-pointer flex items-center justify-center
+          w-12 h-12 sm:w-14 sm:h-14 rounded-full
+          bg-[#25D366] text-white
+          shadow-[0_0_0_1px_rgba(0,0,0,0.15),0_0_22px_rgba(37,211,102,0.55)]
+          hover:scale-105 active:scale-95 transition-transform
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00C2FF]/70
+        "
+      >
+        <i
+          className="fab fa-whatsapp text-[1.6rem] leading-none"
+          aria-hidden="true"
+        />
+      </a>
+    </div>
   );
 }

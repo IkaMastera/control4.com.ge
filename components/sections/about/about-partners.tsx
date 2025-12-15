@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import Container from "@/components/common/container";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -7,44 +8,113 @@ import { motion } from "framer-motion";
 type PartnerLogo = {
   name: string;
   src: string;
+  // optional per-logo cap (helps huge wordmark SVGs)
+  maxW?: number; // px
 };
 
 const LOGOS: PartnerLogo[] = [
-  { name: "Bose", src: "/logos/bose.svg" },
-  { name: "Denon", src: "/logos/denon.svg" },
-  { name: "LG", src: "/logos/lg.svg" },
-  { name: "PlayStation 5", src: "/logos/playstation5.svg" },
-  { name: "Roku", src: "/logos/roku.svg" },
-  { name: "Samsung", src: "/logos/samsung.svg" },
-  { name: "Sonos", src: "/logos/sonos.svg" },
-  { name: "Sony", src: "/logos/sony.svg" },
-  { name: "Ubiquiti", src: "/logos/ubiquiti.svg" },
-  { name: "Yale", src: "/logos/yale.svg" },
-  { name: "Apple TV", src: "/logos/appletv.svg" },
+  { name: "Apple TV", src: "/logos/appletv.svg", maxW: 150 },
+  { name: "Amazon Fire TV", src: "/logos/amazonfiretv.svg", maxW: 175 },
+  { name: "Google", src: "/logos/google.svg", maxW: 150 },
+
+  { name: "Bose", src: "/logos/bose.svg", maxW: 140 },
+  { name: "Denon", src: "/logos/denon.svg", maxW: 155 },
+  { name: "Sonos", src: "/logos/sonos.svg", maxW: 150 },
+  { name: "Sony", src: "/logos/sony.svg", maxW: 150 },
+  { name: "LG", src: "/logos/lg.svg", maxW: 110 },
+  { name: "Samsung", src: "/logos/samsung.svg", maxW: 165 },
+  { name: "Sharp", src: "/logos/sharp.svg", maxW: 190 },
+  { name: "Panasonic", src: "/logos/panasonic.svg", maxW: 190 },
+
+  { name: "PlayStation 5", src: "/logos/playstation5.svg", maxW: 190 },
+  { name: "Xbox", src: "/logos/Xbox.svg", maxW: 135 },
+  { name: "Roku", src: "/logos/roku.svg", maxW: 135 },
+
+  { name: "Ubiquiti", src: "/logos/ubiquiti.svg", maxW: 175 },
+  { name: "Lutron", src: "/logos/lutron.svg", maxW: 175 },
+  { name: "Philips Hue", src: "/logos/philipshue.svg", maxW: 150 },
+  { name: "Somfy", src: "/logos/somfy.svg", maxW: 165 },
+  { name: "Kwikset", src: "/logos/kwiksete.svg", maxW: 190 },
+  { name: "Honeywell", src: "/logos/honeywell.svg", maxW: 195 },
+  { name: "Harman", src: "/logos/harman.svg", maxW: 175 },
+
+  { name: "DirecTV", src: "/logos/DirecTV.svg", maxW: 170 },
+  { name: "Dish", src: "/logos/dish.svg", maxW: 170 },
+
+  { name: "Dashlane", src: "/logos/dashlane.svg", maxW: 170 },
+  { name: "Yale", src: "/logos/yale.svg", maxW: 130 },
 ];
 
+function LogoRow({ items }: { items: PartnerLogo[] }) {
+  return (
+    <div className="flex items-center">
+      {items.map((logo, i) => (
+        <div
+          key={`${logo.name}-${i}`}
+          className="group flex items-center justify-center px-10"
+        >
+          {/* Fixed logo box → Image uses fill → no width/height warnings */}
+          <div
+            className="
+              relative
+              h-10 sm:h-12 lg:h-14
+              w-[220px]
+              flex items-center justify-center
+            "
+            style={{ maxWidth: logo.maxW ? `${logo.maxW}px` : undefined }}
+          >
+            <Image
+              src={logo.src}
+              alt={logo.name}
+              fill
+              sizes="220px"
+              className="
+                object-contain
+                brightness-0 invert
+                opacity-65
+                group-hover:opacity-100
+                transition-opacity duration-300
+              "
+              // helps reduce initial decode jank
+              loading="lazy"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function AboutPartners() {
-  // duplicate for seamless marquee
-  const items = [...LOGOS, ...LOGOS];
+  const [ready, setReady] = useState(false);
+
+  // start marquee after mount + 1 frame (prevents first-refresh “jump”)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const items = useMemo(() => LOGOS, []);
 
   return (
-    <motion.section
+    <section
       className="
         relative
         border-t border-white/5
-        bg-[#020617]
         py-16 sm:py-20 lg:py-24
         overflow-hidden
       "
       aria-labelledby="about-partners-heading"
-      initial={{ opacity: 0, y: 72 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
     >
       <Container>
-        {/* Header */}
-        <div className="text-center mb-10 sm:mb-12">
+        {/* Animate only the header, NOT the marquee container */}
+        <motion.div
+          className="text-center mb-10 sm:mb-12"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+        >
           <p className="text-[0.65rem] uppercase tracking-[0.26em] text-white/45">
             Certifications & Partnerships
           </p>
@@ -52,45 +122,27 @@ export default function AboutPartners() {
             id="about-partners-heading"
             className="mt-3 text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-white"
           >
-            Trusted by leading audio, video and networking brands.
+            Trusted by globally recognized technology brands.
           </h2>
           <p className="mt-3 text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
-            We design around proven global ecosystems — from premium audio and
+            We design around proven international ecosystems — from premium audio and
             video to rock-solid networking and access control.
           </p>
-        </div>
+        </motion.div>
       </Container>
 
-      {/* Full-width marquee */}
       <div className="relative w-full overflow-hidden">
-        {/* edge fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-[#020617] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-[#020617] to-transparent" />
-
-        <div className="partner-track flex items-center whitespace-nowrap w-max">
-          {items.map((logo, index) => (
-            <div
-              key={`${logo.name}-${index}`}
-              className="group flex items-center justify-center px-10"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.name}
-                width={160}
-                height={48}
-                className="
-                  h-9 sm:h-11 lg:h-12
-                  w-auto
-                  brightness-0 invert
-                  opacity-65
-                  group-hover:opacity-100
-                  transition-opacity duration-300
-                "
-              />
-            </div>
-          ))}
+        <div
+          className={`
+            c4-partner-track
+            ${ready ? "c4-partner-track--run" : ""}
+          `}
+          aria-hidden={!ready}
+        >
+          <LogoRow items={items} />
+          <LogoRow items={items} />
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

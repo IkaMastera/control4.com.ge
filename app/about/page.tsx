@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import AboutHero from "@/components/sections/about/about-hero";
 import AboutStats from "@/components/sections/about/about-stats";
 import AboutStory from "@/components/sections/about/about-story";
-import AboutProcess from "@/components/sections/about/about-process";
 import AboutPartners from "@/components/sections/about/about-partners";
 import AboutValues from "@/components/sections/about/about-values";
 
@@ -19,8 +18,8 @@ export default function AboutPage() {
     <main className="relative min-h-screen bg-bg text-white">
       <AboutHero />
       <AboutStats />
-      <AboutStory />
-      <AboutProcess />
+      <AboutStory /> 
+       {/* <AboutProcess /> */}
       <AboutPartners />
       <AboutValues />
     </main>

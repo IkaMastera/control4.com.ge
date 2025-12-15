@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { PhoneCall, Mail, MapPin } from 'lucide-react';
 
 type Props = {
@@ -12,7 +12,7 @@ const CONTACT_ITEMS = [
     id: 'phone',
     label: 'Call us',
     value: '+995 511 22 33 66',
-    href: 'tel:+995555123456',
+    href: 'tel:+995511223366',
     Icon: PhoneCall,
   },
   {
@@ -26,13 +26,15 @@ const CONTACT_ITEMS = [
     id: 'office',
     label: 'Visit our office',
     value: 'Batumi, Georgia',
-    // change to your real Google Maps link
     href: 'https://maps.app.goo.gl/WTNAnMoYAZRASmRs7',
     Icon: MapPin,
   },
 ];
 
 export default function ContactFormCard({ className = '' }: Props) {
+  const uid = useId(); // ensures unique ids across page renders
+  const id = (x: string) => `contact-${x}-${uid}`;
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'err'>(
     'idle'
   );
@@ -48,7 +50,7 @@ export default function ContactFormCard({ className = '' }: Props) {
     const data = new FormData(form);
 
     // honeypot: if filled, silently succeed
-    if (data.get('company')) {
+    if ((data.get('company') || '').toString().trim()) {
       setStatus('ok');
       form.reset();
       setDemo(false);
@@ -56,13 +58,13 @@ export default function ContactFormCard({ className = '' }: Props) {
     }
 
     const payload = {
-      first_name: (data.get('first_name') || '').toString(),
-      last_name: (data.get('last_name') || '').toString(),
-      email: (data.get('email') || '').toString(),
-      company_size: (data.get('company_size') || '').toString(),
-      phone: (data.get('phone') || '').toString(),
-      topic: (data.get('topic') || '').toString(),
-      message: (data.get('message') || '').toString(),
+      first_name: (data.get('first_name') || '').toString().trim(),
+      last_name: (data.get('last_name') || '').toString().trim(),
+      email: (data.get('email') || '').toString().trim(),
+      company_size: (data.get('company_size') || '').toString().trim(),
+      phone: (data.get('phone') || '').toString().trim(),
+      topic: (data.get('topic') || '').toString().trim(),
+      message: (data.get('message') || '').toString().trim(),
       schedule_demo: demo,
     };
 
@@ -96,7 +98,7 @@ export default function ContactFormCard({ className = '' }: Props) {
     <div className={`relative ${className}`}>
       {/* glow behind the card */}
       <div
-        aria-hidden
+        aria-hidden="true"
         className="absolute -inset-x-6 -inset-y-8 md:-inset-x-8 md:-inset-y-10
                    rounded-4xl blur-2xl opacity-35
                    bg-[radial-gradient(closest-side,rgba(0,194,255,.35),transparent_60%)]
@@ -125,61 +127,102 @@ export default function ContactFormCard({ className = '' }: Props) {
           onSubmit={onSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6"
         >
-          {/* honeypot */}
+          {/* honeypot: keep it off accessibility tree */}
           <input
             type="text"
             name="company"
-            className="hidden"
+            aria-hidden="true"
             tabIndex={-1}
             autoComplete="off"
+            className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
           />
 
-          {/* fields unchanged */}
           <div className="c4-float motion-safe:animate-[c4-rise-in_640ms_cubic-bezier(0.22,0.8,0.2,1)_60ms_both]">
-            <input id="first_name" name="first_name" placeholder=" " required />
-            <label htmlFor="first_name">
+            <input
+              id={id('first_name')}
+              name="first_name"
+              placeholder=" "
+              required
+              autoComplete="given-name"
+            />
+            <label htmlFor={id('first_name')}>
               <span className="c4-label-text">First name</span>
             </label>
           </div>
 
           <div className="c4-float motion-safe:animate-[c4-rise-in_640ms_cubic-bezier(0.22,0.8,0.2,1)_110ms_both]">
-            <input id="last_name" name="last_name" placeholder=" " />
-            <label htmlFor="last_name">
+            <input
+              id={id('last_name')}
+              name="last_name"
+              placeholder=" "
+              autoComplete="family-name"
+            />
+            <label htmlFor={id('last_name')}>
               <span className="c4-label-text">Last name</span>
             </label>
           </div>
 
           <div className="c4-float motion-safe:animate-[c4-rise-in_640ms_cubic-bezier(0.22,0.8,0.2,1)_160ms_both]">
-            <input id="email" name="email" type="email" placeholder=" " required />
-            <label htmlFor="email">
+            <input
+              id={id('email')}
+              name="email"
+              type="email"
+              placeholder=" "
+              required
+              autoComplete="email"
+            />
+            <label htmlFor={id('email')}>
               <span className="c4-label-text">Work email</span>
             </label>
           </div>
 
           <div className="c4-float motion-safe:animate-[c4-rise-in_640ms_cubic-bezier(0.22,0.8,0.2,1)_210ms_both]">
-            <input id="company_size" name="company_size" placeholder=" " />
-            <label htmlFor="company_size">
+            <input
+              id={id('company_size')}
+              name="company_size"
+              placeholder=" "
+              autoComplete="organization"
+            />
+            <label htmlFor={id('company_size')}>
               <span className="c4-label-text">Company size</span>
             </label>
           </div>
 
           <div className="c4-float motion-safe:animate-[c4-rise-in_640ms_cubic-bezier(0.22,0.8,0.2,1)_260ms_both]">
-            <input id="phone" name="phone" type="tel" placeholder=" " />
-            <label htmlFor="phone">
+            <input
+              id={id('phone')}
+              name="phone"
+              type="tel"
+              placeholder=" "
+              autoComplete="tel"
+              inputMode="tel"
+            />
+            <label htmlFor={id('phone')}>
               <span className="c4-label-text">Phone</span>
             </label>
           </div>
 
           <div className="c4-float motion-safe:animate-[c4-rise-in_640ms_cubic-bezier(0.22,0.8,0.2,1)_310ms_both]">
-            <input id="topic" name="topic" placeholder=" " />
-            <label htmlFor="topic">
+            <input
+              id={id('topic')}
+              name="topic"
+              placeholder=" "
+              autoComplete="off"
+            />
+            <label htmlFor={id('topic')}>
               <span className="c4-label-text">Topic</span>
             </label>
           </div>
 
           <div className="c4-float c4-float--textarea md:col-span-2 motion-safe:animate-[c4-rise-in_680ms_cubic-bezier(0.22,0.8,0.2,1)_360ms_both]">
-            <textarea id="message" name="message" placeholder=" " />
-            <label htmlFor="message">
+            <textarea
+              id={id('message')}
+              name="message"
+              placeholder=" "
+              autoComplete="off"
+              rows={6}
+            />
+            <label htmlFor={id('message')}>
               <span className="c4-label-text">Message</span>
             </label>
           </div>
@@ -193,7 +236,7 @@ export default function ContactFormCard({ className = '' }: Props) {
                 onChange={(e) => setDemo(e.target.checked)}
               />
               <span
-                aria-hidden
+                aria-hidden="true"
                 className="relative inline-flex h-6 w-11 items-center rounded-full bg-white/15 transition
                            before:content-[''] before:absolute before:left-0.5 before:h-5 before:w-5 before:rounded-full
                            before:bg-white/80 before:transition
@@ -231,12 +274,12 @@ export default function ContactFormCard({ className = '' }: Props) {
         {/* contact info rail */}
         <div className="mt-7 border-t border-white/5 pt-5 motion-safe:animate-[c4-rise-in_760ms_cubic-bezier(0.22,0.8,0.2,1)_480ms_both]">
           <div className="grid gap-3 sm:grid-cols-3">
-            {CONTACT_ITEMS.map(({ id, label, value, href, Icon }) => (
+            {CONTACT_ITEMS.map(({ id: k, label, value, href, Icon }) => (
               <a
-                key={id}
+                key={k}
                 href={href}
-                target={id === 'office' ? '_blank' : undefined}
-                rel={id === 'office' ? 'noreferrer' : undefined}
+                target={k === 'office' ? '_blank' : undefined}
+                rel={k === 'office' ? 'noreferrer' : undefined}
                 className="
                   group flex items-center gap-3 rounded-2xl px-3 py-3
                   bg-white/2 hover:bg-white/6

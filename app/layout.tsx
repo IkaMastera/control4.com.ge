@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className='min-h-dvh bg-grid antialiased'>
         <HeaderDynamic />
 
-        <div className="relative pt-(--header-h,72px)">
+        <div data-scroll-behavior="smooth" className="relative pt-(--header-h,72px)">
 
             {children}
 
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BackToTop />
 
         <div className="fixed right-6 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-[60] flex flex-col items-end gap-4 pointer-events-none">
-          <WhatsAppFAB phone={SITE.whatsappPhone} message={SITE.whatsappMessage} locale="ka" fixed={false} className="pointer-events-auto" />
+          <WhatsAppFAB phone={SITE.whatsappPhone} message={SITE.whatsappMessage} locale="ka"  />
         </div>
 
       </body>

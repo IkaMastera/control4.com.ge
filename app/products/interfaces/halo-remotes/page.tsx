@@ -52,7 +52,7 @@ const FEATURE_CARDS: FeatureCard[] = [
       "Halo Touch combines a bright touch display with a full set of hard buttons in a slim aluminum chassis. It feels premium in the hand and gives fast access to your most-used devices, scenes and content.",
     bullets: [
       "Available in Black or Silver with a brushed aluminum chassis.",
-      "3.2\" capacitive touch LCD plus a familiar set of hard, backlit buttons.",
+      '3.2" capacitive touch LCD plus a familiar set of hard, backlit buttons.',
       "Navigate devices, media, Favorites and custom scenes with a rich graphical UI.",
       "Quick-access Watch, Listen and Now Playing pages from the sleep screen.",
       "Use one-handed or in the dark thanks to tactile, backlit buttons that are always ready.",
@@ -67,7 +67,7 @@ const FEATURE_CARDS: FeatureCard[] = [
     body:
       "Halo refines the classic living-room remote with a color screen, smart labeling and shortcuts tuned for real homes. It keeps things simple while still giving full control over devices, scenes and media.",
     bullets: [
-      "2.8\" full-color non-touch LCD for devices, media, favorites and automations.",
+      '2.8" full-color non-touch LCD for devices, media, favorites and automations.',
       "Three custom hard buttons with digital labels for quick, clearly named actions.",
       "New Color Shortcut button maps red / green / blue / yellow functions to 2, 4, 6 and 8.",
       "Complete set of hard, backlit buttons for confident control without looking down.",
@@ -115,6 +115,7 @@ export default function HaloRemotesPage() {
                 src="/images/products/halo-remotes/halo-hero.webp"
                 alt="Control4 Halo and Halo Touch remotes hero image."
                 fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover"
                 priority
               />
@@ -184,6 +185,7 @@ export default function HaloRemotesPage() {
                   src={card.imageSrc}
                   alt={card.imageAlt}
                   fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
                   className="object-cover"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
