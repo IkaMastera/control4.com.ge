@@ -163,7 +163,7 @@ export default function ServicesSlider() {
         >
           <div>
             <div className="mb-4 h-1 w-12 rounded-full bg-primary" />
-            <h2 className="text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl md:text-4xl w-[14ch]">
               Solutions &{" "}
               <RotatingWords
                 words={[
