@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Props = { open: boolean; onClose: () => void };
 
@@ -26,6 +26,48 @@ export default function MenuOverlay({ open, onClose }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
+  // ✅ bulletproof scroll lock: store previous values only when opening
+  const prevOverflowRef = useRef<{ body: string; html: string } | null>(null);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const body = document.body;
+    const html = document.documentElement;
+
+    if (open) {
+      // store once (only first time we lock)
+      if (!prevOverflowRef.current) {
+        prevOverflowRef.current = {
+          body: body.style.overflow,
+          html: html.style.overflow,
+        };
+      }
+
+      body.style.overflow = 'hidden';
+      html.style.overflow = 'hidden';
+      return;
+    }
+
+    // restore when closing
+    if (prevOverflowRef.current) {
+      body.style.overflow = prevOverflowRef.current.body;
+      html.style.overflow = prevOverflowRef.current.html;
+      prevOverflowRef.current = null;
+    }
+  }, [open, mounted]);
+
+  // extra safety: restore if component unmounts mid-lock
+  useEffect(() => {
+    return () => {
+      const prev = prevOverflowRef.current;
+      if (!prev) return;
+      document.body.style.overflow = prev.body;
+      document.documentElement.style.overflow = prev.html;
+      prevOverflowRef.current = null;
+    };
+  }, []);
+
   if (!mounted && !open) return null;
 
   const base = 140; // stagger base
@@ -37,17 +79,18 @@ export default function MenuOverlay({ open, onClose }: Props) {
       aria-modal="true"
       aria-hidden={!open}
       className={[
-        'fixed inset-0 z-60',
+        'fixed inset-0 z-[999] isolate',
         open ? 'pointer-events-auto' : 'pointer-events-none',
         mounted ? 'visible' : 'invisible',
       ].join(' ')}
     >
-      {/* PANEL: drops from top with overshoot */}
+      {/* PANEL */}
       <div
         className={[
-          'absolute inset-x-0 top-0 h-dvh overflow-hidden',
+          'absolute inset-x-0 top-0 h-[100dvh]',
+          // ✅ allow scroll on short viewports
+          'overflow-y-auto overscroll-contain',
           'bg-[#0B1220] border-b border-white/10',
-          'bg-[radial-gradient(1400px_900px_at_8%_0%,#0056B8_0%,transparent_60%),radial-gradient(1400px_900px_at_92%_0%,#00C2FF_0%,transparent_60%),linear-gradient(180deg,#0B1220_0%,#0D1117_100%)]',
           open
             ? 'motion-safe:animate-[c4-drop-bounce_820ms_cubic-bezier(.2,.8,.16,1)_both]'
             : 'motion-safe:animate-[c4-drop-bounce-out_360ms_cubic-bezier(.4,0,.2,1)_both]',
@@ -56,10 +99,14 @@ export default function MenuOverlay({ open, onClose }: Props) {
           transform: open ? 'translateY(0)' : 'translateY(-100%)',
         }}
       >
+        {/* background gradient */}
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(1400px_900px_at_8%_0%,#0056B8_0%,transparent_60%),radial-gradient(1400px_900px_at_92%_0%,#00C2FF_0%,transparent_60%),linear-gradient(180deg,#0B1220_0%,#0D1117_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-28 bg-linear-to-t from-black/45 to-transparent" />
+
         <div className="mx-auto flex max-w-[1400px] flex-col gap-8 px-6 sm:px-10">
           {/* Top bar – safe-area aware */}
           <div
-            className="flex items-center justify-between overflow-hidden"
+            className="flex items-center justify-between"
             style={{
               paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1.5rem)',
             }}
@@ -85,7 +132,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
             <button
               onClick={onClose}
               aria-label="Close menu"
-              className="group inline-flex items-center gap-3 rounded-xl px-4 py-2 text-sm font-medium text-white/90 hover:text-white focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black transition"
+              className="group shrink-0 inline-flex items-center gap-3 rounded-xl px-4 py-2 text-sm font-medium text-white/90 hover:text-white focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black transition"
               style={
                 open
                   ? {
@@ -108,24 +155,37 @@ export default function MenuOverlay({ open, onClose }: Props) {
           </div>
 
           {/* Content */}
-          <div className="grid h-full grid-cols-1 items-start gap-10 pb-10 md:grid-cols-3 md:gap-16">
-            {/* LEFT: page links rise from bottom */}
-            <div className="mt-6 md:col-span-2 overflow-hidden">
+          <div
+            className={[
+              'grid grid-cols-1 items-start gap-10 pb-10',
+              'md:grid-cols-3 md:gap-16',
+              '[@media(max-height:720px)]:gap-8',
+              // ✅ keep content above WhatsApp FAB + safe area
+              'pb-[calc(env(safe-area-inset-bottom,0px)+5.5rem)]',
+              'md:pb-[calc(env(safe-area-inset-bottom,0px)+2.5rem)]',
+            ].join(' ')}
+          >
+            {/* LEFT: links */}
+            <div className="mt-4 md:col-span-2">
               <ul className="space-y-3 sm:space-y-4 md:space-y-6">
                 {LINKS.map((l, i) => (
                   <li key={l.href}>
                     <Link
                       href={l.href}
                       onClick={onClose}
-                      className="group relative block text-4xl font-semibold leading-[1.05] text-white/95 transition-colors hover:text-white sm:text-6xl md:text-7xl"
+                      className="group relative block font-semibold leading-[1.05] text-white/95 transition-colors hover:text-white"
                       style={
                         open
                           ? {
                               animation: `c4-spring-up-far 640ms cubic-bezier(.2,.8,.16,1) ${
                                 base + 160 + i * 90
                               }ms both`,
+                              fontSize: 'clamp(2.25rem, 7.2vw, 4.5rem)',
                             }
-                          : { transform: 'translateY(40vh)' }
+                          : {
+                              transform: 'translateY(40vh)',
+                              fontSize: 'clamp(2.25rem, 7.2vw, 4.5rem)',
+                            }
                       }
                     >
                       {l.label}
@@ -136,9 +196,9 @@ export default function MenuOverlay({ open, onClose }: Props) {
               </ul>
             </div>
 
-            {/* RIGHT: video + meta + animated social icons (slide from right) */}
+            {/* RIGHT: video + meta + social */}
             <div
-              className="mt-8 flex flex-col gap-6 overflow-hidden"
+              className="mt-2 flex flex-col gap-6"
               style={
                 open
                   ? {
@@ -149,7 +209,6 @@ export default function MenuOverlay({ open, onClose }: Props) {
                   : { transform: 'translateX(50vw)' }
               }
             >
-              {/* Video box with proper aspect ratio */}
               <div
                 className="rounded-2xl border border-white/10 bg-black/30 p-3"
                 style={
@@ -175,17 +234,14 @@ export default function MenuOverlay({ open, onClose }: Props) {
                       src="/videos/dropdown-menu-video2.mp4"
                       type="video/mp4"
                     />
-                    {/* <source src="/videos/test-video-menu.webm" type="video/webm" /> */}
                   </video>
                 </div>
               </div>
 
-              {/* Tagline */}
               <p className="mb-1 text-xs tracking-[0.22em] text-white/60 uppercase">
                 Smart Systems for Premium Homes & Venues.
               </p>
 
-              {/* Animated social icons */}
               <ul
                 className="flex gap-4"
                 style={
@@ -239,9 +295,8 @@ export default function MenuOverlay({ open, onClose }: Props) {
                 ))}
               </ul>
 
-              {/* Footer note */}
               <div
-                className="pt-4 text-xs text-white/55"
+                className="pt-2 text-xs text-white/55"
                 style={
                   open
                     ? {
@@ -257,8 +312,6 @@ export default function MenuOverlay({ open, onClose }: Props) {
             </div>
           </div>
         </div>
-
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-black/40 to-transparent" />
       </div>
     </div>
   );

@@ -28,7 +28,6 @@ const cols: Record<string, FooterLink[]> = {
   ],
   legal: [
     { id: "leg-privacy", label: "Privacy", href: "/privacy-policy" },
-    { id: "leg-terms", label: "Terms", href: "/terms" },
   ],
 };
 
