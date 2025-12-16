@@ -8,7 +8,6 @@ type Props = { open: boolean; onClose: () => void };
 const LINKS = [
   { href: '/showroom-360', label: '360° Showroom' },
   { href: '/price-calculator', label: 'Price Calculator' },
-  { href: '/solutions', label: 'Solutions' },
   { href: '/products', label: 'Products' },
   { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact Us' },
