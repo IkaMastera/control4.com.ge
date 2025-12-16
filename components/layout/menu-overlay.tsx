@@ -215,7 +215,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
                     fill: 'bg-[#0077b5]',
                   },
                   {
-                    href: 'https://wa.me/995',
+                    href: 'https://wa.me/995511223366',
                     icon: 'fa-whatsapp',
                     fill: 'bg-[#25D366]',
                   },

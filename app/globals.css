@@ -445,17 +445,29 @@ img {
 
 @keyframes wa-breathe {
   0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.28); }
-  50%     { box-shadow: 0 0 0 10px rgba(37,211,102,0.12); }
+  50%     { box-shadow: 0 0 0 8px rgba(37,211,102,0.14); }
 }
 
 @keyframes wa-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.55); transform: scale(1); }
-  70%  { box-shadow: 0 0 0 20px rgba(37,211,102,0); transform: scale(1.08); }
+  0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.45); transform: scale(1); }
+  70%  { box-shadow: 0 0 0 18px rgba(37,211,102,0); transform: scale(1.08); }
   100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); transform: scale(1); }
 }
 
+/* idle */
+.c4-wa-fab {
+  animation: wa-breathe 3s ease-in-out infinite;
+}
+
+/* hover = bigger pulse */
+.c4-wa-fab:hover {
+  animation: wa-pulse 1.6s ease-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .c4-wa-fab, .c4-wa-fab > span { animation: none !important; }
+  .c4-wa-fab {
+    animation: none !important;
+  }
 }
 
 /* ============ APEX INTRO (beams, grid, ink, underline) ============ */
