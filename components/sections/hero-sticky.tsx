@@ -35,7 +35,7 @@ const PANES: Pane[] = [
     videoWebm: "/videos/smarthome-loop2.webm",
     videoMp4: "/videos/smarthome-loop2.mp4",
     videoFit: "cover",
-    videoScale: 1,
+    videoScale: 1.08,
     tagline: "WHOLE-HOME AUTOMATION • EVERYTHING WORKS TOGETHER",
   },
   {
@@ -66,12 +66,32 @@ const PANES: Pane[] = [
   },
 ];
 
+const MOBILE_PANE_INDEX = 1; // Core 5 only on mobile
+
+function fitClass(fit?: VideoFit) {
+  if (fit === "contain") return "object-contain bg-black";
+  if (fit === "fill") return "object-fill";
+  return "object-cover";
+}
+
 export default function HeroSticky() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [storyMode, setStoryMode] = useState(false);
 
-  // Decide which pane is active based on scroll position
+  // story mode only on md+ (iPad and up)
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setStoryMode(mq.matches);
+    sync();
+    mq.addEventListener?.("change", sync);
+    return () => mq.removeEventListener?.("change", sync);
+  }, []);
+
+  // Scroll-driven active pane (md+ only)
+  useEffect(() => {
+    if (!storyMode) return;
+
     const wrap = wrapRef.current;
     if (!wrap) return;
 
@@ -79,18 +99,15 @@ export default function HeroSticky() {
 
     const onScroll = () => {
       cancelAnimationFrame(rAF);
-
       rAF = requestAnimationFrame(() => {
         const rect = wrap.getBoundingClientRect();
         const viewportH = window.innerHeight;
-        const effectiveHeight = wrap.offsetHeight - viewportH * 0.7;
+
+        const effectiveHeight = Math.max(1, wrap.offsetHeight - viewportH * 0.7);
 
         const scrolled = Math.min(
           1,
-          Math.max(
-            0,
-            (viewportH - rect.top - viewportH * 0.05) / effectiveHeight,
-          ),
+          Math.max(0, (viewportH - rect.top - viewportH * 0.05) / effectiveHeight),
         );
 
         const idx = Math.min(
@@ -111,10 +128,12 @@ export default function HeroSticky() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [storyMode]);
 
-  // Scroll page so that a specific pane becomes active
+  // Scroll to pane (md+ story mode)
   const scrollToPane = (index: number) => {
+    if (!storyMode) return;
+
     const wrap = wrapRef.current;
     if (!wrap) return;
 
@@ -123,7 +142,7 @@ export default function HeroSticky() {
     const wrapTop = wrapRect.top + window.scrollY;
     const wrapHeight = wrap.offsetHeight;
 
-    const effectiveHeight = wrapHeight - viewportH * 0.7;
+    const effectiveHeight = Math.max(1, wrapHeight - viewportH * 0.7);
     const segment = 1 / PANES.length;
     const scrolledTarget = segment * (index + 0.5);
 
@@ -133,6 +152,90 @@ export default function HeroSticky() {
     window.scrollTo({ top: newScrollY, behavior: "smooth" });
   };
 
+  // MOBILE (<md): Core 5 only
+  if (!storyMode) {
+    const p = PANES[MOBILE_PANE_INDEX];
+
+    return (
+      <section
+        id="hero-sticky"
+        aria-label="Control4 Product Hero"
+        className="relative z-0 bg-bg"
+      >
+        <Container className="py-4 sm:py-6">
+          <div className="grid grid-cols-1 gap-6">
+            {/* TEXT */}
+            <motion.div
+              className="
+                rounded-2xl bg-surface/80 ring-1 ring-white/10
+                p-6 sm:p-8
+              "
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
+            >
+              <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-white/80 sm:text-sm">
+                {p.eyebrow} <span className="text-accent">•</span>
+              </h2>
+
+              <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
+                {p.title} <span className="text-accent">{p.highlight}</span>
+              </h3>
+
+              {/* no dots on mobile */}
+
+              <div className="my-5 h-px w-full bg-white/15" />
+
+              <p className="text-sm leading-relaxed text-white/75 sm:text-base">
+                {p.body}
+              </p>
+
+              <a
+                href="/contact"
+                className="
+                  mt-7 inline-flex items-center justify-center gap-2
+                  rounded-xl border border-accent/60 px-4 py-3
+                  text-sm font-medium text-white hover:bg-accent/15
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+                "
+              >
+                Order Today <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </motion.div>
+
+            {/* VIDEO */}
+            <motion.div
+              className="
+                relative overflow-hidden rounded-2xl bg-black ring-1 ring-white/10
+                h-[240px] sm:h-[320px]
+              "
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: "easeOut", delay: 0.05 }}
+            >
+              <video
+                className={`absolute inset-0 h-full w-full object-center ${fitClass(p.videoFit)}`}
+                style={{
+                  transform:
+                    p.videoScale && p.videoScale !== 1 ? `scale(${p.videoScale})` : undefined,
+                  transformOrigin: "center",
+                }}
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                {p.videoWebm && <source src={p.videoWebm} type="video/webm" />}
+                <source src={p.videoMp4} type="video/mp4" />
+              </video>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
+  // Tablet/Desktop (md+): sticky story
   return (
     <section
       id="hero-sticky"
@@ -141,14 +244,30 @@ export default function HeroSticky() {
     >
       <div
         ref={wrapRef}
-        className="relative z-0 h-[360vh] rounded-none sm:h-[420vh] md:h-[480vh]"
+        className="
+          relative z-0 rounded-none
+          md:h-[360vh] lg:h-[420vh] xl:h-[480vh]
+        "
       >
-        <Container className="sticky top-(--header-h,72px) h-[calc(92.5svh-var(--header-h,72px))] py-4 sm:py-6">
-          <div className="relative grid h-full grid-cols-1 gap-6 md:grid-cols-[0.42fr_1fr]">
-            {/* LEFT PANEL – text block */}
+        <Container
+          className="
+            py-4 sm:py-6
+            md:sticky md:top-(--header-h,72px)
+            md:h-[calc(92.5svh-var(--header-h,72px))]
+          "
+        >
+          <div
+            className="
+              relative grid h-full gap-6
+              md:grid-rows-[1fr_1fr] md:grid-cols-1
+              lg:grid-rows-1 lg:grid-cols-[0.42fr_1fr]
+            "
+          >
+            {/* LEFT PANEL */}
             <motion.div
               className="
-                z-0 flex flex-col justify-between overflow-hidden
+                relative z-0 min-h-0
+                flex flex-col justify-between overflow-hidden
                 rounded-2xl bg-surface/80 ring-1 ring-white/10
                 p-6 sm:p-8 md:p-10 pb-12 md:pb-14 pb-safe
               "
@@ -162,24 +281,25 @@ export default function HeroSticky() {
                     key={p.id}
                     aria-hidden={active !== i}
                     className={`
-                      absolute inset-0 transition-all duration-500
+                      absolute inset-0
+                      transition-all duration-500
                       ${
                         active === i
                           ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
+                          : "translate-y-4 opacity-0 pointer-events-none"
                       }
                     `}
                   >
                     <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-white/80 sm:text-sm">
                       {p.eyebrow} <span className="text-accent">•</span>
                     </h2>
+
                     <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
-                      {p.title}{" "}
-                      <span className="text-accent">{p.highlight}</span>
+                      {p.title} <span className="text-accent">{p.highlight}</span>
                     </h3>
 
-                    {/* MOBILE DOT NAV */}
-                    <div className="mt-3 flex gap-2 md:hidden pointer-events-auto">
+                    {/* DOT NAV (visible on tablets; desktop uses left rail) */}
+                    <div className="mt-3 flex gap-2 lg:hidden pointer-events-auto">
                       {PANES.map((pane, index) => (
                         <button
                           key={pane.id}
@@ -188,7 +308,7 @@ export default function HeroSticky() {
                           aria-pressed={index === active}
                           onClick={() => scrollToPane(index)}
                           className={`
-                            h-3.5 w-3.5 cursor-pointer rounded-full border border-white/30 transition
+                            h-3.5 w-3.5 rounded-full border border-white/30 transition
                             ${
                               index === active
                                 ? "scale-110 bg-accent shadow-[0_0_0_4px_rgba(0,194,255,0.35)]"
@@ -200,6 +320,7 @@ export default function HeroSticky() {
                     </div>
 
                     <div className="my-5 h-px w-full bg-white/15" />
+
                     <p className="text-sm leading-relaxed text-white/75 sm:text-base">
                       {p.body}
                     </p>
@@ -211,7 +332,7 @@ export default function HeroSticky() {
               <a
                 href="/contact"
                 className="
-                  mt-8 mb-4 inline-flex items-center justify-center gap-2 self-start
+                  mt-8 mb-1 inline-flex items-center justify-center gap-2 self-start
                   rounded-xl border border-accent/60 px-4 py-3
                   text-sm font-medium text-white hover:bg-accent/15
                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
@@ -221,10 +342,10 @@ export default function HeroSticky() {
               </a>
             </motion.div>
 
-            {/* RIGHT PANEL – video area */}
+            {/* RIGHT PANEL (video) */}
             <motion.div
               className="
-                relative overflow-hidden rounded-2xl bg-black
+                relative min-h-0 overflow-hidden rounded-2xl bg-black
                 ring-1 ring-white/10
               "
               initial={{ opacity: 0, x: 40, y: 20, scale: 0.98 }}
@@ -234,12 +355,13 @@ export default function HeroSticky() {
               {PANES.map((p, i) => (
                 <div
                   key={p.id}
+                  aria-hidden={active !== i}
                   className={`
                     absolute inset-0 transition-all duration-500
                     ${
                       active === i
                         ? "translate-y-0 opacity-100"
-                        : "translate-y-4 opacity-0"
+                        : "translate-y-4 opacity-0 pointer-events-none"
                     }
                   `}
                 >
@@ -255,21 +377,10 @@ export default function HeroSticky() {
                     )}
 
                     <video
-                      className={`
-                        h-full w-full
-                        ${
-                          p.videoFit === "contain"
-                            ? "object-contain bg-black"
-                            : p.videoFit === "fill"
-                            ? "object-fill"
-                            : "object-cover"
-                        }
-                      `}
+                      className={`absolute inset-0 h-full w-full object-center ${fitClass(p.videoFit)}`}
                       style={{
                         transform:
-                          p.videoScale && p.videoScale !== 1
-                            ? `scale(${p.videoScale})`
-                            : undefined,
+                          p.videoScale && p.videoScale !== 1 ? `scale(${p.videoScale})` : undefined,
                         transformOrigin: "center",
                       }}
                       autoPlay
@@ -277,9 +388,7 @@ export default function HeroSticky() {
                       loop
                       playsInline
                     >
-                      {p.videoWebm && (
-                        <source src={p.videoWebm} type="video/webm" />
-                      )}
+                      {p.videoWebm && <source src={p.videoWebm} type="video/webm" />}
                       <source src={p.videoMp4} type="video/mp4" />
                     </video>
                   </div>
@@ -287,8 +396,8 @@ export default function HeroSticky() {
               ))}
             </motion.div>
 
-            {/* DESKTOP VERTICAL DOT NAV – clickable */}
-            <div className="pointer-events-none absolute inset-y-0 -left-10 hidden md:flex">
+            {/* DESKTOP VERTICAL DOT NAV – lg+ */}
+            <div className="pointer-events-none absolute inset-y-0 -left-10 hidden lg:flex">
               <div className="pointer-events-auto flex flex-col items-center justify-center gap-4">
                 {PANES.map((pane, index) => (
                   <button
@@ -298,7 +407,7 @@ export default function HeroSticky() {
                     aria-pressed={index === active}
                     onClick={() => scrollToPane(index)}
                     className={`
-                      h-4 w-4 cursor-pointer rounded-full border border-white/30 transition
+                      h-4 w-4 rounded-full border border-white/30 transition
                       ${
                         index === active
                           ? "scale-125 bg-accent shadow-[0_0_0_6px_rgba(0,194,255,0.35)]"

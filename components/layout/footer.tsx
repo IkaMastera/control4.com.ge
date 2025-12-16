@@ -27,9 +27,8 @@ const cols: Record<string, FooterLink[]> = {
     { id: "cmp-prices", label: "Prices", href: "/price-calculator" },
   ],
   legal: [
-    { id: "leg-privacy", label: "Privacy", href: "/privacy" },
+    { id: "leg-privacy", label: "Privacy", href: "/privacy-policy" },
     { id: "leg-terms", label: "Terms", href: "/terms" },
-    { id: "leg-status", label: "Status", href: "/status" },
   ],
 };
 
