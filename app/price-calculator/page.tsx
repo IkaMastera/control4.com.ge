@@ -121,9 +121,9 @@ export default function CalculatorPage() {
   const [areaSqm, setAreaSqm] = useState<number>(50);
 
   const [needs, setNeeds] = useState<Needs>({
-    lighting: true,
+    lighting: false,
     dimmableLighting: false,
-    keypads: true,
+    keypads: false,
     scenes: false,
 
     touchPanel: false,

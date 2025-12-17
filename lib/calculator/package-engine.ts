@@ -36,16 +36,20 @@ export type Needs = {
 export function recommendTier(needs: Needs) {
   const n = normalizeNeeds(needs);
 
-  // HARD premium triggers (premium-only experiences)
+  // HARD premium triggers (features only available in Premium)
   const hardPremium =
     n.curtainControl ||
     n.sensorsOrVoice ||
-    n.smartLock;
+    n.smartLock ||
+    n.audioForTv;
 
   if (hardPremium) return "premium";
 
   // Comfort triggers
-  const comfortTriggers = n.dimmableLighting || n.touchPanel || n.scenes;
+  const comfortTriggers =
+    n.dimmableLighting ||
+    n.touchPanel ||
+    n.scenes;
 
   if (comfortTriggers) return "comfort";
 
