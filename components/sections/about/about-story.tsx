@@ -175,7 +175,7 @@ function StoryCard({
               {/* Footer Back */}
               <div className="absolute bottom-9 left-8 right-8 sm:bottom-11 sm:left-10 sm:right-10">
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/12 to-transparent" />
-                <p className="mt-4 text-xs text-white/50">
+                <p className="mt-4 pt-6 text-xs text-white/50">
                   Click or press Enter to return
                 </p>
               </div>
