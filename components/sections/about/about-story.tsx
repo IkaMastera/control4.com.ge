@@ -197,7 +197,7 @@ export default function AboutStory() {
   return (
     <section
       aria-labelledby="about-story-heading"
-      className="relative overflow-hidden border-t border-white/5 bg-[#020617] py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden border-t border-white/5 py-16 sm:py-20 lg:py-24"
     >
       <Container>
         <motion.div

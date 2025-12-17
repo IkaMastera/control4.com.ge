@@ -8,6 +8,7 @@ export type ShowcaseProduct = {
   thumb: string;
   ctaLabel: string;
   topic: string;
+  href: string;
 };
 
 export const showcaseProducts: ShowcaseProduct[] = [
@@ -20,7 +21,8 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/controller.jpg",
     thumb: "/images/controller.jpg",
     ctaLabel: "Explore Controllers",
-    topic: "core"
+    topic: "core",
+    href: "/products/controllers/core-controllers"
   },
   {
     id: "controls",
@@ -31,7 +33,8 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/touch.jpg",
     thumb: "/images/touch.jpg",
     ctaLabel: "See Control Options",
-    topic: "controls"
+    topic: "controls",
+    href: "/products/interfaces/touchscreens"
   },
   {
     id: "lighting",
@@ -42,7 +45,8 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/lighting.jpg",
     thumb: "/images/lighting.jpg",
     ctaLabel: "Plan Your Lighting",
-    topic: "lighting"
+    topic: "lighting",
+    href: "/products/lighting/vibrant-linear-lighting"
   },
   {
     id: "audio",
@@ -53,7 +57,8 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/audio.jpg",
     thumb: "/images/audio.jpg",
     ctaLabel: "Design Your Sound",
-    topic: "audio"
+    topic: "audio",
+    href: "/products/audio-video/triad-speakers"
   },
   {
     id: "networking",
@@ -64,7 +69,8 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/network.jpg",
     thumb: "/images/network.jpg",
     ctaLabel: "Optimize Your Network",
-    topic: "networking"
+    topic: "networking",
+    href: "/products/controllers/core-controllers"
   },
   {
     id: "security",
@@ -75,7 +81,8 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/security.jpg",
     thumb: "/images/security.jpg",
     ctaLabel: "Secure Your Home",
-    topic: "security"
+    topic: "security",
+    href: "/products/security/cameras-nvr"
   },
   {
     id: "shades",
@@ -86,7 +93,8 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/climate.jpg",
     thumb: "/images/climate.jpg",
     ctaLabel: "Explore Comfort",
-    topic: "shades"
+    topic: "shades",
+    href: "/products/comfort/comfort-controls"
   },
   {
     id: "av-distribution",
@@ -97,6 +105,7 @@ export const showcaseProducts: ShowcaseProduct[] = [
     heroImage: "/images/distribution.jpg",
     thumb: "/images/distribution.jpg",
     ctaLabel: "Streamline Your AV",
-    topic: "av-distribution"
+    topic: "av-distribution",
+    href: "/products/controllers/core-controllers"
   }
 ];

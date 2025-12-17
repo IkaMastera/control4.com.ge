@@ -37,7 +37,7 @@ export default function ShowcaseHero() {
             </p>
 
             <Link
-              href="#products-dock"
+              href="/products"
               className="btn-glow btn-glow--trio mt-6 inline-flex items-center rounded-full px-5 py-2.5 text-sm font-medium"
             >
               Discover Products

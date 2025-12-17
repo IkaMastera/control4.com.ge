@@ -322,7 +322,7 @@ export default function ServicesSlider() {
 
           {/* CTA button to Solutions page */}
           <a
-            href="/solutions"
+            href="/contact"
             className="btn-glow inline-flex items-center gap-2 self-center rounded-full bg-primary px-5 py-3 text-sm font-medium text-white transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 md:self-auto"
           >
             Discover Functionalities

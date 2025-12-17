@@ -191,7 +191,7 @@ export default function HeroSticky() {
               </p>
 
               <a
-                href="/contact"
+                href="/price-calculator"
                 className="
                   mt-7 inline-flex items-center justify-center gap-2
                   rounded-xl border border-accent/60 px-4 py-3
@@ -308,7 +308,7 @@ export default function HeroSticky() {
                           aria-pressed={index === active}
                           onClick={() => scrollToPane(index)}
                           className={`
-                            h-3.5 w-3.5 rounded-full border border-white/30 transition
+                            h-3.5 w-3.5 cursor-pointer rounded-full border border-white/30 transition
                             ${
                               index === active
                                 ? "scale-110 bg-accent shadow-[0_0_0_4px_rgba(0,194,255,0.35)]"
@@ -330,7 +330,7 @@ export default function HeroSticky() {
 
               {/* CTA */}
               <a
-                href="/contact"
+                href="/price-calculator"
                 className="
                   mt-8 mb-1 inline-flex items-center justify-center gap-2 self-start
                   rounded-xl border border-accent/60 px-4 py-3
@@ -407,7 +407,7 @@ export default function HeroSticky() {
                     aria-pressed={index === active}
                     onClick={() => scrollToPane(index)}
                     className={`
-                      h-4 w-4 rounded-full border border-white/30 transition
+                      h-4 w-4 rounded-full border cursor-pointer border-white/30 transition
                       ${
                         index === active
                           ? "scale-125 bg-accent shadow-[0_0_0_6px_rgba(0,194,255,0.35)]"

@@ -114,6 +114,7 @@ export default function ProductsShowcaseSection() {
               ctaLabel={p.ctaLabel}
               topic={p.topic}
               index={idx}
+              href={p.href}
             />
             {idx < showcaseProducts.length - 1 && <ProductSeparator />}
           </Reveal>

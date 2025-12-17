@@ -51,7 +51,7 @@ export default function AboutSection() {
           className="mt-8"
         >
           <a
-            href="/contact"
+            href="/about"
             className="inline-block rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition"
           >
             Learn More

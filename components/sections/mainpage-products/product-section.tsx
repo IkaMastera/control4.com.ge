@@ -15,6 +15,7 @@ type Props = {
   topic: string;
   index: number;
   sticky?: boolean;
+  href: string;
 };
 
 export default function ProductSection({
@@ -27,6 +28,7 @@ export default function ProductSection({
   ctaLabel,
   topic,
   index,
+  href,
 }: Props) {
   const reverse = index % 2 === 1;
 
@@ -74,7 +76,7 @@ export default function ProductSection({
             </ul>
 
             <Link
-              href={`/#contact?topic=${encodeURIComponent(topic)}`}
+              href={href}
               className="btn-glow btn-glow--trio mt-6 inline-flex items-center rounded-full px-5 py-2.5 text-sm font-medium"
               aria-label={`${ctaLabel} — ${name}`}
             >
