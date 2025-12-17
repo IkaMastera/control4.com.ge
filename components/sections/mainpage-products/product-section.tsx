@@ -19,14 +19,14 @@ type Props = {
 };
 
 export default function ProductSection({
-  id,
+ // id,
   slug,
   name,
   summary,
   bullets,
   heroImage,
   ctaLabel,
-  topic,
+//topic,
   index,
   href,
 }: Props) {

@@ -31,40 +31,57 @@ const CONTACT_ITEMS = [
   },
 ];
 
+type SubmitStatus = 'idle' | 'loading' | 'ok' | 'err';
+
 export default function ContactFormCard({ className = '' }: Props) {
+  
   const uid = useId(); // ensures unique ids across page renders
   const id = (x: string) => `contact-${x}-${uid}`;
 
-  const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'err'>(
-    'idle'
-  );
+  const [status, setStatus] = useState<SubmitStatus>('idle');
   const [msg, setMsg] = useState('');
   const [demo, setDemo] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setMsg('Submitting…');
     setStatus('loading');
     setMsg('');
 
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // honeypot: if filled, silently succeed
-    if ((data.get('company') || '').toString().trim()) {
+    // ✅ honeypot: if filled, silently succeed (anti-bot)
+    if ((data.get('hp_field') || '').toString().trim()) {
       setStatus('ok');
       form.reset();
       setDemo(false);
       return;
     }
 
+    const get = (name: string) => (data.get(name) || '').toString().trim();
+
+    const firstName = get('first_name');
+    const email = get('email');
+
+    // ✅ same minimal validation style as homepage CTA
+    if (!email || !firstName) {
+      setStatus('err');
+      setMsg('Please fill in your name and email.');
+      return;
+    }
+
     const payload = {
-      first_name: (data.get('first_name') || '').toString().trim(),
-      last_name: (data.get('last_name') || '').toString().trim(),
-      email: (data.get('email') || '').toString().trim(),
-      company_size: (data.get('company_size') || '').toString().trim(),
-      phone: (data.get('phone') || '').toString().trim(),
-      topic: (data.get('topic') || '').toString().trim(),
-      message: (data.get('message') || '').toString().trim(),
+      first_name: firstName,
+      last_name: get('last_name'),
+      email,
+      phone: get('phone'),
+      // ✅ match CTA behavior: always send a topic
+      topic: 'Contact Page',
+      // ✅ match CTA behavior: default message when empty
+      message: get('message') || 'Lead submitted via contact page form.',
+      // keep this key (CTA sends it too, just empty)
+      company_size: get('company_size') || '',
       schedule_demo: demo,
     };
 
@@ -83,9 +100,7 @@ export default function ContactFormCard({ className = '' }: Props) {
       } else {
         const body = await res.json().catch(() => null);
         setStatus('err');
-        setMsg(
-          body?.error || 'Something went wrong. Please try again in a moment.'
-        );
+        setMsg(body?.error || 'Something went wrong. Please try again in a moment.');
       }
     } catch (err) {
       console.error(err);
@@ -130,7 +145,7 @@ export default function ContactFormCard({ className = '' }: Props) {
           {/* honeypot: keep it off accessibility tree */}
           <input
             type="text"
-            name="company"
+            name="hp_field"
             aria-hidden="true"
             tabIndex={-1}
             autoComplete="off"
@@ -237,7 +252,7 @@ export default function ContactFormCard({ className = '' }: Props) {
               />
               <span
                 aria-hidden="true"
-                className="relative inline-flex h-6 w-11 items-center rounded-full bg-white/15 transition
+                className="relative cursor-pointer inline-flex h-6 w-11 items-center rounded-full bg-white/15 transition
                            before:content-[''] before:absolute before:left-0.5 before:h-5 before:w-5 before:rounded-full
                            before:bg-white/80 before:transition
                            peer-checked:bg-accent/40 peer-checked:before:translate-x-5"
@@ -248,7 +263,7 @@ export default function ContactFormCard({ className = '' }: Props) {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="btn-glow btn-glow--trio rounded-full px-7 py-3 text-sm font-medium"
+              className="btn-glow cursor-pointer btn-glow--trio rounded-full px-7 py-3 text-sm font-medium"
             >
               {status === 'loading' ? 'Submitting…' : 'Submit'}
             </button>
