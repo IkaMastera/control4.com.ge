@@ -27,9 +27,9 @@ const CARDS: StoryCardData[] = [
       "17+ years of experience. Our foundation was built on real projects — learning constraints, solving problems, and delivering results before scaling up. Over time, this grew from residential projects into complex hotels, commercial spaces, and large-scale developments across Georgia.",
     backTitle: "Where we came from",
     backLines: [
-      "Started with fire systems and electrical work on local projects.",
-      "Grew into full-stack engineering: fire, HVAC, BMS, networking and smart home.",
-      "Trusted on Sheraton, Marriott, Radisson, BAU Hospital, Batumi Mall and more.",
+      "Our foundation was shaped on real MEP projects.",
+      "Each challenge strengthened our engineering discipline, problem-solving, and execution standards.",
+      "Over time, this hands-on experience evolved from residential projects into complex hotels, commercial facilities, and large-scale developments across Georgia.",
     ],
   },
   {
@@ -51,9 +51,9 @@ const CARDS: StoryCardData[] = [
       "We design systems to international standards, ensuring reliability and long-term performance. As we expand beyond Georgia, we help shape the next generation of building, automation, and integrated engineering.",
     backTitle: "Where we’re going",
     backLines: [
-      "Expanding from Georgia to Dubai, Turkey and beyond.",
-      "Building systems that can be serviced and extended for 10+ years.",
-      "Proving that projects built in Georgia can run at world-class level.",
+      "Built in Georgia, designed for global performance.",
+      "Engineered for long-term operation, serviceability, and growth.",
+      "Expanding internationally through advanced building, automation, and integrated engineering solutions.",
     ],
   },
 ];
