@@ -8,6 +8,7 @@ import {
   recommendTier,
   formatUsd,
   type Needs,
+  normalizeNeeds,
 } from "@/lib/calculator/package-engine";
 import { AREA_BRACKETS, type PackageTier } from "@/data/pricing-packages";
 import {
@@ -21,6 +22,7 @@ import {
   Ruler,
   Sparkles,
   Send,
+  Power,
 } from "lucide-react";
 import {
   motion,
@@ -119,7 +121,11 @@ export default function CalculatorPage() {
   const [areaSqm, setAreaSqm] = useState<number>(50);
 
   const [needs, setNeeds] = useState<Needs>({
+    lighting: true,
     dimmableLighting: false,
+    keypads: true,
+    scenes: false,
+
     touchPanel: false,
     audioForTv: false,
     smartLock: false,
@@ -149,7 +155,7 @@ export default function CalculatorPage() {
   }, [areaSqm]);
 
   function toggle<K extends keyof Needs>(key: K) {
-    setNeeds((p) => ({ ...p, [key]: !p[key] }));
+    setNeeds((p) => normalizeNeeds({ ...p, [key]: !p[key] }));
   }
 
   // ---------------------------
@@ -271,7 +277,7 @@ export default function CalculatorPage() {
                   <NeedToggle
                     icon={<Lightbulb className="w-4 h-4 text-primary" />}
                     title="Dimmable lighting"
-                    subtitle="Smooth brightness + scenes"
+                    subtitle="Smooth brightness"
                     checked={needs.dimmableLighting}
                     onClick={() => toggle("dimmableLighting")}
                     prefersReducedMotion={!!prefersReducedMotion}
@@ -286,7 +292,7 @@ export default function CalculatorPage() {
                   />
                   <NeedToggle
                     icon={<Volume2 className="w-4 h-4 text-primary" />}
-                    title="Audio for TV"
+                    title="Audio"
                     subtitle="Soundbar / speakers"
                     checked={needs.audioForTv}
                     onClick={() => toggle("audioForTv")}
@@ -316,6 +322,22 @@ export default function CalculatorPage() {
                     onClick={() => toggle("sensorsOrVoice")}
                     prefersReducedMotion={!!prefersReducedMotion}
                   />
+                  <NeedToggle
+                    icon={<Power className="w-4 h-4 text-primary" />}
+                    title="Lighting"
+                    subtitle="On/Off control + automation"
+                    checked={needs.lighting}
+                    onClick={() => toggle("lighting")}
+                  />
+
+                  <NeedToggle
+                    icon={<PanelTop className="w-4 h-4 text-primary" />}
+                    title="Keypads / Scenes"
+                    subtitle="Engraved buttons for control"
+                    checked={needs.keypads}
+                    onClick={() => toggle("keypads")}
+                  />
+
                 </motion.div>
 
                 <motion.div
@@ -681,9 +703,16 @@ function NeedToggle(props: {
   subtitle: string;
   checked: boolean;
   onClick: () => void;
-  prefersReducedMotion: boolean;
+  prefersReducedMotion?: boolean;
 }) {
-  const { icon, title, subtitle, checked, onClick, prefersReducedMotion } = props;
+  const {
+  icon,
+  title,
+  subtitle,
+  checked,
+  onClick,
+  prefersReducedMotion = false,
+} = props;
 
   return (
     <motion.button

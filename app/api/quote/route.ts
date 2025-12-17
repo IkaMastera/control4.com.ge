@@ -25,12 +25,17 @@ function escapeHtml(input: string) {
 
 function needsToBullets(needs: Needs) {
   const items: string[] = [];
+  if (needs.lighting) items.push("Lighting (on/off)");
   if (needs.dimmableLighting) items.push("Dimmable lighting");
+  if (needs.keypads) items.push("Keypads");
+  if (needs.scenes) items.push("Scenes");
+
   if (needs.touchPanel) items.push("Touch panel");
   if (needs.audioForTv) items.push("Audio for TV");
   if (needs.smartLock) items.push("Smart door lock integration");
   if (needs.curtainControl) items.push("Curtain control");
   if (needs.sensorsOrVoice) items.push("Sensors / voice integration");
+
   return items.length ? items : ["No extra options selected"];
 }
 

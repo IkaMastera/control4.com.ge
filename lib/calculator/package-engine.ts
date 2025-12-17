@@ -21,7 +21,11 @@ export function getOffer(tier: PackageTier, areaSqm: number) {
 
 // Simple recommendation based on yes/no needs.
 export type Needs = {
+  lighting: boolean;
   dimmableLighting: boolean;
+  keypads: boolean;
+  scenes: boolean;
+
   touchPanel: boolean;
   audioForTv: boolean;
   smartLock: boolean;
@@ -29,27 +33,37 @@ export type Needs = {
   sensorsOrVoice: boolean;
 };
 
-export function recommendTier(needs: Needs): PackageTier {
-  // Premium triggers: lock/curtains/sensors/audio
-  if (
-    needs.smartLock ||
-    needs.curtainControl ||
-    needs.sensorsOrVoice ||
-    needs.audioForTv
-  ) {
-    return "premium";
-  }
+export function recommendTier(needs: Needs) {
+  const n = normalizeNeeds(needs);
 
-  // Comfort triggers: dimmable lighting or touch panel
-  if (needs.dimmableLighting || needs.touchPanel) {
-    return "comfort";
-  }
+  // HARD premium triggers (premium-only experiences)
+  const hardPremium =
+    n.curtainControl ||
+    n.sensorsOrVoice ||
+    n.smartLock;
 
-  // Otherwise essential
+  if (hardPremium) return "premium";
+
+  // Comfort triggers
+  const comfortTriggers = n.dimmableLighting || n.touchPanel || n.scenes;
+
+  if (comfortTriggers) return "comfort";
+
   return "essential";
 }
 
 export function formatUsd(amount: number) {
   const n = Math.max(0, Math.round(amount || 0));
   return `$${n.toLocaleString("en-US")}`;
+}
+
+export function normalizeNeeds(n: Needs): Needs {
+  const next = { ...n };
+
+  // dimming implies lighting control exists
+  if (next.dimmableLighting) next.lighting = true;
+
+  if (next.scenes && !next.keypads && !next.touchPanel) next.keypads = true;
+
+  return next;
 }
