@@ -8,11 +8,11 @@ export default function ShowcaseHero() {
   return (
     <section
       aria-label="Product Showcase Hero"
-      className="relative mb-12 isolate overflow-hidden rounded-3xl bg-black ring-1 ring-white/10"
+      className="relative mb-12 isolate overflow-hidden rounded-3xl ring-1 ring-white/10"
     >
       <div className="relative w-full aspect-[4/5] sm:aspect-[16/7]">
         <Image
-          src="/images/hero.jpg"
+          src="/images/hero-product.webp"
           alt="Control4 smart home — cinematic hero"
           fill
           priority
