@@ -13,9 +13,29 @@ import { SITE } from '@/data/config/site';
 const HeaderDynamic = dynamic(() => import('@/components/layout/header-dynamic'))
 
 export const metadata: Metadata = {
-  title: 'Control4 Georgia',
-  description: 'Lighting, security, climate and audio unified in one device'
-}
+  metadataBase: new URL("https://control4.com.ge"),
+  title: {
+    default: "Control4 Smart Home Georgia | ჭკვიანი სახლი • Automation & Integration",
+    template: "%s | Control4 Georgia",
+  },
+  description:
+    "Official Control4 smart home integrator in Georgia. Lighting, audio, security, climate & automation — integrated into one premium system. ჭკვიანი სახლი საქართველოში.",
+  alternates: {
+    canonical: "https://control4.com.ge",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://control4.com.ge",
+    siteName: "Control4 Georgia",
+    title: "Control4 Smart Home Georgia | ჭკვიანი სახლი • Automation & Integration",
+    description:
+      "Official Control4 smart home integrator in Georgia. Lighting, audio, security, climate & automation — integrated into one premium system. ჭკვიანი სახლი საქართველოში.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
