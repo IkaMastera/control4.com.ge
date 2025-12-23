@@ -15,7 +15,6 @@ export default function Home() {
       <ProductsShowcaseSection />
       <BrandWall />
       <ContactCTA />
-      {/* other sections… */}
     </>
   );
 }

@@ -66,7 +66,8 @@ const PANES: Pane[] = [
   },
 ];
 
-const MOBILE_PANE_INDEX = 1; // Core 5 only on mobile
+const MOBILE_PANE_INDEX = 1;
+
 
 function fitClass(fit?: VideoFit) {
   if (fit === "contain") return "object-contain bg-black";
@@ -178,9 +179,9 @@ export default function HeroSticky() {
                 {p.eyebrow} <span className="text-accent">•</span>
               </h2>
 
-              <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
+              <h1 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
                 {p.title} <span className="text-accent">{p.highlight}</span>
-              </h3>
+              </h1>
 
               {/* no dots on mobile */}
 
@@ -294,9 +295,15 @@ export default function HeroSticky() {
                       {p.eyebrow} <span className="text-accent">•</span>
                     </h2>
 
-                    <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
-                      {p.title} <span className="text-accent">{p.highlight}</span>
-                    </h3>
+                    {i === 0 ? (
+                      <h1 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
+                        {p.title} <span className="text-accent">{p.highlight}</span>
+                      </h1>
+                    ) : (
+                      <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
+                        {p.title} <span className="text-accent">{p.highlight}</span>
+                      </h3>
+                    )}
 
                     {/* DOT NAV (visible on tablets; desktop uses left rail) */}
                     <div className="mt-3 flex gap-2 lg:hidden pointer-events-auto">
