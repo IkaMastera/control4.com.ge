@@ -18,10 +18,10 @@ const CARDS = [
     badge: "Recommended",
   },
   {
-    title: "3D Showroom (Giraffe360)",
+    title: "3D Showroom",
     subtitle: "Real space. Real immersion.",
     desc: "Walk through a real interior captured in 3D and explore Control4 touchpoints in context.",
-    href: "/showroom-360/giraffe360",
+    href: "/showroom-360/interactive3d",
     Icon: ScanEye,
     badge: "Live Tour",
   },
