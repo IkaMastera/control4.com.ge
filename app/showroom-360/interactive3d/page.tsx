@@ -155,11 +155,10 @@ export default function Showroom3DUnderConstructionPage() {
 
             <div className="relative mt-6 rounded-2xl border border-sky-500/15 bg-slate-950/25 p-4">
               <p className="text-xs font-semibold tracking-widest text-slate-200/70">
-                TIP
+                Best
               </p>
               <p className="mt-2 text-sm text-slate-200/65">
-                Use <span className="text-sky-200">Demonstration</span> mode to
-                show the “wow” scenarios quickly during sales conversations.
+                Use <span className="text-sky-200">2D interactive for now</span>               
               </p>
             </div>
           </div>
