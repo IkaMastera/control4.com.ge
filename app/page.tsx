@@ -4,6 +4,7 @@ import HeroSticky from "@/components/sections/hero-sticky";
 import ServicesSlider from "@/components/sections/services-slider";
 import ProductsShowcaseSection from "@/components/sections/mainpage-products";
 import ContactCTA from "@/components/sections/contact-cta";
+import Showroom2DHomeSection from "@/components/sections/showroom-2d-home";
 
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <ServicesSlider />
       <ProductsShowcaseSection />
       <BrandWall />
+      <Showroom2DHomeSection />
       <ContactCTA />
     </>
   );

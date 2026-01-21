@@ -1,10 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import Container from "@/components/common/container";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
-import { ArrowLeft, Sparkles } from "lucide-react";
 
 import TouchscreenController from "@/components/showroom/touchscreen-controller";
 import HouseCanvas from "@/components/showroom/house-canvas";
@@ -17,7 +15,7 @@ import {
   DEMO_FEATURES,
   MASKS,
   VIDEO_BY_ROOM_FEATURE,
-} from "./showroom-data";
+} from "@/app/showroom-360/interactive/showroom-data"; // ✅ important: absolute import so homepage can use it
 
 const pageWrap: Variants = {
   hidden: { opacity: 0, y: 12, filter: "blur(8px)" },
@@ -49,18 +47,23 @@ export type RoomAcState = {
   fan: FanSpeed;
 };
 
-export default function Showroom360InteractivePage() {
+type Props = {
+  /** if true: smaller vertical padding for embedding inside homepage */
+  compact?: boolean;
+  className?: string;
+};
+
+export default function Showroom2DCore({ compact = false, className }: Props) {
   const [room, setRoom] = useState<RoomId>("kitchen");
   const [activeFeature, setActiveFeature] = useState<FeatureId | null>(null);
 
-  // ✅ NEW: AC settings per room (minimal, isolated)
   const [acByRoom, setAcByRoom] = useState<Record<RoomId, RoomAcState>>(() => ({
     kitchen: { on: false, mode: "cool", temp: 22, fan: 3 },
     living: { on: false, mode: "cool", temp: 22, fan: 3 },
     bedroom: { on: false, mode: "cool", temp: 22, fan: 3 },
-    bathroom: { on: false, mode: "cool", temp: 22, fan: 3 }, // not used (no AC feature), harmless
+    bathroom: { on: false, mode: "cool", temp: 22, fan: 3 }, // harmless
     office: { on: false, mode: "cool", temp: 22, fan: 3 },
-    demo: { on: false, mode: "cool", temp: 22, fan: 3 }, // not used, harmless
+    demo: { on: false, mode: "cool", temp: 22, fan: 3 }, // harmless
   }));
 
   const features = useMemo(() => {
@@ -70,10 +73,12 @@ export default function Showroom360InteractivePage() {
 
   const roomMask = MASKS[room];
 
-  const activeVideoSrc = activeFeature ? VIDEO_BY_ROOM_FEATURE[room]?.[activeFeature] : undefined;
+  const activeVideoSrc = activeFeature
+    ? VIDEO_BY_ROOM_FEATURE[room]?.[activeFeature]
+    : undefined;
 
   return (
-    <main className="relative overflow-hidden bg-[var(--color-bg)]">
+    <section className={`relative overflow-hidden bg-bg ${className ?? ""}`}>
       {/* ambient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(0,194,255,0.18),transparent_60%)] blur-2xl" />
@@ -92,24 +97,8 @@ export default function Showroom360InteractivePage() {
         }}
       />
 
-      <Container className="relative z-10 py-10 sm:py-12 lg:py-14">
+      <Container className={`relative z-10 ${compact ? "py-8 sm:py-10" : "py-10 sm:py-12 lg:py-14"}`}>
         <motion.div variants={pageWrap} initial="hidden" animate="show">
-          {/* top bar */}
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <Link
-              href="/showroom-360"
-              className="inline-flex items-center gap-2 rounded-xl border border-sky-500/20 bg-slate-950/35 px-4 py-2 text-sm font-semibold text-slate-100/90 hover:border-sky-400/35 hover:bg-slate-950/50"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </Link>
-
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/25 bg-slate-900/40 px-4 py-2 text-xs text-sky-200/90">
-              <Sparkles className="h-4 w-4 text-cyan-300" />
-              2D Interactive Showroom
-            </div>
-          </div>
-
           <div className="grid gap-6 lg:grid-cols-[480px_1fr] xl:grid-cols-[520px_1fr]">
             <section className="order-1 w-full sm:px-0">
               <div className="w-full max-w-[420px] sm:max-w-none">
@@ -152,6 +141,6 @@ export default function Showroom360InteractivePage() {
           </div>
         </motion.div>
       </Container>
-    </main>
+    </section>
   );
 }

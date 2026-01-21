@@ -15,14 +15,13 @@ const HeaderDynamic = dynamic(() => import('@/components/layout/header-dynamic')
 export const metadata: Metadata = {
   metadataBase: new URL("https://control4.com.ge"),
 
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
-},
-
+    icons: {
+      icon: [
+        { url: "/favicon.ico" },
+        { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+  },
 
   title: {
     default: "Control4 Georgia",
