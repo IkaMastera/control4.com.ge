@@ -12,7 +12,7 @@ const cols: Record<string, FooterLink[]> = {
   solutions: [
     { id: "sol-lighting", label: "Smart Lighting", href: "/products/lighting/keypads-dimmers" },
     { id: "sol-security-cams", label: "Security & Cameras", href: "/products/security/cameras-nvr" },
-    { id: "sol-audio-video", label: "Audio & Video", href: "/products/audio-video/triad-speakers" }, // ✅ updated
+    { id: "sol-audio-video", label: "Audio & Video", href: "/products/audio-video/triad-speakers" },
     { id: "sol-climate", label: "Climate Control", href: "/products/comfort/comfort-controls" },
   ],
   products: [
@@ -46,7 +46,7 @@ export default function Footer() {
         <div className="absolute -top-40 right-[-120px] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(0,194,255,0.18),transparent_60%)] blur-2xl" />
         <div className="absolute -top-44 left-[-120px] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(0,86,184,0.16),transparent_60%)] blur-2xl" />
 
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:44px_44px] opacity-[0.22]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-size-[44px_44px] opacity-[0.22]" />
 
         <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/50 to-transparent" />
         <div className="absolute inset-x-0 top-0 h-0.5 overflow-hidden">
@@ -86,7 +86,7 @@ export default function Footer() {
                 placeholder=" "
                 autoComplete="email"
                 className="
-                  w-full text-sm rounded-2xl bg-white/[0.06] text-white outline-none
+                  w-full text-sm rounded-2xl bg-white/6text-white outline-none
                   ring-1 ring-white/10
                   focus:ring-2 focus:ring-accent/70
                   transition
@@ -130,9 +130,67 @@ export default function Footer() {
               </Social>
             </div>
 
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] text-white/70">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-1 text-[11px] text-white/70">
               <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_16px_rgba(0,194,255,0.8)]" />
               System-grade installs • Clean wiring • Long-term stability
+            </div>
+            <div className="mt-4">
+              <a
+                href="https://technicalservice.ge"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Visit TechnicalService.ge"
+                className="
+                  group relative inline-flex w-full items-center justify-between gap-3
+                  rounded-2xl border border-accent/35
+                  bg-[linear-gradient(90deg,rgba(0,194,255,0.14),rgba(0,86,184,0.10))]
+                  px-4 py-3 text-sm
+                  shadow-[0_0_0_1px_rgba(0,194,255,0.10),0_0_28px_rgba(0,194,255,0.10)]
+                  hover:border-accent/55
+                  hover:shadow-[0_0_0_1px_rgba(0,194,255,0.16),0_0_40px_rgba(0,194,255,0.16)]
+                  transition
+                "
+              >
+                <span
+                  aria-hidden
+                  className="
+                    pointer-events-none absolute inset-0 overflow-hidden rounded-2xl
+                    before:absolute before:-left-1/3 before:top-0 before:h-full before:w-1/2
+                    before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)]
+                    before:blur-[1px]
+                    before:translate-x-[-40%]
+                    group-hover:before:translate-x-[220%]
+                    before:transition-transform before:duration-700
+                  "
+                />
+
+                <div className="flex items-center gap-3">
+                  <span
+                    aria-hidden
+                    className="
+                      h-9 w-9 shrink-0 rounded-xl
+                      bg-white/6 ring-1 ring-white/10
+                      shadow-[0_0_0_1px_rgba(0,194,255,0.10),0_0_18px_rgba(0,194,255,0.12)]
+                      flex items-center justify-center
+                    "
+                  >
+                    <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_16px_rgba(0,194,255,0.9)]" />
+                  </span>
+
+                  <div className="leading-tight">
+                    <div className="text-white font-semibold tracking-tight">
+                      TechnicalService.ge
+                    </div>
+                    <div className="text-[12px] text-white/75">
+                      Engineering partner • Installations & support
+                    </div>
+                  </div>
+                </div>
+
+                <span className="text-[12px] font-medium text-white/85 group-hover:text-white">
+                  Visit →
+                </span>
+              </a>
             </div>
           </div>
 
@@ -212,9 +270,9 @@ function Social({
       rel="noreferrer"
       className="
         inline-flex h-9 w-9 items-center justify-center rounded-full
-        bg-white/[0.05] ring-1 ring-white/10
+        bg-white/5 ring-1 ring-white/10
         shadow-[0_0_0_1px_rgba(0,194,255,0.06)]
-        hover:bg-white/[0.08]
+        hover:bg-white/8
         hover:shadow-[0_0_0_1px_rgba(0,194,255,0.16),0_0_26px_rgba(0,194,255,0.10)]
         transition
       "
