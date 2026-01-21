@@ -3,7 +3,7 @@ import Showroom2DCore from "@/components/showroom/showroom-2d-core";
 
 export default function Showroom2DHomeSection() {
   return (
-    <section className="relative overflow-hidden bg-bg py-12 sm:py-16 lg:py-20">
+    <section className="relative overflow-hidden bg-bg pt-0.5">
       <div className="mx-auto max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="relative mb-6">
           <div
@@ -11,7 +11,7 @@ export default function Showroom2DHomeSection() {
             className="pointer-events-none absolute -inset-x-8 -top-6 h-24 opacity-70"
           />
 
-          <div className="relative flex items-end justify-between gap-6">
+          <div className="relative flex items-end justify-between gap-6 pt-3">
             {/* LEFT */}
             <div>
               <p className="text-xs font-semibold tracking-widest text-sky-300/80">

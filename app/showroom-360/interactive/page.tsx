@@ -104,7 +104,7 @@ export default function Showroom360InteractivePage() {
               Back
             </Link>
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/25 bg-slate-900/40 px-4 py-2 text-xs text-sky-200/90">
+            <div className="inline-flex pt-1 items-center gap-2 rounded-full border border-sky-500/25 bg-slate-900/40 px-4 py-2 text-xs text-sky-200/90">
               <Sparkles className="h-4 w-4 text-cyan-300" />
               2D Interactive Showroom
             </div>

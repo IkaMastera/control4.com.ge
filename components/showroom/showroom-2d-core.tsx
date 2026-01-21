@@ -15,7 +15,7 @@ import {
   DEMO_FEATURES,
   MASKS,
   VIDEO_BY_ROOM_FEATURE,
-} from "@/app/showroom-360/interactive/showroom-data"; // ✅ important: absolute import so homepage can use it
+} from "@/app/showroom-360/interactive/showroom-data";
 
 const pageWrap: Variants = {
   hidden: { opacity: 0, y: 12, filter: "blur(8px)" },
